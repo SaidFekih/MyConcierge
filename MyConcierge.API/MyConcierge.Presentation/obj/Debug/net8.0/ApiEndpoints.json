@@ -1,0 +1,106 @@
+[
+  {
+    "ContainingType": "MyConcierge.Presentation.Controllers.ContratsLocationController",
+    "Method": "GetAll",
+    "RelativePath": "api/contrats",
+    "HttpMethod": "GET",
+    "IsController": true,
+    "Order": 0,
+    "Parameters": [],
+    "ReturnTypes": []
+  },
+  {
+    "ContainingType": "MyConcierge.Presentation.Controllers.ContratsLocationController",
+    "Method": "Ajouter",
+    "RelativePath": "api/contrats",
+    "HttpMethod": "POST",
+    "IsController": true,
+    "Order": 0,
+    "Parameters": [
+      {
+        "Name": "contrat",
+        "Type": "MyConcierge.Domain.Models.ContratsLocation",
+        "IsRequired": true
+      }
+    ],
+    "ReturnTypes": []
+  },
+  {
+    "ContainingType": "MyConcierge.Presentation.Controllers.ReferenceTypeController",
+    "Method": "GetAll",
+    "RelativePath": "api/referencetypes",
+    "HttpMethod": "GET",
+    "IsController": true,
+    "Order": 0,
+    "Parameters": [],
+    "ReturnTypes": []
+  },
+  {
+    "ContainingType": "MyConcierge.Presentation.Controllers.ReferenceTypeController",
+    "Method": "Ajouter",
+    "RelativePath": "api/referencetypes",
+    "HttpMethod": "POST",
+    "IsController": true,
+    "Order": 0,
+    "Parameters": [
+      {
+        "Name": "referenceType",
+        "Type": "MyConcierge.Domain.Models.ReferenceType",
+        "IsRequired": true
+      }
+    ],
+    "ReturnTypes": []
+  },
+  {
+    "ContainingType": "MyConcierge.Presentation.Controllers.UniteController",
+    "Method": "GetAll",
+    "RelativePath": "api/unites",
+    "HttpMethod": "GET",
+    "IsController": true,
+    "Order": 0,
+    "Parameters": [],
+    "ReturnTypes": []
+  },
+  {
+    "ContainingType": "MyConcierge.Presentation.Controllers.UniteController",
+    "Method": "Ajouter",
+    "RelativePath": "api/unites",
+    "HttpMethod": "POST",
+    "IsController": true,
+    "Order": 0,
+    "Parameters": [
+      {
+        "Name": "unite",
+        "Type": "MyConcierge.Domain.Models.Unite",
+        "IsRequired": true
+      }
+    ],
+    "ReturnTypes": []
+  },
+  {
+    "ContainingType": "MyConcierge.Presentation.Controllers.UtilisateurController",
+    "Method": "GetAll",
+    "RelativePath": "api/utilisateurs",
+    "HttpMethod": "GET",
+    "IsController": true,
+    "Order": 0,
+    "Parameters": [],
+    "ReturnTypes": []
+  },
+  {
+    "ContainingType": "MyConcierge.Presentation.Controllers.UtilisateurController",
+    "Method": "Ajouter",
+    "RelativePath": "api/utilisateurs",
+    "HttpMethod": "POST",
+    "IsController": true,
+    "Order": 0,
+    "Parameters": [
+      {
+        "Name": "utilisateur",
+        "Type": "MyConcierge.Domain.Models.Utilisateur",
+        "IsRequired": true
+      }
+    ],
+    "ReturnTypes": []
+  }
+]

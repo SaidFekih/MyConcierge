@@ -1,0 +1,312 @@
+{
+  "openapi": "3.0.1",
+  "info": {
+    "title": "MyConcierge.Presentation",
+    "version": "1.0"
+  },
+  "paths": {
+    "/api/contrats": {
+      "get": {
+        "tags": [
+          "ContratsLocation"
+        ],
+        "responses": {
+          "200": {
+            "description": "OK"
+          }
+        }
+      },
+      "post": {
+        "tags": [
+          "ContratsLocation"
+        ],
+        "requestBody": {
+          "content": {
+            "application/json": {
+              "schema": {
+                "$ref": "#/components/schemas/ContratsLocation"
+              }
+            },
+            "text/json": {
+              "schema": {
+                "$ref": "#/components/schemas/ContratsLocation"
+              }
+            },
+            "application/*+json": {
+              "schema": {
+                "$ref": "#/components/schemas/ContratsLocation"
+              }
+            }
+          }
+        },
+        "responses": {
+          "200": {
+            "description": "OK"
+          }
+        }
+      }
+    },
+    "/api/referencetypes": {
+      "get": {
+        "tags": [
+          "ReferenceType"
+        ],
+        "responses": {
+          "200": {
+            "description": "OK"
+          }
+        }
+      },
+      "post": {
+        "tags": [
+          "ReferenceType"
+        ],
+        "requestBody": {
+          "content": {
+            "application/json": {
+              "schema": {
+                "$ref": "#/components/schemas/ReferenceType"
+              }
+            },
+            "text/json": {
+              "schema": {
+                "$ref": "#/components/schemas/ReferenceType"
+              }
+            },
+            "application/*+json": {
+              "schema": {
+                "$ref": "#/components/schemas/ReferenceType"
+              }
+            }
+          }
+        },
+        "responses": {
+          "200": {
+            "description": "OK"
+          }
+        }
+      }
+    },
+    "/api/unites": {
+      "get": {
+        "tags": [
+          "Unite"
+        ],
+        "responses": {
+          "200": {
+            "description": "OK"
+          }
+        }
+      },
+      "post": {
+        "tags": [
+          "Unite"
+        ],
+        "requestBody": {
+          "content": {
+            "application/json": {
+              "schema": {
+                "$ref": "#/components/schemas/Unite"
+              }
+            },
+            "text/json": {
+              "schema": {
+                "$ref": "#/components/schemas/Unite"
+              }
+            },
+            "application/*+json": {
+              "schema": {
+                "$ref": "#/components/schemas/Unite"
+              }
+            }
+          }
+        },
+        "responses": {
+          "200": {
+            "description": "OK"
+          }
+        }
+      }
+    },
+    "/api/utilisateurs": {
+      "get": {
+        "tags": [
+          "Utilisateur"
+        ],
+        "responses": {
+          "200": {
+            "description": "OK"
+          }
+        }
+      },
+      "post": {
+        "tags": [
+          "Utilisateur"
+        ],
+        "requestBody": {
+          "content": {
+            "application/json": {
+              "schema": {
+                "$ref": "#/components/schemas/Utilisateur"
+              }
+            },
+            "text/json": {
+              "schema": {
+                "$ref": "#/components/schemas/Utilisateur"
+              }
+            },
+            "application/*+json": {
+              "schema": {
+                "$ref": "#/components/schemas/Utilisateur"
+              }
+            }
+          }
+        },
+        "responses": {
+          "200": {
+            "description": "OK"
+          }
+        }
+      }
+    }
+  },
+  "components": {
+    "schemas": {
+      "ContratsLocation": {
+        "required": [
+          "dateDebut",
+          "montant"
+        ],
+        "type": "object",
+        "properties": {
+          "id": {
+            "type": "integer",
+            "format": "int32"
+          },
+          "locataireId": {
+            "type": "integer",
+            "format": "int32"
+          },
+          "locataire": {
+            "$ref": "#/components/schemas/Utilisateur"
+          },
+          "uniteId": {
+            "type": "integer",
+            "format": "int32"
+          },
+          "unite": {
+            "$ref": "#/components/schemas/Unite"
+          },
+          "dateDebut": {
+            "type": "string",
+            "format": "date-time"
+          },
+          "dateFin": {
+            "type": "string",
+            "format": "date-time",
+            "nullable": true
+          },
+          "montant": {
+            "type": "number",
+            "format": "double"
+          }
+        },
+        "additionalProperties": false
+      },
+      "ReferenceType": {
+        "type": "object",
+        "properties": {
+          "id": {
+            "type": "integer",
+            "format": "int32"
+          },
+          "nom": {
+            "type": "string",
+            "nullable": true
+          },
+          "categorie": {
+            "type": "string",
+            "nullable": true
+          }
+        },
+        "additionalProperties": false
+      },
+      "Unite": {
+        "required": [
+          "nom"
+        ],
+        "type": "object",
+        "properties": {
+          "id": {
+            "type": "integer",
+            "format": "int32"
+          },
+          "nom": {
+            "maxLength": 255,
+            "minLength": 1,
+            "type": "string"
+          },
+          "referenceTypeId": {
+            "type": "integer",
+            "format": "int32"
+          },
+          "referenceType": {
+            "$ref": "#/components/schemas/ReferenceType"
+          },
+          "parentUniteId": {
+            "type": "integer",
+            "format": "int32",
+            "nullable": true
+          },
+          "parentUnite": {
+            "$ref": "#/components/schemas/Unite"
+          },
+          "proprietaireId": {
+            "type": "integer",
+            "format": "int32"
+          },
+          "proprietaire": {
+            "$ref": "#/components/schemas/Utilisateur"
+          },
+          "prix": {
+            "type": "number",
+            "format": "double"
+          },
+          "estLouee": {
+            "type": "boolean"
+          }
+        },
+        "additionalProperties": false
+      },
+      "Utilisateur": {
+        "type": "object",
+        "properties": {
+          "id": {
+            "type": "integer",
+            "format": "int32"
+          },
+          "nom": {
+            "type": "string",
+            "nullable": true
+          },
+          "email": {
+            "type": "string",
+            "nullable": true
+          },
+          "telephone": {
+            "type": "string",
+            "nullable": true
+          },
+          "referenceTypeId": {
+            "type": "integer",
+            "format": "int32"
+          },
+          "referenceType": {
+            "$ref": "#/components/schemas/ReferenceType"
+          }
+        },
+        "additionalProperties": false
+      }
+    }
+  }
+}

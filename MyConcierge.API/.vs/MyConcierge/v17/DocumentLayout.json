@@ -1,0 +1,501 @@
+{
+  "Version": 1,
+  "WorkspaceRootPath": "C:\\Users\\Said.Fekih\\OneDrive - Logient\\Bureau\\Desk repo\\MyConcierge\\",
+  "Documents": [
+    {
+      "AbsoluteMoniker": "D:0:0:{BF80E71D-4CDD-476A-902A-B7DE13DAB8F7}|MyConcierge.Presentation\\MyConcierge.Presentation.csproj|c:\\users\\said.fekih\\onedrive - logient\\bureau\\desk repo\\myconcierge\\myconcierge.presentation\\appsettings.json||{90A6B3A7-C1A3-4009-A288-E2FF89E96FA0}",
+      "RelativeMoniker": "D:0:0:{BF80E71D-4CDD-476A-902A-B7DE13DAB8F7}|MyConcierge.Presentation\\MyConcierge.Presentation.csproj|solutionrelative:myconcierge.presentation\\appsettings.json||{90A6B3A7-C1A3-4009-A288-E2FF89E96FA0}"
+    },
+    {
+      "AbsoluteMoniker": "D:0:0:{BF80E71D-4CDD-476A-902A-B7DE13DAB8F7}|MyConcierge.Presentation\\MyConcierge.Presentation.csproj|c:\\users\\said.fekih\\onedrive - logient\\bureau\\desk repo\\myconcierge\\myconcierge.presentation\\controllers\\contratslocationcontroller.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}",
+      "RelativeMoniker": "D:0:0:{BF80E71D-4CDD-476A-902A-B7DE13DAB8F7}|MyConcierge.Presentation\\MyConcierge.Presentation.csproj|solutionrelative:myconcierge.presentation\\controllers\\contratslocationcontroller.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}"
+    },
+    {
+      "AbsoluteMoniker": "D:0:0:{BF80E71D-4CDD-476A-902A-B7DE13DAB8F7}|MyConcierge.Presentation\\MyConcierge.Presentation.csproj|c:\\users\\said.fekih\\onedrive - logient\\bureau\\desk repo\\myconcierge\\myconcierge.presentation\\controllers\\referencetypecontroller.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}",
+      "RelativeMoniker": "D:0:0:{BF80E71D-4CDD-476A-902A-B7DE13DAB8F7}|MyConcierge.Presentation\\MyConcierge.Presentation.csproj|solutionrelative:myconcierge.presentation\\controllers\\referencetypecontroller.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}"
+    },
+    {
+      "AbsoluteMoniker": "D:0:0:{02466FB5-CFB1-48ED-8B30-86ED63330377}|MyConcierge.Infrastructure\\MyConcierge.Infrastructure.csproj|c:\\users\\said.fekih\\onedrive - logient\\bureau\\desk repo\\myconcierge\\myconcierge.infrastructure\\migrations\\20250224031634_addcontratslocationtable.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}",
+      "RelativeMoniker": "D:0:0:{02466FB5-CFB1-48ED-8B30-86ED63330377}|MyConcierge.Infrastructure\\MyConcierge.Infrastructure.csproj|solutionrelative:myconcierge.infrastructure\\migrations\\20250224031634_addcontratslocationtable.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}"
+    },
+    {
+      "AbsoluteMoniker": "D:0:0:{BF80E71D-4CDD-476A-902A-B7DE13DAB8F7}|MyConcierge.Presentation\\MyConcierge.Presentation.csproj|c:\\users\\said.fekih\\onedrive - logient\\bureau\\desk repo\\myconcierge\\myconcierge.presentation\\program.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}",
+      "RelativeMoniker": "D:0:0:{BF80E71D-4CDD-476A-902A-B7DE13DAB8F7}|MyConcierge.Presentation\\MyConcierge.Presentation.csproj|solutionrelative:myconcierge.presentation\\program.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}"
+    },
+    {
+      "AbsoluteMoniker": "D:0:0:{03DD72DB-C6E3-424B-969A-5A9ADC511714}|MyConcierge.Domain\\MyConcierge.Domain.csproj|c:\\users\\said.fekih\\onedrive - logient\\bureau\\desk repo\\myconcierge\\myconcierge.domain\\interfaces\\icontratslocationrepository.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}",
+      "RelativeMoniker": "D:0:0:{03DD72DB-C6E3-424B-969A-5A9ADC511714}|MyConcierge.Domain\\MyConcierge.Domain.csproj|solutionrelative:myconcierge.domain\\interfaces\\icontratslocationrepository.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}"
+    },
+    {
+      "AbsoluteMoniker": "D:0:0:{02466FB5-CFB1-48ED-8B30-86ED63330377}|MyConcierge.Infrastructure\\MyConcierge.Infrastructure.csproj|c:\\users\\said.fekih\\onedrive - logient\\bureau\\desk repo\\myconcierge\\myconcierge.infrastructure\\repositories\\contratslocationrepository.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}",
+      "RelativeMoniker": "D:0:0:{02466FB5-CFB1-48ED-8B30-86ED63330377}|MyConcierge.Infrastructure\\MyConcierge.Infrastructure.csproj|solutionrelative:myconcierge.infrastructure\\repositories\\contratslocationrepository.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}"
+    },
+    {
+      "AbsoluteMoniker": "D:0:0:{02466FB5-CFB1-48ED-8B30-86ED63330377}|MyConcierge.Infrastructure\\MyConcierge.Infrastructure.csproj|c:\\users\\said.fekih\\onedrive - logient\\bureau\\desk repo\\myconcierge\\myconcierge.infrastructure\\appdbcontext.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}",
+      "RelativeMoniker": "D:0:0:{02466FB5-CFB1-48ED-8B30-86ED63330377}|MyConcierge.Infrastructure\\MyConcierge.Infrastructure.csproj|solutionrelative:myconcierge.infrastructure\\appdbcontext.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}"
+    },
+    {
+      "AbsoluteMoniker": "D:0:0:{02466FB5-CFB1-48ED-8B30-86ED63330377}|MyConcierge.Infrastructure\\MyConcierge.Infrastructure.csproj|c:\\users\\said.fekih\\onedrive - logient\\bureau\\desk repo\\myconcierge\\myconcierge.infrastructure\\repositories\\referencetyperepository.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}",
+      "RelativeMoniker": "D:0:0:{02466FB5-CFB1-48ED-8B30-86ED63330377}|MyConcierge.Infrastructure\\MyConcierge.Infrastructure.csproj|solutionrelative:myconcierge.infrastructure\\repositories\\referencetyperepository.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}"
+    },
+    {
+      "AbsoluteMoniker": "D:0:0:{02466FB5-CFB1-48ED-8B30-86ED63330377}|MyConcierge.Infrastructure\\MyConcierge.Infrastructure.csproj|c:\\users\\said.fekih\\onedrive - logient\\bureau\\desk repo\\myconcierge\\myconcierge.infrastructure\\repositories\\utilisateurrepository.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}",
+      "RelativeMoniker": "D:0:0:{02466FB5-CFB1-48ED-8B30-86ED63330377}|MyConcierge.Infrastructure\\MyConcierge.Infrastructure.csproj|solutionrelative:myconcierge.infrastructure\\repositories\\utilisateurrepository.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}"
+    },
+    {
+      "AbsoluteMoniker": "D:0:0:{03DD72DB-C6E3-424B-969A-5A9ADC511714}|MyConcierge.Domain\\MyConcierge.Domain.csproj|c:\\users\\said.fekih\\onedrive - logient\\bureau\\desk repo\\myconcierge\\myconcierge.domain\\models\\contratslocation.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}",
+      "RelativeMoniker": "D:0:0:{03DD72DB-C6E3-424B-969A-5A9ADC511714}|MyConcierge.Domain\\MyConcierge.Domain.csproj|solutionrelative:myconcierge.domain\\models\\contratslocation.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}"
+    },
+    {
+      "AbsoluteMoniker": "D:0:0:{BF80E71D-4CDD-476A-902A-B7DE13DAB8F7}|MyConcierge.Presentation\\MyConcierge.Presentation.csproj|c:\\users\\said.fekih\\onedrive - logient\\bureau\\desk repo\\myconcierge\\myconcierge.presentation\\controllers\\utilisateurcontroller.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}",
+      "RelativeMoniker": "D:0:0:{BF80E71D-4CDD-476A-902A-B7DE13DAB8F7}|MyConcierge.Presentation\\MyConcierge.Presentation.csproj|solutionrelative:myconcierge.presentation\\controllers\\utilisateurcontroller.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}"
+    },
+    {
+      "AbsoluteMoniker": "D:0:0:{BF80E71D-4CDD-476A-902A-B7DE13DAB8F7}|MyConcierge.Presentation\\MyConcierge.Presentation.csproj|c:\\users\\said.fekih\\onedrive - logient\\bureau\\desk repo\\myconcierge\\myconcierge.presentation\\controllers\\unitecontroller.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}",
+      "RelativeMoniker": "D:0:0:{BF80E71D-4CDD-476A-902A-B7DE13DAB8F7}|MyConcierge.Presentation\\MyConcierge.Presentation.csproj|solutionrelative:myconcierge.presentation\\controllers\\unitecontroller.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}"
+    },
+    {
+      "AbsoluteMoniker": "D:0:0:{02466FB5-CFB1-48ED-8B30-86ED63330377}|MyConcierge.Infrastructure\\MyConcierge.Infrastructure.csproj|c:\\users\\said.fekih\\onedrive - logient\\bureau\\desk repo\\myconcierge\\myconcierge.infrastructure\\migrations\\20250224024640_addunitetable.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}",
+      "RelativeMoniker": "D:0:0:{02466FB5-CFB1-48ED-8B30-86ED63330377}|MyConcierge.Infrastructure\\MyConcierge.Infrastructure.csproj|solutionrelative:myconcierge.infrastructure\\migrations\\20250224024640_addunitetable.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}"
+    },
+    {
+      "AbsoluteMoniker": "D:0:0:{03DD72DB-C6E3-424B-969A-5A9ADC511714}|MyConcierge.Domain\\MyConcierge.Domain.csproj|c:\\users\\said.fekih\\onedrive - logient\\bureau\\desk repo\\myconcierge\\myconcierge.domain\\models\\unite.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}",
+      "RelativeMoniker": "D:0:0:{03DD72DB-C6E3-424B-969A-5A9ADC511714}|MyConcierge.Domain\\MyConcierge.Domain.csproj|solutionrelative:myconcierge.domain\\models\\unite.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}"
+    },
+    {
+      "AbsoluteMoniker": "D:0:0:{02466FB5-CFB1-48ED-8B30-86ED63330377}|MyConcierge.Infrastructure\\MyConcierge.Infrastructure.csproj|c:\\users\\said.fekih\\onedrive - logient\\bureau\\desk repo\\myconcierge\\myconcierge.infrastructure\\migrations\\20250223175419_addutilisateurtable.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}",
+      "RelativeMoniker": "D:0:0:{02466FB5-CFB1-48ED-8B30-86ED63330377}|MyConcierge.Infrastructure\\MyConcierge.Infrastructure.csproj|solutionrelative:myconcierge.infrastructure\\migrations\\20250223175419_addutilisateurtable.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}"
+    },
+    {
+      "AbsoluteMoniker": "D:0:0:{02466FB5-CFB1-48ED-8B30-86ED63330377}|MyConcierge.Infrastructure\\MyConcierge.Infrastructure.csproj|c:\\users\\said.fekih\\onedrive - logient\\bureau\\desk repo\\myconcierge\\myconcierge.infrastructure\\repositories\\unitesrepository.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}",
+      "RelativeMoniker": "D:0:0:{02466FB5-CFB1-48ED-8B30-86ED63330377}|MyConcierge.Infrastructure\\MyConcierge.Infrastructure.csproj|solutionrelative:myconcierge.infrastructure\\repositories\\unitesrepository.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}"
+    },
+    {
+      "AbsoluteMoniker": "D:0:0:{03DD72DB-C6E3-424B-969A-5A9ADC511714}|MyConcierge.Domain\\MyConcierge.Domain.csproj|c:\\users\\said.fekih\\onedrive - logient\\bureau\\desk repo\\myconcierge\\myconcierge.domain\\interfaces\\iuniterepository.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}",
+      "RelativeMoniker": "D:0:0:{03DD72DB-C6E3-424B-969A-5A9ADC511714}|MyConcierge.Domain\\MyConcierge.Domain.csproj|solutionrelative:myconcierge.domain\\interfaces\\iuniterepository.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}"
+    },
+    {
+      "AbsoluteMoniker": "D:0:0:{03DD72DB-C6E3-424B-969A-5A9ADC511714}|MyConcierge.Domain\\MyConcierge.Domain.csproj|c:\\users\\said.fekih\\onedrive - logient\\bureau\\desk repo\\myconcierge\\myconcierge.domain\\interfaces\\ireferencetyperepository.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}",
+      "RelativeMoniker": "D:0:0:{03DD72DB-C6E3-424B-969A-5A9ADC511714}|MyConcierge.Domain\\MyConcierge.Domain.csproj|solutionrelative:myconcierge.domain\\interfaces\\ireferencetyperepository.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}"
+    },
+    {
+      "AbsoluteMoniker": "D:0:0:{03DD72DB-C6E3-424B-969A-5A9ADC511714}|MyConcierge.Domain\\MyConcierge.Domain.csproj|c:\\users\\said.fekih\\onedrive - logient\\bureau\\desk repo\\myconcierge\\myconcierge.domain\\interfaces\\iutilisateurrepository.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}",
+      "RelativeMoniker": "D:0:0:{03DD72DB-C6E3-424B-969A-5A9ADC511714}|MyConcierge.Domain\\MyConcierge.Domain.csproj|solutionrelative:myconcierge.domain\\interfaces\\iutilisateurrepository.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}"
+    },
+    {
+      "AbsoluteMoniker": "D:0:0:{03DD72DB-C6E3-424B-969A-5A9ADC511714}|MyConcierge.Domain\\MyConcierge.Domain.csproj|c:\\users\\said.fekih\\onedrive - logient\\bureau\\desk repo\\myconcierge\\myconcierge.domain\\models\\utilisateur.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}",
+      "RelativeMoniker": "D:0:0:{03DD72DB-C6E3-424B-969A-5A9ADC511714}|MyConcierge.Domain\\MyConcierge.Domain.csproj|solutionrelative:myconcierge.domain\\models\\utilisateur.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}"
+    },
+    {
+      "AbsoluteMoniker": "D:0:0:{02466FB5-CFB1-48ED-8B30-86ED63330377}|MyConcierge.Infrastructure\\MyConcierge.Infrastructure.csproj|c:\\users\\said.fekih\\onedrive - logient\\bureau\\desk repo\\myconcierge\\myconcierge.infrastructure\\migrations\\20250223164548_initialcreate.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}",
+      "RelativeMoniker": "D:0:0:{02466FB5-CFB1-48ED-8B30-86ED63330377}|MyConcierge.Infrastructure\\MyConcierge.Infrastructure.csproj|solutionrelative:myconcierge.infrastructure\\migrations\\20250223164548_initialcreate.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}"
+    },
+    {
+      "AbsoluteMoniker": "D:0:0:{03DD72DB-C6E3-424B-969A-5A9ADC511714}|MyConcierge.Domain\\MyConcierge.Domain.csproj|c:\\users\\said.fekih\\onedrive - logient\\bureau\\desk repo\\myconcierge\\myconcierge.domain\\models\\referencetype.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}",
+      "RelativeMoniker": "D:0:0:{03DD72DB-C6E3-424B-969A-5A9ADC511714}|MyConcierge.Domain\\MyConcierge.Domain.csproj|solutionrelative:myconcierge.domain\\models\\referencetype.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}"
+    },
+    {
+      "AbsoluteMoniker": "D:0:0:{3EABF2D2-A9CA-4936-BE45-A94D64EDAC31}|MyConcierge.Application\\MyConcierge.Application.csproj|c:\\users\\said.fekih\\onedrive - logient\\bureau\\desk repo\\myconcierge\\myconcierge.application\\services\\referencetypeservice.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}",
+      "RelativeMoniker": "D:0:0:{3EABF2D2-A9CA-4936-BE45-A94D64EDAC31}|MyConcierge.Application\\MyConcierge.Application.csproj|solutionrelative:myconcierge.application\\services\\referencetypeservice.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}"
+    },
+    {
+      "AbsoluteMoniker": "D:0:0:{BF80E71D-4CDD-476A-902A-B7DE13DAB8F7}|MyConcierge.Presentation\\MyConcierge.Presentation.csproj|c:\\users\\said.fekih\\onedrive - logient\\bureau\\desk repo\\myconcierge\\myconcierge.presentation\\myconcierge.presentation.http||{5703B403-55E7-4C63-8C88-A8F52C7A45C5}",
+      "RelativeMoniker": "D:0:0:{BF80E71D-4CDD-476A-902A-B7DE13DAB8F7}|MyConcierge.Presentation\\MyConcierge.Presentation.csproj|solutionrelative:myconcierge.presentation\\myconcierge.presentation.http||{5703B403-55E7-4C63-8C88-A8F52C7A45C5}"
+    },
+    {
+      "AbsoluteMoniker": "D:0:0:{BF80E71D-4CDD-476A-902A-B7DE13DAB8F7}|MyConcierge.Presentation\\MyConcierge.Presentation.csproj|c:\\users\\said.fekih\\onedrive - logient\\bureau\\desk repo\\myconcierge\\myconcierge.presentation\\properties\\launchsettings.json||{90A6B3A7-C1A3-4009-A288-E2FF89E96FA0}",
+      "RelativeMoniker": "D:0:0:{BF80E71D-4CDD-476A-902A-B7DE13DAB8F7}|MyConcierge.Presentation\\MyConcierge.Presentation.csproj|solutionrelative:myconcierge.presentation\\properties\\launchsettings.json||{90A6B3A7-C1A3-4009-A288-E2FF89E96FA0}"
+    },
+    {
+      "AbsoluteMoniker": "D:0:0:{BF80E71D-4CDD-476A-902A-B7DE13DAB8F7}|MyConcierge.Presentation\\MyConcierge.Presentation.csproj|c:\\users\\said.fekih\\onedrive - logient\\bureau\\desk repo\\myconcierge\\myconcierge.presentation\\myconcierge.presentation.csproj||{FA3CD31E-987B-443A-9B81-186104E8DAC1}|",
+      "RelativeMoniker": "D:0:0:{BF80E71D-4CDD-476A-902A-B7DE13DAB8F7}|MyConcierge.Presentation\\MyConcierge.Presentation.csproj|solutionrelative:myconcierge.presentation\\myconcierge.presentation.csproj||{FA3CD31E-987B-443A-9B81-186104E8DAC1}|"
+    },
+    {
+      "AbsoluteMoniker": "D:0:0:{3EABF2D2-A9CA-4936-BE45-A94D64EDAC31}|MyConcierge.Application\\MyConcierge.Application.csproj|c:\\users\\said.fekih\\onedrive - logient\\bureau\\desk repo\\myconcierge\\myconcierge.application\\myconcierge.application.csproj||{FA3CD31E-987B-443A-9B81-186104E8DAC1}|",
+      "RelativeMoniker": "D:0:0:{3EABF2D2-A9CA-4936-BE45-A94D64EDAC31}|MyConcierge.Application\\MyConcierge.Application.csproj|solutionrelative:myconcierge.application\\myconcierge.application.csproj||{FA3CD31E-987B-443A-9B81-186104E8DAC1}|"
+    }
+  ],
+  "DocumentGroupContainers": [
+    {
+      "Orientation": 0,
+      "VerticalTabListWidth": 256,
+      "DocumentGroups": [
+        {
+          "DockedWidth": 200,
+          "SelectedChildIndex": 30,
+          "Children": [
+            {
+              "$type": "Bookmark",
+              "Name": "ST:12:0:{2456bd12-ecf7-4988-a4a6-67d49173f565}"
+            },
+            {
+              "$type": "Bookmark",
+              "Name": "ST:13:0:{2456bd12-ecf7-4988-a4a6-67d49173f565}"
+            },
+            {
+              "$type": "Bookmark",
+              "Name": "ST:0:0:{1c4feeaa-4718-4aa9-859d-94ce25d182ba}"
+            },
+            {
+              "$type": "Bookmark",
+              "Name": "ST:133:0:{1fc202d4-d401-403c-9834-5b218574bb67}"
+            },
+            {
+              "$type": "Bookmark",
+              "Name": "ST:128:0:{1fc202d4-d401-403c-9834-5b218574bb67}"
+            },
+            {
+              "$type": "Bookmark",
+              "Name": "ST:11:0:{2456bd12-ecf7-4988-a4a6-67d49173f565}"
+            },
+            {
+              "$type": "Bookmark",
+              "Name": "ST:128:0:{116d2292-e37d-41cd-a077-ebacac4c8cc4}"
+            },
+            {
+              "$type": "Bookmark",
+              "Name": "ST:0:0:{aa2115a1-9712-457b-9047-dbb71ca2cdd2}"
+            },
+            {
+              "$type": "Document",
+              "DocumentIndex": 1,
+              "Title": "ContratsLocationController.cs",
+              "DocumentMoniker": "C:\\Users\\Said.Fekih\\OneDrive - Logient\\Bureau\\Desk repo\\MyConcierge\\MyConcierge.Presentation\\Controllers\\ContratsLocationController.cs",
+              "RelativeDocumentMoniker": "MyConcierge.Presentation\\Controllers\\ContratsLocationController.cs",
+              "ToolTip": "C:\\Users\\Said.Fekih\\OneDrive - Logient\\Bureau\\Desk repo\\MyConcierge\\MyConcierge.Presentation\\Controllers\\ContratsLocationController.cs",
+              "RelativeToolTip": "MyConcierge.Presentation\\Controllers\\ContratsLocationController.cs",
+              "ViewState": "AgIAAAAAAAAAAAAAAAAAABUAAAAJAAAAAAAAAA==",
+              "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000738|",
+              "WhenOpened": "2025-02-24T03:18:45.623Z"
+            },
+            {
+              "$type": "Document",
+              "DocumentIndex": 3,
+              "Title": "20250224031634_AddContratsLocationTable.cs",
+              "DocumentMoniker": "C:\\Users\\Said.Fekih\\OneDrive - Logient\\Bureau\\Desk repo\\MyConcierge\\MyConcierge.Infrastructure\\Migrations\\20250224031634_AddContratsLocationTable.cs",
+              "RelativeDocumentMoniker": "MyConcierge.Infrastructure\\Migrations\\20250224031634_AddContratsLocationTable.cs",
+              "ToolTip": "C:\\Users\\Said.Fekih\\OneDrive - Logient\\Bureau\\Desk repo\\MyConcierge\\MyConcierge.Infrastructure\\Migrations\\20250224031634_AddContratsLocationTable.cs",
+              "RelativeToolTip": "MyConcierge.Infrastructure\\Migrations\\20250224031634_AddContratsLocationTable.cs",
+              "ViewState": "AgIAABAAAAAAAAAAAAAgwCwAAAArAAAAAAAAAA==",
+              "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000738|",
+              "WhenOpened": "2025-02-24T03:17:11.848Z"
+            },
+            {
+              "$type": "Document",
+              "DocumentIndex": 6,
+              "Title": "ContratsLocationRepository.cs",
+              "DocumentMoniker": "C:\\Users\\Said.Fekih\\OneDrive - Logient\\Bureau\\Desk repo\\MyConcierge\\MyConcierge.Infrastructure\\Repositories\\ContratsLocationRepository.cs",
+              "RelativeDocumentMoniker": "MyConcierge.Infrastructure\\Repositories\\ContratsLocationRepository.cs",
+              "ToolTip": "C:\\Users\\Said.Fekih\\OneDrive - Logient\\Bureau\\Desk repo\\MyConcierge\\MyConcierge.Infrastructure\\Repositories\\ContratsLocationRepository.cs",
+              "RelativeToolTip": "MyConcierge.Infrastructure\\Repositories\\ContratsLocationRepository.cs",
+              "ViewState": "AgIAABIAAAAAAAAAAAAowBAAAAAAAAAAAAAAAA==",
+              "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000738|",
+              "WhenOpened": "2025-02-24T03:09:12.341Z"
+            },
+            {
+              "$type": "Document",
+              "DocumentIndex": 5,
+              "Title": "IContratsLocationRepository.cs",
+              "DocumentMoniker": "C:\\Users\\Said.Fekih\\OneDrive - Logient\\Bureau\\Desk repo\\MyConcierge\\MyConcierge.Domain\\Interfaces\\IContratsLocationRepository.cs",
+              "RelativeDocumentMoniker": "MyConcierge.Domain\\Interfaces\\IContratsLocationRepository.cs",
+              "ToolTip": "C:\\Users\\Said.Fekih\\OneDrive - Logient\\Bureau\\Desk repo\\MyConcierge\\MyConcierge.Domain\\Interfaces\\IContratsLocationRepository.cs",
+              "RelativeToolTip": "MyConcierge.Domain\\Interfaces\\IContratsLocationRepository.cs",
+              "ViewState": "AgIAAAAAAAAAAAAAAAAqwAYAAAAVAAAAAAAAAA==",
+              "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000738|",
+              "WhenOpened": "2025-02-24T03:08:33.666Z"
+            },
+            {
+              "$type": "Document",
+              "DocumentIndex": 10,
+              "Title": "ContratsLocation.cs",
+              "DocumentMoniker": "C:\\Users\\Said.Fekih\\OneDrive - Logient\\Bureau\\Desk repo\\MyConcierge\\MyConcierge.Domain\\Models\\ContratsLocation.cs",
+              "RelativeDocumentMoniker": "MyConcierge.Domain\\Models\\ContratsLocation.cs",
+              "ToolTip": "C:\\Users\\Said.Fekih\\OneDrive - Logient\\Bureau\\Desk repo\\MyConcierge\\MyConcierge.Domain\\Models\\ContratsLocation.cs",
+              "RelativeToolTip": "MyConcierge.Domain\\Models\\ContratsLocation.cs",
+              "ViewState": "AgIAAAAAAAAAAAAAAAAAAAYAAAAhAAAAAAAAAA==",
+              "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000738|",
+              "WhenOpened": "2025-02-24T03:07:09.572Z"
+            },
+            {
+              "$type": "Document",
+              "DocumentIndex": 12,
+              "Title": "UniteController.cs",
+              "DocumentMoniker": "C:\\Users\\Said.Fekih\\OneDrive - Logient\\Bureau\\Desk repo\\MyConcierge\\MyConcierge.Presentation\\Controllers\\UniteController.cs",
+              "RelativeDocumentMoniker": "MyConcierge.Presentation\\Controllers\\UniteController.cs",
+              "ToolTip": "C:\\Users\\Said.Fekih\\OneDrive - Logient\\Bureau\\Desk repo\\MyConcierge\\MyConcierge.Presentation\\Controllers\\UniteController.cs",
+              "RelativeToolTip": "MyConcierge.Presentation\\Controllers\\UniteController.cs",
+              "ViewState": "AgIAAAYAAAAAAAAAAAAAABgAAABHAAAAAAAAAA==",
+              "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000738|",
+              "WhenOpened": "2025-02-23T18:20:22.191Z"
+            },
+            {
+              "$type": "Document",
+              "DocumentIndex": 13,
+              "Title": "20250224024640_AddUniteTable.cs",
+              "DocumentMoniker": "C:\\Users\\Said.Fekih\\OneDrive - Logient\\Bureau\\Desk repo\\MyConcierge\\MyConcierge.Infrastructure\\Migrations\\20250224024640_AddUniteTable.cs",
+              "RelativeDocumentMoniker": "MyConcierge.Infrastructure\\Migrations\\20250224024640_AddUniteTable.cs",
+              "ToolTip": "C:\\Users\\Said.Fekih\\OneDrive - Logient\\Bureau\\Desk repo\\MyConcierge\\MyConcierge.Infrastructure\\Migrations\\20250224024640_AddUniteTable.cs",
+              "RelativeToolTip": "MyConcierge.Infrastructure\\Migrations\\20250224024640_AddUniteTable.cs",
+              "ViewState": "AgIAAD4AAAAAAAAAAAAqwEcAAAAAAAAAAAAAAA==",
+              "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000738|",
+              "WhenOpened": "2025-02-24T02:47:15.229Z"
+            },
+            {
+              "$type": "Document",
+              "DocumentIndex": 15,
+              "Title": "20250223175419_AddUtilisateurTable.cs",
+              "DocumentMoniker": "C:\\Users\\Said.Fekih\\OneDrive - Logient\\Bureau\\Desk repo\\MyConcierge\\MyConcierge.Infrastructure\\Migrations\\20250223175419_AddUtilisateurTable.cs",
+              "RelativeDocumentMoniker": "MyConcierge.Infrastructure\\Migrations\\20250223175419_AddUtilisateurTable.cs",
+              "ToolTip": "C:\\Users\\Said.Fekih\\OneDrive - Logient\\Bureau\\Desk repo\\MyConcierge\\MyConcierge.Infrastructure\\Migrations\\20250223175419_AddUtilisateurTable.cs",
+              "RelativeToolTip": "MyConcierge.Infrastructure\\Migrations\\20250223175419_AddUtilisateurTable.cs",
+              "ViewState": "AgIAAA8AAAAAAAAAAAAUwDAAAAAAAAAAAAAAAA==",
+              "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000738|",
+              "WhenOpened": "2025-02-23T18:30:33.316Z"
+            },
+            {
+              "$type": "Document",
+              "DocumentIndex": 11,
+              "Title": "UtilisateurController.cs",
+              "DocumentMoniker": "C:\\Users\\Said.Fekih\\OneDrive - Logient\\Bureau\\Desk repo\\MyConcierge\\MyConcierge.Presentation\\Controllers\\UtilisateurController.cs",
+              "RelativeDocumentMoniker": "MyConcierge.Presentation\\Controllers\\UtilisateurController.cs",
+              "ToolTip": "C:\\Users\\Said.Fekih\\OneDrive - Logient\\Bureau\\Desk repo\\MyConcierge\\MyConcierge.Presentation\\Controllers\\UtilisateurController.cs",
+              "RelativeToolTip": "MyConcierge.Presentation\\Controllers\\UtilisateurController.cs",
+              "ViewState": "AgIAAAIAAAAAAAAAAAAmwAwAAABHAAAAAAAAAA==",
+              "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000738|",
+              "WhenOpened": "2025-02-23T18:20:38.949Z"
+            },
+            {
+              "$type": "Document",
+              "DocumentIndex": 16,
+              "Title": "UnitesRepository.cs",
+              "DocumentMoniker": "C:\\Users\\Said.Fekih\\OneDrive - Logient\\Bureau\\Desk repo\\MyConcierge\\MyConcierge.Infrastructure\\Repositories\\UnitesRepository.cs",
+              "RelativeDocumentMoniker": "MyConcierge.Infrastructure\\Repositories\\UnitesRepository.cs",
+              "ToolTip": "C:\\Users\\Said.Fekih\\OneDrive - Logient\\Bureau\\Desk repo\\MyConcierge\\MyConcierge.Infrastructure\\Repositories\\UnitesRepository.cs",
+              "RelativeToolTip": "MyConcierge.Infrastructure\\Repositories\\UnitesRepository.cs",
+              "ViewState": "AgIAAA4AAAAAAAAAAAAmwDQAAAAAAAAAAAAAAA==",
+              "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000738|",
+              "WhenOpened": "2025-02-23T18:07:49.274Z"
+            },
+            {
+              "$type": "Document",
+              "DocumentIndex": 17,
+              "Title": "IUniteRepository.cs",
+              "DocumentMoniker": "C:\\Users\\Said.Fekih\\OneDrive - Logient\\Bureau\\Desk repo\\MyConcierge\\MyConcierge.Domain\\Interfaces\\IUniteRepository.cs",
+              "RelativeDocumentMoniker": "MyConcierge.Domain\\Interfaces\\IUniteRepository.cs",
+              "ToolTip": "C:\\Users\\Said.Fekih\\OneDrive - Logient\\Bureau\\Desk repo\\MyConcierge\\MyConcierge.Domain\\Interfaces\\IUniteRepository.cs",
+              "RelativeToolTip": "MyConcierge.Domain\\Interfaces\\IUniteRepository.cs",
+              "ViewState": "AgIAAAAAAAAAAAAAAAAAAA4AAAAAAAAAAAAAAA==",
+              "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000738|",
+              "WhenOpened": "2025-02-23T18:04:49.723Z"
+            },
+            {
+              "$type": "Document",
+              "DocumentIndex": 14,
+              "Title": "Unite.cs",
+              "DocumentMoniker": "C:\\Users\\Said.Fekih\\OneDrive - Logient\\Bureau\\Desk repo\\MyConcierge\\MyConcierge.Domain\\Models\\Unite.cs",
+              "RelativeDocumentMoniker": "MyConcierge.Domain\\Models\\Unite.cs",
+              "ToolTip": "C:\\Users\\Said.Fekih\\OneDrive - Logient\\Bureau\\Desk repo\\MyConcierge\\MyConcierge.Domain\\Models\\Unite.cs",
+              "RelativeToolTip": "MyConcierge.Domain\\Models\\Unite.cs",
+              "ViewState": "AgIAAAAAAAAAAAAAAAAwwB4AAAAAAAAAAAAAAA==",
+              "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000738|",
+              "WhenOpened": "2025-02-23T17:57:52.34Z"
+            },
+            {
+              "$type": "Document",
+              "DocumentIndex": 9,
+              "Title": "UtilisateurRepository.cs",
+              "DocumentMoniker": "C:\\Users\\Said.Fekih\\OneDrive - Logient\\Bureau\\Desk repo\\MyConcierge\\MyConcierge.Infrastructure\\Repositories\\UtilisateurRepository.cs",
+              "RelativeDocumentMoniker": "MyConcierge.Infrastructure\\Repositories\\UtilisateurRepository.cs",
+              "ToolTip": "C:\\Users\\Said.Fekih\\OneDrive - Logient\\Bureau\\Desk repo\\MyConcierge\\MyConcierge.Infrastructure\\Repositories\\UtilisateurRepository.cs",
+              "RelativeToolTip": "MyConcierge.Infrastructure\\Repositories\\UtilisateurRepository.cs",
+              "ViewState": "AgIAAA0AAAAAAAAAAAAgwBMAAAAAAAAAAAAAAA==",
+              "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000738|",
+              "WhenOpened": "2025-02-23T17:39:07.57Z"
+            },
+            {
+              "$type": "Document",
+              "DocumentIndex": 19,
+              "Title": "IUtilisateurRepository.cs",
+              "DocumentMoniker": "C:\\Users\\Said.Fekih\\OneDrive - Logient\\Bureau\\Desk repo\\MyConcierge\\MyConcierge.Domain\\Interfaces\\IUtilisateurRepository.cs",
+              "RelativeDocumentMoniker": "MyConcierge.Domain\\Interfaces\\IUtilisateurRepository.cs",
+              "ToolTip": "C:\\Users\\Said.Fekih\\OneDrive - Logient\\Bureau\\Desk repo\\MyConcierge\\MyConcierge.Domain\\Interfaces\\IUtilisateurRepository.cs",
+              "RelativeToolTip": "MyConcierge.Domain\\Interfaces\\IUtilisateurRepository.cs",
+              "ViewState": "AgIAAAAAAAAAAAAAAAAqwAkAAAAKAAAAAAAAAA==",
+              "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000738|",
+              "WhenOpened": "2025-02-23T17:35:07.015Z"
+            },
+            {
+              "$type": "Document",
+              "DocumentIndex": 20,
+              "Title": "Utilisateur.cs",
+              "DocumentMoniker": "C:\\Users\\Said.Fekih\\OneDrive - Logient\\Bureau\\Desk repo\\MyConcierge\\MyConcierge.Domain\\Models\\Utilisateur.cs",
+              "RelativeDocumentMoniker": "MyConcierge.Domain\\Models\\Utilisateur.cs",
+              "ToolTip": "C:\\Users\\Said.Fekih\\OneDrive - Logient\\Bureau\\Desk repo\\MyConcierge\\MyConcierge.Domain\\Models\\Utilisateur.cs",
+              "RelativeToolTip": "MyConcierge.Domain\\Models\\Utilisateur.cs",
+              "ViewState": "AgIAAAMAAAAAAAAAAAAAABEAAAAAAAAAAAAAAA==",
+              "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000738|",
+              "WhenOpened": "2025-02-23T17:32:18.835Z"
+            },
+            {
+              "$type": "Document",
+              "DocumentIndex": 21,
+              "Title": "20250223164548_InitialCreate.cs",
+              "DocumentMoniker": "C:\\Users\\Said.Fekih\\OneDrive - Logient\\Bureau\\Desk repo\\MyConcierge\\MyConcierge.Infrastructure\\Migrations\\20250223164548_InitialCreate.cs",
+              "RelativeDocumentMoniker": "MyConcierge.Infrastructure\\Migrations\\20250223164548_InitialCreate.cs",
+              "ToolTip": "C:\\Users\\Said.Fekih\\OneDrive - Logient\\Bureau\\Desk repo\\MyConcierge\\MyConcierge.Infrastructure\\Migrations\\20250223164548_InitialCreate.cs",
+              "RelativeToolTip": "MyConcierge.Infrastructure\\Migrations\\20250223164548_InitialCreate.cs",
+              "ViewState": "AgIAAAsAAAAAAAAAAAAQwDIAAAAmAAAAAAAAAA==",
+              "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000738|",
+              "WhenOpened": "2025-02-23T16:46:04.749Z"
+            },
+            {
+              "$type": "Document",
+              "DocumentIndex": 2,
+              "Title": "ReferenceTypeController.cs",
+              "DocumentMoniker": "C:\\Users\\Said.Fekih\\OneDrive - Logient\\Bureau\\Desk repo\\MyConcierge\\MyConcierge.Presentation\\Controllers\\ReferenceTypeController.cs",
+              "RelativeDocumentMoniker": "MyConcierge.Presentation\\Controllers\\ReferenceTypeController.cs",
+              "ToolTip": "C:\\Users\\Said.Fekih\\OneDrive - Logient\\Bureau\\Desk repo\\MyConcierge\\MyConcierge.Presentation\\Controllers\\ReferenceTypeController.cs",
+              "RelativeToolTip": "MyConcierge.Presentation\\Controllers\\ReferenceTypeController.cs",
+              "ViewState": "AgIAAAAAAAAAAAAAAAAAABMAAAARAAAAAAAAAA==",
+              "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000738|",
+              "WhenOpened": "2025-02-23T15:57:26.031Z"
+            },
+            {
+              "$type": "Document",
+              "DocumentIndex": 23,
+              "Title": "ReferenceTypeService.cs",
+              "DocumentMoniker": "C:\\Users\\Said.Fekih\\OneDrive - Logient\\Bureau\\Desk repo\\MyConcierge\\MyConcierge.Application\\Services\\ReferenceTypeService.cs",
+              "RelativeDocumentMoniker": "MyConcierge.Application\\Services\\ReferenceTypeService.cs",
+              "ToolTip": "C:\\Users\\Said.Fekih\\OneDrive - Logient\\Bureau\\Desk repo\\MyConcierge\\MyConcierge.Application\\Services\\ReferenceTypeService.cs",
+              "RelativeToolTip": "MyConcierge.Application\\Services\\ReferenceTypeService.cs",
+              "ViewState": "AgIAAAkAAAAAAAAAAAAAABwAAAAAAAAAAAAAAA==",
+              "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000738|",
+              "WhenOpened": "2025-02-23T15:54:52.269Z"
+            },
+            {
+              "$type": "Document",
+              "DocumentIndex": 8,
+              "Title": "ReferenceTypeRepository.cs",
+              "DocumentMoniker": "C:\\Users\\Said.Fekih\\OneDrive - Logient\\Bureau\\Desk repo\\MyConcierge\\MyConcierge.Infrastructure\\Repositories\\ReferenceTypeRepository.cs",
+              "RelativeDocumentMoniker": "MyConcierge.Infrastructure\\Repositories\\ReferenceTypeRepository.cs",
+              "ToolTip": "C:\\Users\\Said.Fekih\\OneDrive - Logient\\Bureau\\Desk repo\\MyConcierge\\MyConcierge.Infrastructure\\Repositories\\ReferenceTypeRepository.cs",
+              "RelativeToolTip": "MyConcierge.Infrastructure\\Repositories\\ReferenceTypeRepository.cs",
+              "ViewState": "AgIAAAAAAAAAAAAAAAAAAB0AAAA9AAAAAAAAAA==",
+              "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000738|",
+              "WhenOpened": "2025-02-23T15:46:35.236Z"
+            },
+            {
+              "$type": "Document",
+              "DocumentIndex": 18,
+              "Title": "IReferenceTypeRepository.cs",
+              "DocumentMoniker": "C:\\Users\\Said.Fekih\\OneDrive - Logient\\Bureau\\Desk repo\\MyConcierge\\MyConcierge.Domain\\Interfaces\\IReferenceTypeRepository.cs",
+              "RelativeDocumentMoniker": "MyConcierge.Domain\\Interfaces\\IReferenceTypeRepository.cs",
+              "ToolTip": "C:\\Users\\Said.Fekih\\OneDrive - Logient\\Bureau\\Desk repo\\MyConcierge\\MyConcierge.Domain\\Interfaces\\IReferenceTypeRepository.cs",
+              "RelativeToolTip": "MyConcierge.Domain\\Interfaces\\IReferenceTypeRepository.cs",
+              "ViewState": "AgIAAAAAAAAAAAAAAAAAAAsAAAAAAAAAAAAAAA==",
+              "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000738|",
+              "WhenOpened": "2025-02-23T01:20:38.455Z"
+            },
+            {
+              "$type": "Document",
+              "DocumentIndex": 22,
+              "Title": "ReferenceType.cs",
+              "DocumentMoniker": "C:\\Users\\Said.Fekih\\OneDrive - Logient\\Bureau\\Desk repo\\MyConcierge\\MyConcierge.Domain\\Models\\ReferenceType.cs",
+              "RelativeDocumentMoniker": "MyConcierge.Domain\\Models\\ReferenceType.cs",
+              "ToolTip": "C:\\Users\\Said.Fekih\\OneDrive - Logient\\Bureau\\Desk repo\\MyConcierge\\MyConcierge.Domain\\Models\\ReferenceType.cs",
+              "RelativeToolTip": "MyConcierge.Domain\\Models\\ReferenceType.cs",
+              "ViewState": "AgIAAAAAAAAAAAAAAAAAAA8AAAAAAAAAAAAAAA==",
+              "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000738|",
+              "WhenOpened": "2025-02-23T01:19:15.892Z"
+            },
+            {
+              "$type": "Document",
+              "DocumentIndex": 25,
+              "Title": "launchSettings.json",
+              "DocumentMoniker": "C:\\Users\\Said.Fekih\\OneDrive - Logient\\Bureau\\Desk repo\\MyConcierge\\MyConcierge.Presentation\\Properties\\launchSettings.json",
+              "RelativeDocumentMoniker": "MyConcierge.Presentation\\Properties\\launchSettings.json",
+              "ToolTip": "C:\\Users\\Said.Fekih\\OneDrive - Logient\\Bureau\\Desk repo\\MyConcierge\\MyConcierge.Presentation\\Properties\\launchSettings.json",
+              "RelativeToolTip": "MyConcierge.Presentation\\Properties\\launchSettings.json",
+              "ViewState": "AgIAAAAAAAAAAAAAAAAAAAEAAAAOAAAAAAAAAA==",
+              "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.001642|",
+              "WhenOpened": "2025-02-23T00:27:35.864Z"
+            },
+            {
+              "$type": "Document",
+              "DocumentIndex": 0,
+              "Title": "appsettings.json",
+              "DocumentMoniker": "C:\\Users\\Said.Fekih\\OneDrive - Logient\\Bureau\\Desk repo\\MyConcierge\\MyConcierge.Presentation\\appsettings.json",
+              "RelativeDocumentMoniker": "MyConcierge.Presentation\\appsettings.json",
+              "ToolTip": "C:\\Users\\Said.Fekih\\OneDrive - Logient\\Bureau\\Desk repo\\MyConcierge\\MyConcierge.Presentation\\appsettings.json",
+              "RelativeToolTip": "MyConcierge.Presentation\\appsettings.json",
+              "ViewState": "AgIAAAAAAAAAAAAAAAAAAAwAAAAAAAAAAAAAAA==",
+              "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.001642|",
+              "WhenOpened": "2025-02-23T00:11:41.406Z",
+              "EditorCaption": ""
+            },
+            {
+              "$type": "Document",
+              "DocumentIndex": 24,
+              "Title": "MyConcierge.Presentation.http",
+              "DocumentMoniker": "C:\\Users\\Said.Fekih\\OneDrive - Logient\\Bureau\\Desk repo\\MyConcierge\\MyConcierge.Presentation\\MyConcierge.Presentation.http",
+              "RelativeDocumentMoniker": "MyConcierge.Presentation\\MyConcierge.Presentation.http",
+              "ToolTip": "C:\\Users\\Said.Fekih\\OneDrive - Logient\\Bureau\\Desk repo\\MyConcierge\\MyConcierge.Presentation\\MyConcierge.Presentation.http",
+              "RelativeToolTip": "MyConcierge.Presentation\\MyConcierge.Presentation.http",
+              "ViewState": "AgIAAAAAAAAAAAAAAAAAAAAAAAAoAAAAAAAAAA==",
+              "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.003502|",
+              "WhenOpened": "2025-02-23T00:07:17.77Z"
+            },
+            {
+              "$type": "Document",
+              "DocumentIndex": 26,
+              "Title": "MyConcierge.Presentation.csproj",
+              "DocumentMoniker": "C:\\Users\\Said.Fekih\\OneDrive - Logient\\Bureau\\Desk repo\\MyConcierge\\MyConcierge.Presentation\\MyConcierge.Presentation.csproj",
+              "RelativeDocumentMoniker": "MyConcierge.Presentation\\MyConcierge.Presentation.csproj",
+              "ToolTip": "C:\\Users\\Said.Fekih\\OneDrive - Logient\\Bureau\\Desk repo\\MyConcierge\\MyConcierge.Presentation\\MyConcierge.Presentation.csproj",
+              "RelativeToolTip": "MyConcierge.Presentation\\MyConcierge.Presentation.csproj",
+              "ViewState": "AgIAAAAAAAAAAAAAAAAAABcAAAAAAAAAAAAAAA==",
+              "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000758|",
+              "WhenOpened": "2025-02-23T00:01:20.093Z"
+            },
+            {
+              "$type": "Document",
+              "DocumentIndex": 4,
+              "Title": "Program.cs",
+              "DocumentMoniker": "C:\\Users\\Said.Fekih\\OneDrive - Logient\\Bureau\\Desk repo\\MyConcierge\\MyConcierge.Presentation\\Program.cs",
+              "RelativeDocumentMoniker": "MyConcierge.Presentation\\Program.cs",
+              "ToolTip": "C:\\Users\\Said.Fekih\\OneDrive - Logient\\Bureau\\Desk repo\\MyConcierge\\MyConcierge.Presentation\\Program.cs",
+              "RelativeToolTip": "MyConcierge.Presentation\\Program.cs",
+              "ViewState": "AgIAAAAAAAAAAAAAAAAAABYAAAA2AAAAAAAAAA==",
+              "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000738|",
+              "WhenOpened": "2025-02-22T23:55:32.041Z"
+            },
+            {
+              "$type": "Document",
+              "DocumentIndex": 7,
+              "Title": "AppDbContext.cs",
+              "DocumentMoniker": "C:\\Users\\Said.Fekih\\OneDrive - Logient\\Bureau\\Desk repo\\MyConcierge\\MyConcierge.Infrastructure\\AppDbContext.cs",
+              "RelativeDocumentMoniker": "MyConcierge.Infrastructure\\AppDbContext.cs",
+              "ToolTip": "C:\\Users\\Said.Fekih\\OneDrive - Logient\\Bureau\\Desk repo\\MyConcierge\\MyConcierge.Infrastructure\\AppDbContext.cs",
+              "RelativeToolTip": "MyConcierge.Infrastructure\\AppDbContext.cs",
+              "ViewState": "AgIAAAAAAAAAAAAAAAAqwBcAAAABAAAAAAAAAA==",
+              "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000738|",
+              "WhenOpened": "2025-02-22T22:55:01.201Z"
+            },
+            {
+              "$type": "Document",
+              "DocumentIndex": 27,
+              "Title": "MyConcierge.Application.csproj",
+              "DocumentMoniker": "C:\\Users\\Said.Fekih\\OneDrive - Logient\\Bureau\\Desk repo\\MyConcierge\\MyConcierge.Application\\MyConcierge.Application.csproj",
+              "RelativeDocumentMoniker": "MyConcierge.Application\\MyConcierge.Application.csproj",
+              "ToolTip": "C:\\Users\\Said.Fekih\\OneDrive - Logient\\Bureau\\Desk repo\\MyConcierge\\MyConcierge.Application\\MyConcierge.Application.csproj",
+              "RelativeToolTip": "MyConcierge.Application\\MyConcierge.Application.csproj",
+              "ViewState": "AgIAAAAAAAAAAAAAAAAAAA0AAAAAAAAAAAAAAA==",
+              "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000758|",
+              "WhenOpened": "2025-02-22T16:49:16.029Z"
+            }
+          ]
+        }
+      ]
+    }
+  ]
+}

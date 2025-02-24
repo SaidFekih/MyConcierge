@@ -1,0 +1,3 @@
+﻿<Project>
+  <Import Project="..\build\MyConcierge.Presentation.props" />
+</Project>

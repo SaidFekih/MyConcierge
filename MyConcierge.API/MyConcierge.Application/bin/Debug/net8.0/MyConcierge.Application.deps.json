@@ -1,0 +1,39 @@
+{
+  "runtimeTarget": {
+    "name": ".NETCoreApp,Version=v8.0",
+    "signature": ""
+  },
+  "compilationOptions": {},
+  "targets": {
+    ".NETCoreApp,Version=v8.0": {
+      "MyConcierge.Application/1.0.0": {
+        "dependencies": {
+          "MyConcierge.Domain": "1.0.0"
+        },
+        "runtime": {
+          "MyConcierge.Application.dll": {}
+        }
+      },
+      "MyConcierge.Domain/1.0.0": {
+        "runtime": {
+          "MyConcierge.Domain.dll": {
+            "assemblyVersion": "1.0.0.0",
+            "fileVersion": "1.0.0.0"
+          }
+        }
+      }
+    }
+  },
+  "libraries": {
+    "MyConcierge.Application/1.0.0": {
+      "type": "project",
+      "serviceable": false,
+      "sha512": ""
+    },
+    "MyConcierge.Domain/1.0.0": {
+      "type": "project",
+      "serviceable": false,
+      "sha512": ""
+    }
+  }
+}

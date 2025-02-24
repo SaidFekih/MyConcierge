@@ -1,0 +1,36 @@
+C:\MyConcierge\MyConcierge.Infrastructure\bin\Debug\net8.0\MyConcierge.Infrastructure.deps.json
+C:\MyConcierge\MyConcierge.Infrastructure\bin\Debug\net8.0\MyConcierge.Infrastructure.dll
+C:\MyConcierge\MyConcierge.Infrastructure\bin\Debug\net8.0\MyConcierge.Infrastructure.pdb
+C:\MyConcierge\MyConcierge.Infrastructure\bin\Debug\net8.0\MyConcierge.Application.dll
+C:\MyConcierge\MyConcierge.Infrastructure\bin\Debug\net8.0\MyConcierge.Domain.dll
+C:\MyConcierge\MyConcierge.Infrastructure\bin\Debug\net8.0\MyConcierge.Domain.pdb
+C:\MyConcierge\MyConcierge.Infrastructure\bin\Debug\net8.0\MyConcierge.Application.pdb
+C:\MyConcierge\MyConcierge.Infrastructure\obj\Debug\net8.0\MyConcierge.Infrastructure.csproj.AssemblyReference.cache
+C:\MyConcierge\MyConcierge.Infrastructure\obj\Debug\net8.0\MyConcierge.Infrastructure.GeneratedMSBuildEditorConfig.editorconfig
+C:\MyConcierge\MyConcierge.Infrastructure\obj\Debug\net8.0\MyConcierge.Infrastructure.AssemblyInfoInputs.cache
+C:\MyConcierge\MyConcierge.Infrastructure\obj\Debug\net8.0\MyConcierge.Infrastructure.AssemblyInfo.cs
+C:\MyConcierge\MyConcierge.Infrastructure\obj\Debug\net8.0\MyConcierge.Infrastructure.csproj.CoreCompileInputs.cache
+C:\MyConcierge\MyConcierge.Infrastructure\obj\Debug\net8.0\MyConcie.FDE0838D.Up2Date
+C:\MyConcierge\MyConcierge.Infrastructure\obj\Debug\net8.0\MyConcierge.Infrastructure.dll
+C:\MyConcierge\MyConcierge.Infrastructure\obj\Debug\net8.0\refint\MyConcierge.Infrastructure.dll
+C:\MyConcierge\MyConcierge.Infrastructure\obj\Debug\net8.0\MyConcierge.Infrastructure.pdb
+C:\MyConcierge\MyConcierge.Infrastructure\obj\Debug\net8.0\ref\MyConcierge.Infrastructure.dll
+C:\Users\Said.Fekih\OneDrive - Logient\Bureau\Desk repo\MyConcierge\MyConcierge.Infrastructure\bin\Debug\net8.0\MyConcierge.Infrastructure.deps.json
+C:\Users\Said.Fekih\OneDrive - Logient\Bureau\Desk repo\MyConcierge\MyConcierge.Infrastructure\bin\Debug\net8.0\MyConcierge.Infrastructure.dll
+C:\Users\Said.Fekih\OneDrive - Logient\Bureau\Desk repo\MyConcierge\MyConcierge.Infrastructure\bin\Debug\net8.0\MyConcierge.Infrastructure.pdb
+C:\Users\Said.Fekih\OneDrive - Logient\Bureau\Desk repo\MyConcierge\MyConcierge.Infrastructure\bin\Debug\net8.0\MyConcierge.Application.dll
+C:\Users\Said.Fekih\OneDrive - Logient\Bureau\Desk repo\MyConcierge\MyConcierge.Infrastructure\bin\Debug\net8.0\MyConcierge.Domain.dll
+C:\Users\Said.Fekih\OneDrive - Logient\Bureau\Desk repo\MyConcierge\MyConcierge.Infrastructure\bin\Debug\net8.0\MyConcierge.Domain.pdb
+C:\Users\Said.Fekih\OneDrive - Logient\Bureau\Desk repo\MyConcierge\MyConcierge.Infrastructure\bin\Debug\net8.0\MyConcierge.Application.pdb
+C:\Users\Said.Fekih\OneDrive - Logient\Bureau\Desk repo\MyConcierge\MyConcierge.Infrastructure\obj\Debug\net8.0\MyConcierge.Infrastructure.csproj.AssemblyReference.cache
+C:\Users\Said.Fekih\OneDrive - Logient\Bureau\Desk repo\MyConcierge\MyConcierge.Infrastructure\obj\Debug\net8.0\MyConcierge.Infrastructure.GeneratedMSBuildEditorConfig.editorconfig
+C:\Users\Said.Fekih\OneDrive - Logient\Bureau\Desk repo\MyConcierge\MyConcierge.Infrastructure\obj\Debug\net8.0\MyConcierge.Infrastructure.AssemblyInfoInputs.cache
+C:\Users\Said.Fekih\OneDrive - Logient\Bureau\Desk repo\MyConcierge\MyConcierge.Infrastructure\obj\Debug\net8.0\MyConcierge.Infrastructure.AssemblyInfo.cs
+C:\Users\Said.Fekih\OneDrive - Logient\Bureau\Desk repo\MyConcierge\MyConcierge.Infrastructure\obj\Debug\net8.0\MyConcierge.Infrastructure.csproj.CoreCompileInputs.cache
+C:\Users\Said.Fekih\OneDrive - Logient\Bureau\Desk repo\MyConcierge\MyConcierge.Infrastructure\obj\Debug\net8.0\MyConcie.FDE0838D.Up2Date
+C:\Users\Said.Fekih\OneDrive - Logient\Bureau\Desk repo\MyConcierge\MyConcierge.Infrastructure\obj\Debug\net8.0\MyConcierge.Infrastructure.dll
+C:\Users\Said.Fekih\OneDrive - Logient\Bureau\Desk repo\MyConcierge\MyConcierge.Infrastructure\obj\Debug\net8.0\refint\MyConcierge.Infrastructure.dll
+C:\Users\Said.Fekih\OneDrive - Logient\Bureau\Desk repo\MyConcierge\MyConcierge.Infrastructure\obj\Debug\net8.0\MyConcierge.Infrastructure.pdb
+C:\Users\Said.Fekih\OneDrive - Logient\Bureau\Desk repo\MyConcierge\MyConcierge.Infrastructure\obj\Debug\net8.0\ref\MyConcierge.Infrastructure.dll
+C:\Users\Said.Fekih\OneDrive - Logient\Bureau\Desk repo\MyConcierge\MyConcierge.Infrastructure\bin\Debug\net8.0\MyConcierge.Infrastructure.runtimeconfig.json
+C:\Users\Said.Fekih\OneDrive - Logient\Bureau\Desk repo\MyConcierge\MyConcierge.Infrastructure\obj\Debug\net8.0\MyConcierge.Infrastructure.genruntimeconfig.cache
