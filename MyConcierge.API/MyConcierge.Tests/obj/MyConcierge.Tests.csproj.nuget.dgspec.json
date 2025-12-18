@@ -1,23 +1,23 @@
 {
   "format": 1,
   "restore": {
-    "C:\\Users\\Said.Fekih\\OneDrive - Logient\\Bureau\\Desk repo\\MyConcierge\\MyConcierge.Tests\\MyConcierge.Tests.csproj": {}
+    "C:\\Users\\Said\\source\\repos\\MyConcierge\\MyConcierge.API\\MyConcierge.Tests\\MyConcierge.Tests.csproj": {}
   },
   "projects": {
-    "C:\\Users\\Said.Fekih\\OneDrive - Logient\\Bureau\\Desk repo\\MyConcierge\\MyConcierge.Application\\MyConcierge.Application.csproj": {
+    "C:\\Users\\Said\\source\\repos\\MyConcierge\\MyConcierge.API\\MyConcierge.Application\\MyConcierge.Application.csproj": {
       "version": "1.0.0",
       "restore": {
-        "projectUniqueName": "C:\\Users\\Said.Fekih\\OneDrive - Logient\\Bureau\\Desk repo\\MyConcierge\\MyConcierge.Application\\MyConcierge.Application.csproj",
+        "projectUniqueName": "C:\\Users\\Said\\source\\repos\\MyConcierge\\MyConcierge.API\\MyConcierge.Application\\MyConcierge.Application.csproj",
         "projectName": "MyConcierge.Application",
-        "projectPath": "C:\\Users\\Said.Fekih\\OneDrive - Logient\\Bureau\\Desk repo\\MyConcierge\\MyConcierge.Application\\MyConcierge.Application.csproj",
-        "packagesPath": "C:\\Users\\Said.Fekih\\.nuget\\packages\\",
-        "outputPath": "C:\\Users\\Said.Fekih\\OneDrive - Logient\\Bureau\\Desk repo\\MyConcierge\\MyConcierge.Application\\obj\\",
+        "projectPath": "C:\\Users\\Said\\source\\repos\\MyConcierge\\MyConcierge.API\\MyConcierge.Application\\MyConcierge.Application.csproj",
+        "packagesPath": "C:\\Users\\Said\\.nuget\\packages\\",
+        "outputPath": "C:\\Users\\Said\\source\\repos\\MyConcierge\\MyConcierge.API\\MyConcierge.Application\\obj\\",
         "projectStyle": "PackageReference",
         "fallbackFolders": [
           "C:\\Program Files (x86)\\Microsoft Visual Studio\\Shared\\NuGetPackages"
         ],
         "configFilePaths": [
-          "C:\\Users\\Said.Fekih\\AppData\\Roaming\\NuGet\\NuGet.Config",
+          "C:\\Users\\Said\\AppData\\Roaming\\NuGet\\NuGet.Config",
           "C:\\Program Files (x86)\\NuGet\\Config\\Microsoft.VisualStudio.FallbackLocation.config",
           "C:\\Program Files (x86)\\NuGet\\Config\\Microsoft.VisualStudio.Offline.config"
         ],
@@ -26,15 +26,14 @@
         ],
         "sources": {
           "C:\\Program Files (x86)\\Microsoft SDKs\\NuGetPackages\\": {},
-          "C:\\Program Files\\dotnet\\library-packs": {},
           "https://api.nuget.org/v3/index.json": {}
         },
         "frameworks": {
           "net8.0": {
             "targetAlias": "net8.0",
             "projectReferences": {
-              "C:\\Users\\Said.Fekih\\OneDrive - Logient\\Bureau\\Desk repo\\MyConcierge\\MyConcierge.Domain\\MyConcierge.Domain.csproj": {
-                "projectPath": "C:\\Users\\Said.Fekih\\OneDrive - Logient\\Bureau\\Desk repo\\MyConcierge\\MyConcierge.Domain\\MyConcierge.Domain.csproj"
+              "C:\\Users\\Said\\source\\repos\\MyConcierge\\MyConcierge.API\\MyConcierge.Domain\\MyConcierge.Domain.csproj": {
+                "projectPath": "C:\\Users\\Said\\source\\repos\\MyConcierge\\MyConcierge.API\\MyConcierge.Domain\\MyConcierge.Domain.csproj"
               }
             }
           }
@@ -49,7 +48,7 @@
           "auditLevel": "low",
           "auditMode": "direct"
         },
-        "SdkAnalysisLevel": "9.0.200"
+        "SdkAnalysisLevel": "10.0.100"
       },
       "frameworks": {
         "net8.0": {
@@ -70,24 +69,24 @@
               "privateAssets": "all"
             }
           },
-          "runtimeIdentifierGraphPath": "C:\\Program Files\\dotnet\\sdk\\9.0.200/PortableRuntimeIdentifierGraph.json"
+          "runtimeIdentifierGraphPath": "C:\\Program Files\\dotnet\\sdk\\10.0.100/PortableRuntimeIdentifierGraph.json"
         }
       }
     },
-    "C:\\Users\\Said.Fekih\\OneDrive - Logient\\Bureau\\Desk repo\\MyConcierge\\MyConcierge.Domain\\MyConcierge.Domain.csproj": {
+    "C:\\Users\\Said\\source\\repos\\MyConcierge\\MyConcierge.API\\MyConcierge.Domain\\MyConcierge.Domain.csproj": {
       "version": "1.0.0",
       "restore": {
-        "projectUniqueName": "C:\\Users\\Said.Fekih\\OneDrive - Logient\\Bureau\\Desk repo\\MyConcierge\\MyConcierge.Domain\\MyConcierge.Domain.csproj",
+        "projectUniqueName": "C:\\Users\\Said\\source\\repos\\MyConcierge\\MyConcierge.API\\MyConcierge.Domain\\MyConcierge.Domain.csproj",
         "projectName": "MyConcierge.Domain",
-        "projectPath": "C:\\Users\\Said.Fekih\\OneDrive - Logient\\Bureau\\Desk repo\\MyConcierge\\MyConcierge.Domain\\MyConcierge.Domain.csproj",
-        "packagesPath": "C:\\Users\\Said.Fekih\\.nuget\\packages\\",
-        "outputPath": "C:\\Users\\Said.Fekih\\OneDrive - Logient\\Bureau\\Desk repo\\MyConcierge\\MyConcierge.Domain\\obj\\",
+        "projectPath": "C:\\Users\\Said\\source\\repos\\MyConcierge\\MyConcierge.API\\MyConcierge.Domain\\MyConcierge.Domain.csproj",
+        "packagesPath": "C:\\Users\\Said\\.nuget\\packages\\",
+        "outputPath": "C:\\Users\\Said\\source\\repos\\MyConcierge\\MyConcierge.API\\MyConcierge.Domain\\obj\\",
         "projectStyle": "PackageReference",
         "fallbackFolders": [
           "C:\\Program Files (x86)\\Microsoft Visual Studio\\Shared\\NuGetPackages"
         ],
         "configFilePaths": [
-          "C:\\Users\\Said.Fekih\\AppData\\Roaming\\NuGet\\NuGet.Config",
+          "C:\\Users\\Said\\AppData\\Roaming\\NuGet\\NuGet.Config",
           "C:\\Program Files (x86)\\NuGet\\Config\\Microsoft.VisualStudio.FallbackLocation.config",
           "C:\\Program Files (x86)\\NuGet\\Config\\Microsoft.VisualStudio.Offline.config"
         ],
@@ -96,7 +95,6 @@
         ],
         "sources": {
           "C:\\Program Files (x86)\\Microsoft SDKs\\NuGetPackages\\": {},
-          "C:\\Program Files\\dotnet\\library-packs": {},
           "https://api.nuget.org/v3/index.json": {}
         },
         "frameworks": {
@@ -115,7 +113,7 @@
           "auditLevel": "low",
           "auditMode": "direct"
         },
-        "SdkAnalysisLevel": "9.0.200"
+        "SdkAnalysisLevel": "10.0.100"
       },
       "frameworks": {
         "net8.0": {
@@ -136,24 +134,24 @@
               "privateAssets": "all"
             }
           },
-          "runtimeIdentifierGraphPath": "C:\\Program Files\\dotnet\\sdk\\9.0.200/PortableRuntimeIdentifierGraph.json"
+          "runtimeIdentifierGraphPath": "C:\\Program Files\\dotnet\\sdk\\10.0.100/PortableRuntimeIdentifierGraph.json"
         }
       }
     },
-    "C:\\Users\\Said.Fekih\\OneDrive - Logient\\Bureau\\Desk repo\\MyConcierge\\MyConcierge.Tests\\MyConcierge.Tests.csproj": {
+    "C:\\Users\\Said\\source\\repos\\MyConcierge\\MyConcierge.API\\MyConcierge.Tests\\MyConcierge.Tests.csproj": {
       "version": "1.0.0",
       "restore": {
-        "projectUniqueName": "C:\\Users\\Said.Fekih\\OneDrive - Logient\\Bureau\\Desk repo\\MyConcierge\\MyConcierge.Tests\\MyConcierge.Tests.csproj",
+        "projectUniqueName": "C:\\Users\\Said\\source\\repos\\MyConcierge\\MyConcierge.API\\MyConcierge.Tests\\MyConcierge.Tests.csproj",
         "projectName": "MyConcierge.Tests",
-        "projectPath": "C:\\Users\\Said.Fekih\\OneDrive - Logient\\Bureau\\Desk repo\\MyConcierge\\MyConcierge.Tests\\MyConcierge.Tests.csproj",
-        "packagesPath": "C:\\Users\\Said.Fekih\\.nuget\\packages\\",
-        "outputPath": "C:\\Users\\Said.Fekih\\OneDrive - Logient\\Bureau\\Desk repo\\MyConcierge\\MyConcierge.Tests\\obj\\",
+        "projectPath": "C:\\Users\\Said\\source\\repos\\MyConcierge\\MyConcierge.API\\MyConcierge.Tests\\MyConcierge.Tests.csproj",
+        "packagesPath": "C:\\Users\\Said\\.nuget\\packages\\",
+        "outputPath": "C:\\Users\\Said\\source\\repos\\MyConcierge\\MyConcierge.API\\MyConcierge.Tests\\obj\\",
         "projectStyle": "PackageReference",
         "fallbackFolders": [
           "C:\\Program Files (x86)\\Microsoft Visual Studio\\Shared\\NuGetPackages"
         ],
         "configFilePaths": [
-          "C:\\Users\\Said.Fekih\\AppData\\Roaming\\NuGet\\NuGet.Config",
+          "C:\\Users\\Said\\AppData\\Roaming\\NuGet\\NuGet.Config",
           "C:\\Program Files (x86)\\NuGet\\Config\\Microsoft.VisualStudio.FallbackLocation.config",
           "C:\\Program Files (x86)\\NuGet\\Config\\Microsoft.VisualStudio.Offline.config"
         ],
@@ -162,15 +160,14 @@
         ],
         "sources": {
           "C:\\Program Files (x86)\\Microsoft SDKs\\NuGetPackages\\": {},
-          "C:\\Program Files\\dotnet\\library-packs": {},
           "https://api.nuget.org/v3/index.json": {}
         },
         "frameworks": {
           "net8.0": {
             "targetAlias": "net8.0",
             "projectReferences": {
-              "C:\\Users\\Said.Fekih\\OneDrive - Logient\\Bureau\\Desk repo\\MyConcierge\\MyConcierge.Application\\MyConcierge.Application.csproj": {
-                "projectPath": "C:\\Users\\Said.Fekih\\OneDrive - Logient\\Bureau\\Desk repo\\MyConcierge\\MyConcierge.Application\\MyConcierge.Application.csproj"
+              "C:\\Users\\Said\\source\\repos\\MyConcierge\\MyConcierge.API\\MyConcierge.Application\\MyConcierge.Application.csproj": {
+                "projectPath": "C:\\Users\\Said\\source\\repos\\MyConcierge\\MyConcierge.API\\MyConcierge.Application\\MyConcierge.Application.csproj"
               }
             }
           }
@@ -185,7 +182,7 @@
           "auditLevel": "low",
           "auditMode": "direct"
         },
-        "SdkAnalysisLevel": "9.0.200"
+        "SdkAnalysisLevel": "10.0.100"
       },
       "frameworks": {
         "net8.0": {
@@ -224,7 +221,7 @@
               "privateAssets": "all"
             }
           },
-          "runtimeIdentifierGraphPath": "C:\\Program Files\\dotnet\\sdk\\9.0.200/PortableRuntimeIdentifierGraph.json"
+          "runtimeIdentifierGraphPath": "C:\\Program Files\\dotnet\\sdk\\10.0.100/PortableRuntimeIdentifierGraph.json"
         }
       }
     }

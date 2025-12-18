@@ -15,7 +15,15 @@ namespace MyConcierge.Infrastructure.Repositories
 
        public async Task<List<Utilisateur>> GetAllAsync()
         {
-            return await _context.Utilisateurs.Include(u => u.ReferenceType).ToListAsync();
+            try
+            {
+                return await _context.Utilisateurs.Include(u => u.ReferenceType).ToListAsync();
+            }
+            catch (Exception ex)
+            {
+                throw;
+            }
+            
         }
 
         public async Task<Utilisateur?> GetByIdAsync(int id)

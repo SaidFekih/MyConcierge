@@ -46,6 +46,18 @@
         }
       }
     },
+    "/": {
+      "get": {
+        "tags": [
+          "MyConcierge.Presentation"
+        ],
+        "responses": {
+          "200": {
+            "description": "OK"
+          }
+        }
+      }
+    },
     "/api/referencetypes": {
       "get": {
         "tags": [

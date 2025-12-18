@@ -14,7 +14,7 @@ using System.Reflection;
 [assembly: System.Reflection.AssemblyCompanyAttribute("MyConcierge.Tests")]
 [assembly: System.Reflection.AssemblyConfigurationAttribute("Debug")]
 [assembly: System.Reflection.AssemblyFileVersionAttribute("1.0.0.0")]
-[assembly: System.Reflection.AssemblyInformationalVersionAttribute("1.0.0")]
+[assembly: System.Reflection.AssemblyInformationalVersionAttribute("1.0.0+acc39ec37dbcd7a00569cd2a404c8380900581ab")]
 [assembly: System.Reflection.AssemblyProductAttribute("MyConcierge.Tests")]
 [assembly: System.Reflection.AssemblyTitleAttribute("MyConcierge.Tests")]
 [assembly: System.Reflection.AssemblyVersionAttribute("1.0.0.0")]

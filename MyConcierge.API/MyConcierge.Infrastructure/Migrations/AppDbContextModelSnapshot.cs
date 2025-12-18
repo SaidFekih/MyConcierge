@@ -54,6 +54,30 @@ namespace MyConcierge.Infrastructure.Migrations
                     b.ToTable("ContratsLocations", (string)null);
                 });
 
+            modelBuilder.Entity("MyConcierge.Domain.Models.ReferenceList", b =>
+                {
+                    b.Property<int>("Id")
+                        .ValueGeneratedOnAdd()
+                        .HasColumnType("int");
+
+                    SqlServerPropertyBuilderExtensions.UseIdentityColumn(b.Property<int>("Id"));
+
+                    b.Property<string>("Code")
+                        .IsRequired()
+                        .HasColumnType("nvarchar(450)");
+
+                    b.Property<string>("Name")
+                        .IsRequired()
+                        .HasColumnType("nvarchar(max)");
+
+                    b.HasKey("Id");
+
+                    b.HasIndex("Code")
+                        .IsUnique();
+
+                    b.ToTable("ReferenceLists", (string)null);
+                });
+
             modelBuilder.Entity("MyConcierge.Domain.Models.ReferenceType", b =>
                 {
                     b.Property<int>("Id")
@@ -73,6 +97,39 @@ namespace MyConcierge.Infrastructure.Migrations
                     b.HasKey("Id");
 
                     b.ToTable("ReferenceTypes", (string)null);
+                });
+
+            modelBuilder.Entity("MyConcierge.Domain.Models.ReferenceValue", b =>
+                {
+                    b.Property<int>("Id")
+                        .ValueGeneratedOnAdd()
+                        .HasColumnType("int");
+
+                    SqlServerPropertyBuilderExtensions.UseIdentityColumn(b.Property<int>("Id"));
+
+                    b.Property<string>("Code")
+                        .IsRequired()
+                        .HasColumnType("nvarchar(450)");
+
+                    b.Property<bool>("IsActive")
+                        .HasColumnType("bit");
+
+                    b.Property<string>("Label")
+                        .IsRequired()
+                        .HasColumnType("nvarchar(max)");
+
+                    b.Property<int>("ReferenceListId")
+                        .HasColumnType("int");
+
+                    b.Property<int>("SortOrder")
+                        .HasColumnType("int");
+
+                    b.HasKey("Id");
+
+                    b.HasIndex("ReferenceListId", "Code")
+                        .IsUnique();
+
+                    b.ToTable("ReferenceValues", (string)null);
                 });
 
             modelBuilder.Entity("MyConcierge.Domain.Models.Unite", b =>
@@ -163,6 +220,17 @@ namespace MyConcierge.Infrastructure.Migrations
                     b.Navigation("Unite");
                 });
 
+            modelBuilder.Entity("MyConcierge.Domain.Models.ReferenceValue", b =>
+                {
+                    b.HasOne("MyConcierge.Domain.Models.ReferenceList", "ReferenceList")
+                        .WithMany("Values")
+                        .HasForeignKey("ReferenceListId")
+                        .OnDelete(DeleteBehavior.Restrict)
+                        .IsRequired();
+
+                    b.Navigation("ReferenceList");
+                });
+
             modelBuilder.Entity("MyConcierge.Domain.Models.Unite", b =>
                 {
                     b.HasOne("MyConcierge.Domain.Models.Unite", "ParentUnite")
@@ -197,6 +265,11 @@ namespace MyConcierge.Infrastructure.Migrations
                         .IsRequired();
 
                     b.Navigation("ReferenceType");
+                });
+
+            modelBuilder.Entity("MyConcierge.Domain.Models.ReferenceList", b =>
+                {
+                    b.Navigation("Values");
                 });
 #pragma warning restore 612, 618
         }

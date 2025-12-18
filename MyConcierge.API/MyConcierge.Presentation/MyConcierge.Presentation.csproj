@@ -20,4 +20,11 @@
     <ProjectReference Include="..\MyConcierge.Infrastructure\MyConcierge.Infrastructure.csproj" />
   </ItemGroup>
 
+  <ItemGroup>
+    <None Update="web.config">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+      <CopyToPublishDirectory>PreserveNewest</CopyToPublishDirectory>
+    </None>
+  </ItemGroup>
+
 </Project>

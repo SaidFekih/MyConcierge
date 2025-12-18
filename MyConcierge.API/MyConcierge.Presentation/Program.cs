@@ -36,12 +36,13 @@ if (app.Environment.IsDevelopment())
 {
     app.UseSwagger();
     app.UseSwaggerUI();
+    app.MapGet("/", () => Results.Redirect("/swagger/index.html"));
 }
 
 app.UseHttpsRedirection();
 
 // Active les routes pour Swagger
-app.MapControllers(); 
+app.MapControllers();
 
 // Lancer l'application
 app.Run();
