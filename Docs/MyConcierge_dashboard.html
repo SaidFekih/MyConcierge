@@ -1,0 +1,282 @@
+
+<style>
+*{box-sizing:border-box;margin:0;padding:0;}
+.wrap{display:grid;grid-template-columns:200px 1fr;min-height:680px;border:0.5px solid var(--color-border-tertiary);border-radius:var(--border-radius-lg);overflow:hidden;font-family:var(--font-sans);}
+.sidebar{background:#1a1a2e;padding:1.25rem 0;border-right:none;}
+.logo{padding:0 1.25rem 1.25rem;display:flex;align-items:center;gap:10px;border-bottom:1px solid rgba(255,255,255,0.07);margin-bottom:1rem;}
+.logo-icon{width:28px;height:28px;border-radius:8px;background:#5DCAA5;display:flex;align-items:center;justify-content:center;}
+.logo-text{font-size:14px;font-weight:500;color:#fff;}
+.logo-sub{font-size:10px;color:rgba(255,255,255,0.4);}
+.nav{display:flex;flex-direction:column;gap:2px;padding:0 10px;}
+.ni{padding:8px 10px;font-size:12px;color:rgba(255,255,255,0.5);border-radius:var(--border-radius-md);cursor:default;display:flex;align-items:center;gap:10px;transition:none;}
+.ni.active{background:rgba(93,202,165,0.15);color:#5DCAA5;font-weight:500;}
+.ni svg{flex-shrink:0;opacity:0.6;}
+.ni.active svg{opacity:1;}
+.nav-section{font-size:10px;color:rgba(255,255,255,0.25);padding:12px 10px 4px;letter-spacing:.06em;text-transform:uppercase;}
+.sidebar-footer{padding:1rem 1.25rem;margin-top:auto;border-top:1px solid rgba(255,255,255,0.07);}
+.avatar-row{display:flex;align-items:center;gap:8px;}
+.avatar{width:30px;height:30px;border-radius:50%;background:#5DCAA5;display:flex;align-items:center;justify-content:center;font-size:11px;font-weight:500;color:#04342C;}
+.avatar-name{font-size:12px;color:rgba(255,255,255,0.7);}
+.avatar-role{font-size:10px;color:rgba(255,255,255,0.35);}
+.main{background:var(--color-background-tertiary);padding:1.5rem;}
+.topbar{display:flex;justify-content:space-between;align-items:flex-start;margin-bottom:1.5rem;}
+.greeting{font-size:20px;font-weight:500;color:var(--color-text-primary);}
+.greeting-sub{font-size:13px;color:var(--color-text-secondary);margin-top:2px;}
+.date-badge{background:var(--color-background-primary);border:0.5px solid var(--color-border-tertiary);border-radius:var(--border-radius-md);padding:6px 12px;font-size:12px;color:var(--color-text-secondary);}
+.kpis{display:grid;grid-template-columns:repeat(4,minmax(0,1fr));gap:10px;margin-bottom:1.25rem;}
+.kpi{background:var(--color-background-primary);border:0.5px solid var(--color-border-tertiary);border-radius:var(--border-radius-lg);padding:14px;}
+.kpi-icon{width:32px;height:32px;border-radius:8px;display:flex;align-items:center;justify-content:center;margin-bottom:10px;}
+.kpi-label{font-size:11px;color:var(--color-text-secondary);margin-bottom:4px;}
+.kpi-val{font-size:22px;font-weight:500;color:var(--color-text-primary);}
+.kpi-sub{font-size:11px;margin-top:3px;}
+.teal{color:#0F6E56;} .amber-t{color:#854F0B;} .red-t{color:#A32D2D;} .blue-t{color:#185FA5;}
+.grid2{display:grid;grid-template-columns:minmax(0,1.3fr) minmax(0,1fr);gap:12px;margin-bottom:12px;}
+.card{background:var(--color-background-primary);border:0.5px solid var(--color-border-tertiary);border-radius:var(--border-radius-lg);padding:1.1rem;}
+.card-header{display:flex;justify-content:space-between;align-items:center;margin-bottom:12px;}
+.card-title{font-size:12px;font-weight:500;color:var(--color-text-primary);}
+.card-count{font-size:11px;color:var(--color-text-secondary);}
+.alert-item{display:flex;align-items:flex-start;gap:10px;padding:9px 0;border-bottom:0.5px solid var(--color-border-tertiary);}
+.alert-item:last-child{border-bottom:none;padding-bottom:0;}
+.alert-dot{width:8px;height:8px;border-radius:50%;flex-shrink:0;margin-top:4px;}
+.badge{font-size:10px;font-weight:500;padding:3px 8px;border-radius:99px;white-space:nowrap;flex-shrink:0;}
+.badge-red{background:#FCEBEB;color:#A32D2D;}
+.badge-amber{background:#FAEEDA;color:#854F0B;}
+.badge-blue{background:#E6F1FB;color:#185FA5;}
+.badge-teal{background:#E1F5EE;color:#0F6E56;}
+.alert-text{font-size:12px;color:var(--color-text-primary);line-height:1.4;}
+.alert-sub{font-size:11px;color:var(--color-text-secondary);margin-top:1px;}
+.prop-item{display:flex;align-items:center;gap:10px;padding:9px 0;border-bottom:0.5px solid var(--color-border-tertiary);}
+.prop-item:last-child{border-bottom:none;}
+.prop-thumb{width:36px;height:36px;border-radius:8px;display:flex;align-items:center;justify-content:center;font-size:14px;flex-shrink:0;}
+.prop-name{font-size:12px;font-weight:500;color:var(--color-text-primary);}
+.prop-addr{font-size:11px;color:var(--color-text-secondary);}
+.occ-wrap{display:flex;flex-direction:column;align-items:flex-end;gap:3px;flex-shrink:0;}
+.occ-bar-bg{width:64px;height:5px;background:var(--color-background-secondary);border-radius:99px;overflow:hidden;}
+.occ-bar-fg{height:100%;border-radius:99px;}
+.occ-label{font-size:10px;color:var(--color-text-secondary);}
+.activity-grid{display:grid;grid-template-columns:repeat(3,minmax(0,1fr));gap:0;}
+.act-item{padding:10px 12px;border-right:0.5px solid var(--color-border-tertiary);display:flex;align-items:flex-start;gap:10px;}
+.act-item:last-child{border-right:none;}
+.act-icon{width:32px;height:32px;border-radius:8px;display:flex;align-items:center;justify-content:center;flex-shrink:0;}
+.act-text{font-size:12px;color:var(--color-text-primary);line-height:1.4;}
+.act-time{font-size:11px;color:var(--color-text-secondary);margin-top:1px;}
+</style>
+
+<div class="wrap">
+  <div class="sidebar">
+    <div class="logo">
+      <div class="logo-icon">
+        <svg width="16" height="16" viewBox="0 0 16 16" fill="none"><path d="M8 1L1 6v9h5v-4h4v4h5V6L8 1z" fill="#04342C"/></svg>
+      </div>
+      <div><div class="logo-text">MyConcierge</div><div class="logo-sub">Portail propriétaire</div></div>
+    </div>
+    <div class="nav-section">Principal</div>
+    <div class="nav">
+      <div class="ni active">
+        <svg width="14" height="14" viewBox="0 0 16 16" fill="none"><rect x="1" y="1" width="6" height="6" rx="1.5" fill="#5DCAA5"/><rect x="9" y="1" width="6" height="6" rx="1.5" fill="#5DCAA5"/><rect x="1" y="9" width="6" height="6" rx="1.5" fill="#5DCAA5"/><rect x="9" y="9" width="6" height="6" rx="1.5" fill="#5DCAA5"/></svg>
+        Tableau de bord
+      </div>
+      <div class="ni">
+        <svg width="14" height="14" viewBox="0 0 16 16" fill="none"><path d="M8 1L1 6v9h5v-4h4v4h5V6L8 1z" stroke="rgba(255,255,255,0.5)" stroke-width="1.5" fill="none"/></svg>
+        Propriétés
+      </div>
+      <div class="ni">
+        <svg width="14" height="14" viewBox="0 0 16 16" fill="none"><circle cx="8" cy="5" r="3" stroke="rgba(255,255,255,0.5)" stroke-width="1.5"/><path d="M2 14c0-3 2.7-5 6-5s6 2 6 5" stroke="rgba(255,255,255,0.5)" stroke-width="1.5" stroke-linecap="round"/></svg>
+        Locataires
+      </div>
+      <div class="ni">
+        <svg width="14" height="14" viewBox="0 0 16 16" fill="none"><rect x="2" y="2" width="12" height="12" rx="2" stroke="rgba(255,255,255,0.5)" stroke-width="1.5"/><path d="M5 6h6M5 9h4" stroke="rgba(255,255,255,0.5)" stroke-width="1.5" stroke-linecap="round"/></svg>
+        Contrats
+      </div>
+      <div class="nav-section" style="margin-top:8px;">Finances</div>
+      <div class="ni">
+        <svg width="14" height="14" viewBox="0 0 16 16" fill="none"><circle cx="8" cy="8" r="6" stroke="rgba(255,255,255,0.5)" stroke-width="1.5"/><path d="M8 5v6M6 7h3.5" stroke="rgba(255,255,255,0.5)" stroke-width="1.5" stroke-linecap="round"/></svg>
+        Paiements
+      </div>
+      <div class="ni">
+        <svg width="14" height="14" viewBox="0 0 16 16" fill="none"><path d="M2 12l4-4 3 3 5-6" stroke="rgba(255,255,255,0.5)" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"/></svg>
+        Rapports
+      </div>
+      <div class="nav-section" style="margin-top:8px;">Autre</div>
+      <div class="ni">
+        <svg width="14" height="14" viewBox="0 0 16 16" fill="none"><circle cx="8" cy="8" r="2.5" stroke="rgba(255,255,255,0.5)" stroke-width="1.5"/><path d="M8 1v2M8 13v2M1 8h2M13 8h2M3.22 3.22l1.41 1.41M11.37 11.37l1.41 1.41M11.37 4.63l1.41-1.41M3.22 12.78l1.41-1.41" stroke="rgba(255,255,255,0.5)" stroke-width="1.5" stroke-linecap="round"/></svg>
+        Paramètres
+      </div>
+    </div>
+    <div style="height:40px;"></div>
+    <div class="sidebar-footer">
+      <div class="avatar-row">
+        <div class="avatar">ML</div>
+        <div><div class="avatar-name">Marie Leblanc</div><div class="avatar-role">Propriétaire</div></div>
+      </div>
+    </div>
+  </div>
+
+  <div class="main">
+    <div class="topbar">
+      <div>
+        <div class="greeting">Bonjour, Marie 👋</div>
+        <div class="greeting-sub">Voici ce qui se passe aujourd'hui dans vos propriétés.</div>
+      </div>
+      <div class="date-badge">Dim. 22 mars 2026</div>
+    </div>
+
+    <div class="kpis">
+      <div class="kpi">
+        <div class="kpi-icon" style="background:#E1F5EE;">
+          <svg width="16" height="16" viewBox="0 0 16 16" fill="none"><circle cx="8" cy="8" r="6" stroke="#0F6E56" stroke-width="1.5"/><path d="M8 5v6M6 7h3.5" stroke="#0F6E56" stroke-width="1.5" stroke-linecap="round"/></svg>
+        </div>
+        <div class="kpi-label">Revenus ce mois</div>
+        <div class="kpi-val">8 450 $</div>
+        <div class="kpi-sub teal">+3 % vs mois dernier</div>
+      </div>
+      <div class="kpi">
+        <div class="kpi-icon" style="background:#E6F1FB;">
+          <svg width="16" height="16" viewBox="0 0 16 16" fill="none"><path d="M8 1L1 6v9h5v-4h4v4h5V6L8 1z" stroke="#185FA5" stroke-width="1.5" fill="none" stroke-linejoin="round"/></svg>
+        </div>
+        <div class="kpi-label">Taux d'occupation</div>
+        <div class="kpi-val">87 %</div>
+        <div class="kpi-sub amber-t">2 unités libres</div>
+      </div>
+      <div class="kpi">
+        <div class="kpi-icon" style="background:#EEEDFE;">
+          <svg width="16" height="16" viewBox="0 0 16 16" fill="none"><rect x="2" y="2" width="12" height="12" rx="2" stroke="#534AB7" stroke-width="1.5"/><path d="M5 6h6M5 9h4" stroke="#534AB7" stroke-width="1.5" stroke-linecap="round"/></svg>
+        </div>
+        <div class="kpi-label">Contrats actifs</div>
+        <div class="kpi-val">14</div>
+        <div class="kpi-sub teal">3 renouvellements à venir</div>
+      </div>
+      <div class="kpi">
+        <div class="kpi-icon" style="background:#FCEBEB;">
+          <svg width="16" height="16" viewBox="0 0 16 16" fill="none"><circle cx="8" cy="8" r="6" stroke="#A32D2D" stroke-width="1.5"/><path d="M8 5v4M8 11v.5" stroke="#A32D2D" stroke-width="1.5" stroke-linecap="round"/></svg>
+        </div>
+        <div class="kpi-label">Paiements en retard</div>
+        <div class="kpi-val">2</div>
+        <div class="kpi-sub red-t">1 200 $ à recevoir</div>
+      </div>
+    </div>
+
+    <div class="grid2">
+      <div class="card">
+        <div class="card-header">
+          <div class="card-title">Alertes &amp; rappels</div>
+          <div class="card-count">5 éléments</div>
+        </div>
+        <div class="alert-item">
+          <span class="badge badge-red">Retard</span>
+          <div>
+            <div class="alert-text">Loyer impayé — Apt. 3B, 245 rue Laval</div>
+            <div class="alert-sub">15 jours · Jean Tremblay</div>
+          </div>
+        </div>
+        <div class="alert-item">
+          <span class="badge badge-red">Retard</span>
+          <div>
+            <div class="alert-text">Loyer impayé — Ch. 2, 88 boul. Rosemont</div>
+            <div class="alert-sub">7 jours · Sophie Côté</div>
+          </div>
+        </div>
+        <div class="alert-item">
+          <span class="badge badge-amber">Bail</span>
+          <div>
+            <div class="alert-text">Bail expire dans 30 jours — Apt. 1A, 245 rue Laval</div>
+            <div class="alert-sub">Renouvellement à confirmer · Carlos Diaz</div>
+          </div>
+        </div>
+        <div class="alert-item">
+          <span class="badge badge-amber">Entretien</span>
+          <div>
+            <div class="alert-text">Inspection chauffage — 88 boul. Rosemont</div>
+            <div class="alert-sub">Prévu le 25 mars 2026</div>
+          </div>
+        </div>
+        <div class="alert-item">
+          <span class="badge badge-blue">RDV</span>
+          <div>
+            <div class="alert-text">Visite — Apt. 2C libre, 12 av. des Pins</div>
+            <div class="alert-sub">Demain 10h00 · Nouveau prospect</div>
+          </div>
+        </div>
+      </div>
+
+      <div class="card">
+        <div class="card-header">
+          <div class="card-title">Mes propriétés</div>
+          <div class="card-count">3 immeubles · 16 unités</div>
+        </div>
+        <div class="prop-item">
+          <div class="prop-thumb" style="background:#E1F5EE;">🏢</div>
+          <div style="flex:1;min-width:0;">
+            <div class="prop-name">245 rue Laval</div>
+            <div class="prop-addr">6 unités · Montréal</div>
+          </div>
+          <div class="occ-wrap">
+            <div class="occ-bar-bg"><div class="occ-bar-fg" style="width:83%;background:#1D9E75;"></div></div>
+            <div class="occ-label">5 / 6 occupées</div>
+          </div>
+        </div>
+        <div class="prop-item">
+          <div class="prop-thumb" style="background:#EEEDFE;">🏠</div>
+          <div style="flex:1;min-width:0;">
+            <div class="prop-name">88 boul. Rosemont</div>
+            <div class="prop-addr">4 unités · Montréal</div>
+          </div>
+          <div class="occ-wrap">
+            <div class="occ-bar-bg"><div class="occ-bar-fg" style="width:100%;background:#1D9E75;"></div></div>
+            <div class="occ-label">4 / 4 occupées</div>
+          </div>
+        </div>
+        <div class="prop-item">
+          <div class="prop-thumb" style="background:#FAEEDA;">🏘️</div>
+          <div style="flex:1;min-width:0;">
+            <div class="prop-name">12 av. des Pins</div>
+            <div class="prop-addr">6 unités · Montréal</div>
+          </div>
+          <div class="occ-wrap">
+            <div class="occ-bar-bg"><div class="occ-bar-fg" style="width:83%;background:#EF9F27;"></div></div>
+            <div class="occ-label">5 / 6 occupées</div>
+          </div>
+        </div>
+        <div style="margin-top:12px;">
+          <button onclick="sendPrompt('Quelles informations faut-il saisir pour ajouter une nouvelle propriété dans MyConcierge ?')" style="font-size:12px;width:100%;">+ Ajouter une propriété ↗</button>
+        </div>
+      </div>
+    </div>
+
+    <div class="card">
+      <div class="card-header">
+        <div class="card-title">Activité récente</div>
+        <div class="card-count">Aujourd'hui &amp; hier</div>
+      </div>
+      <div class="activity-grid">
+        <div class="act-item">
+          <div class="act-icon" style="background:#E1F5EE;">
+            <svg width="14" height="14" viewBox="0 0 16 16" fill="none"><circle cx="8" cy="8" r="6" stroke="#0F6E56" stroke-width="1.5"/><path d="M8 5v6M6 7h3.5" stroke="#0F6E56" stroke-width="1.5" stroke-linecap="round"/></svg>
+          </div>
+          <div>
+            <div class="act-text">Paiement reçu — Carlos Diaz</div>
+            <div class="act-time">950 $ · il y a 2 heures</div>
+          </div>
+        </div>
+        <div class="act-item">
+          <div class="act-icon" style="background:#EEEDFE;">
+            <svg width="14" height="14" viewBox="0 0 16 16" fill="none"><rect x="2" y="2" width="12" height="12" rx="2" stroke="#534AB7" stroke-width="1.5"/><path d="M5 8h6M8 5v6" stroke="#534AB7" stroke-width="1.5" stroke-linecap="round"/></svg>
+          </div>
+          <div>
+            <div class="act-text">Nouveau contrat — Apt. 4A signé</div>
+            <div class="act-time">245 rue Laval · hier</div>
+          </div>
+        </div>
+        <div class="act-item">
+          <div class="act-icon" style="background:#FAEEDA;">
+            <svg width="14" height="14" viewBox="0 0 16 16" fill="none"><circle cx="8" cy="8" r="6" stroke="#854F0B" stroke-width="1.5"/><path d="M8 5v4M8 11v.5" stroke="#854F0B" stroke-width="1.5" stroke-linecap="round"/></svg>
+          </div>
+          <div>
+            <div class="act-text">Demande entretien — plomberie</div>
+            <div class="act-time">88 boul. Rosemont · hier</div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>
