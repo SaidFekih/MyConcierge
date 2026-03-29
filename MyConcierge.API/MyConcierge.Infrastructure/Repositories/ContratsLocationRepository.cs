@@ -1,4 +1,5 @@
-﻿using Microsoft.EntityFrameworkCore;
+﻿using Microsoft.AspNetCore.JsonPatch;
+using Microsoft.EntityFrameworkCore;
 using MyConcierge.Domain.Interfaces;
 using MyConcierge.Domain.Models;
 using System.Collections.Generic;
@@ -33,7 +34,27 @@ namespace MyConcierge.Infrastructure.Repositories
 
         public async Task AjouterAsync(ContratsLocation contrat)
         {
+            var unite = await _context.Unites.FindAsync(contrat.UniteId);
+            if (unite == null || unite.Statut != StatutUnite.Disponible)
+                throw new InvalidOperationException("L'unité n'est pas disponible.");
+
+            unite.Statut = StatutUnite.Louee;
             _context.ContratsLocations.Add(contrat);
+            await _context.SaveChangesAsync();
+        }
+
+        public async Task ModifierAsync(ContratsLocation contrat)
+        {
+            _context.ContratsLocations.Update(contrat);
+            await _context.SaveChangesAsync();
+        }
+
+        public async Task ModifierPartielAsync(int id, JsonPatchDocument<ContratsLocation> patch)
+        {
+            var contrat = await _context.ContratsLocations.FindAsync(id);
+            if (contrat == null) return;
+
+            patch.ApplyTo(contrat);
             await _context.SaveChangesAsync();
         }
 

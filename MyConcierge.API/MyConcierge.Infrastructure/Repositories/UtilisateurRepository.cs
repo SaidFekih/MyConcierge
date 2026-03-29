@@ -1,6 +1,7 @@
-﻿using MyConcierge.Domain.Interfaces;
-using MyConcierge.Domain.Models;
+﻿using Microsoft.AspNetCore.JsonPatch;
 using Microsoft.EntityFrameworkCore;
+using MyConcierge.Domain.Interfaces;
+using MyConcierge.Domain.Models;
 
 namespace MyConcierge.Infrastructure.Repositories
 {
@@ -39,6 +40,12 @@ namespace MyConcierge.Infrastructure.Repositories
             await _context.SaveChangesAsync();
         }
 
+        public async Task ModifierAsync(Utilisateur utilisateur)
+        {
+            _context.Utilisateurs.Update(utilisateur);
+            await _context.SaveChangesAsync();
+        }
+
         public async Task SupprimerAsync(int id)
         {
             var utilisateur = await _context.Utilisateurs.FindAsync(id);
@@ -48,5 +55,15 @@ namespace MyConcierge.Infrastructure.Repositories
                 await _context.SaveChangesAsync();
             }
         }
+
+        public async Task ModifierUtilisateurlAsync(int id, JsonPatchDocument<Utilisateur> patch)
+        {
+            var Utilisateur = await _context.Utilisateurs.FindAsync(id);
+            if (Utilisateur == null) return;
+
+            patch.ApplyTo(Utilisateur);
+            await _context.SaveChangesAsync();
+        }
+
     }
 }

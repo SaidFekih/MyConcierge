@@ -1,4 +1,5 @@
-﻿using Microsoft.EntityFrameworkCore;
+﻿using Microsoft.AspNetCore.JsonPatch;
+using Microsoft.EntityFrameworkCore;
 using MyConcierge.Domain.Interfaces;
 using MyConcierge.Domain.Models;
 using System.Collections.Generic;
@@ -48,5 +49,21 @@ namespace MyConcierge.Infrastructure.Repositories
                 await _context.SaveChangesAsync();
             }
         }
+
+        public async Task ModifierAsync(Unite unite)
+        {
+            _context.Unites.Update(unite);
+            await _context.SaveChangesAsync();
+        }
+
+        public async Task ModifierPartielAsync(int id, JsonPatchDocument<Unite> patch)
+        {
+            var unite = await _context.Unites.FindAsync(id);
+            if (unite == null) return;
+
+            patch.ApplyTo(unite);
+            await _context.SaveChangesAsync();
+        }
+
     }
 }

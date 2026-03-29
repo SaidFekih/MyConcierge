@@ -29,7 +29,7 @@ namespace MyConcierge.Domain.Models
         public Utilisateur? Proprietaire { get; set; }
 
         [Column(TypeName = "decimal(18,2)")]
-        public decimal MontantLoyer { get; set; }
+        public decimal? MontantLoyer { get; set; }
         public StatutUnite Statut { get; set; }
 
     }

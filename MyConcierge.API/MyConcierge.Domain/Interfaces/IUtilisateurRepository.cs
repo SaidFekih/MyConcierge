@@ -1,4 +1,5 @@
-﻿using MyConcierge.Domain.Models;
+﻿using Microsoft.AspNetCore.JsonPatch;
+using MyConcierge.Domain.Models;
 using System;
 using System.Collections.Generic;
 using System.Linq;
@@ -12,6 +13,10 @@ namespace MyConcierge.Domain.Interfaces
         Task<List<Utilisateur>> GetAllAsync();
         Task<Utilisateur?> GetByIdAsync(int id);
         Task AjouterAsync(Utilisateur utilisateur);
+
+        Task ModifierAsync(Utilisateur utilisateur);
         Task SupprimerAsync(int id);
+        Task ModifierUtilisateurlAsync(int id, JsonPatchDocument<Utilisateur> patch);
+
     }
 }

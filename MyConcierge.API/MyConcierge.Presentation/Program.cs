@@ -13,7 +13,7 @@ builder.Services.AddEndpointsApiExplorer();
 builder.Services.AddSwaggerGen();
 
 // Active les Controllers
-builder.Services.AddControllers(); 
+builder.Services.AddControllers().AddNewtonsoftJson();
 
 // Ajouter la connexion à la base de données
 builder.Services.AddDbContext<AppDbContext>(options =>
