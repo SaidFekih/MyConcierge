@@ -3,6 +3,13 @@ using System.ComponentModel.DataAnnotations.Schema;
 
 namespace MyConcierge.Domain.Models
 {
+    public enum StatutUnite
+    {
+        Disponible,
+        Louee,
+        EnRenovation,
+        Reservee
+    }
     public class Unite
     {
         [Key]
@@ -12,19 +19,18 @@ namespace MyConcierge.Domain.Models
         [MaxLength(255)]
         public string Nom { get; set; } = string.Empty;
 
-        [ForeignKey("ReferenceType")]
-        public int ReferenceTypeId { get; set; }
-        public ReferenceType? ReferenceType { get; set; }
+        public int TypeEntiteId { get; set; }
+        public TypeEntite? TypeEntite { get; set; }
 
-        [ForeignKey("ParentUnite")]
         public int? ParentUniteId { get; set; }
         public Unite? ParentUnite { get; set; }
 
-        [ForeignKey("Proprietaire")]
         public int ProprietaireId { get; set; }
         public Utilisateur? Proprietaire { get; set; }
 
-        public decimal Prix { get; set; }
-        public bool EstLouee { get; set; }
+        [Column(TypeName = "decimal(18,2)")]
+        public decimal MontantLoyer { get; set; }
+        public StatutUnite Statut { get; set; }
+
     }
 }

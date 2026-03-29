@@ -10,8 +10,7 @@ namespace MyConcierge.Domain.Models
         public string Email { get; set; } = string.Empty;
         public string Telephone { get; set; } = string.Empty;
 
-        // Clé étrangère vers ReferenceTypes (ex: Locataire, Propriétaire, Concierge)
-        public int ReferenceTypeId { get; set; }
-        public ReferenceType? ReferenceType { get; set; }
+        public int TypeEntiteId { get; set; }
+        public TypeEntite? TypeEntite { get; set; }
     }
 }

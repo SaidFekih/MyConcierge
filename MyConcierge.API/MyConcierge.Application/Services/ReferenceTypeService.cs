@@ -1,27 +1,22 @@
 ﻿using MyConcierge.Domain.Interfaces;
 using MyConcierge.Domain.Models;
-using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
 
 namespace MyConcierge.Application.Services
 {
-    public class ReferenceTypeService
+    public class TypeEntiteService
     {
-        private readonly IReferenceTypeRepository _repository;
+        private readonly ITypeEntiteRepository _repository;
 
-        public ReferenceTypeService(IReferenceTypeRepository repository)
+        public TypeEntiteService(ITypeEntiteRepository repository)
         {
             _repository = repository;
         }
 
-        public async Task<List<ReferenceType>> ObtenirTousAsync() => await _repository.GetAllAsync();
+        public async Task<List<TypeEntite>> ObtenirTousAsync() => await _repository.GetAllAsync();
 
-        public async Task<ReferenceType?> ObtenirParIdAsync(int id) => await _repository.GetByIdAsync(id);
+        public async Task<TypeEntite?> ObtenirParIdAsync(int id) => await _repository.GetByIdAsync(id);
 
-        public async Task AjouterAsync(ReferenceType referenceType) => await _repository.AjouterAsync(referenceType);
+        public async Task AjouterAsync(TypeEntite typeEntite) => await _repository.AjouterAsync(typeEntite);
 
         public async Task SupprimerAsync(int id) => await _repository.SupprimerAsync(id);
     }

@@ -20,8 +20,8 @@ builder.Services.AddDbContext<AppDbContext>(options =>
     options.UseSqlServer(builder.Configuration.GetConnectionString("DefaultConnection")));
 
 // Ajouter les services et repositories
-builder.Services.AddScoped<IReferenceTypeRepository, ReferenceTypeRepository>();
-builder.Services.AddScoped<ReferenceTypeRepository>();
+
+builder.Services.AddScoped<ITypeEntiteRepository, TypeEntiteRepository>();
 builder.Services.AddScoped<IUtilisateurRepository, UtilisateurRepository>();
 builder.Services.AddScoped<UtilisateurRepository>();
 builder.Services.AddScoped<IUniteRepository, UniteRepository>();
@@ -36,7 +36,10 @@ var app = builder.Build();
 if (app.Environment.IsDevelopment())
 {
     app.UseSwagger();
-    app.MapScalarApiReference();
+    app.MapScalarApiReference(options =>
+    {
+        options.OpenApiRoutePattern = "/swagger/v1/swagger.json";
+    });
     //app.UseSwaggerUI();
     //app.MapGet("/", () => Results.Redirect("/swagger/index.html"));
     app.MapGet("/", () => Results.Redirect("/scalar/v1"));

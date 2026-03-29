@@ -4,3 +4,7 @@ GET {{MyConcierge.Presentation_HostAddress}}/weatherforecast/
 Accept: application/json
 
 ###
+
+### Obtenir tous les TypeEntites
+GET {{MyConcierge.Presentation_HostAddress}}/api/typeentites
+Accept: application/json

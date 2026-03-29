@@ -17,7 +17,7 @@ namespace MyConcierge.Infrastructure.Repositories
         {
             try
             {
-                return await _context.Utilisateurs.Include(u => u.ReferenceType).ToListAsync();
+                return await _context.Utilisateurs.Include(u => u.TypeEntite).ToListAsync();
             }
             catch (Exception ex)
             {
@@ -29,7 +29,7 @@ namespace MyConcierge.Infrastructure.Repositories
         public async Task<Utilisateur?> GetByIdAsync(int id)
         {
             return await _context.Utilisateurs
-                .Include(u => u.ReferenceType)
+                .Include(u => u.TypeEntite)
                 .FirstOrDefaultAsync(u => u.Id == id);
         }
 

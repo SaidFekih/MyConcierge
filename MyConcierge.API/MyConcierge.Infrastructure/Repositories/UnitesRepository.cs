@@ -18,7 +18,7 @@ namespace MyConcierge.Infrastructure.Repositories
         public async Task<List<Unite>> GetAllAsync()
         {
             return await _context.Unites
-                .Include(u => u.ReferenceType)
+                .Include(u => u.TypeEntite)
                 .Include(u => u.ParentUnite)
                 .Include(u => u.Proprietaire)
                 .ToListAsync();
@@ -27,7 +27,7 @@ namespace MyConcierge.Infrastructure.Repositories
         public async Task<Unite?> GetByIdAsync(int id)
         {
             return await _context.Unites
-                .Include(u => u.ReferenceType)
+                .Include(u => u.TypeEntite)
                 .Include(u => u.ParentUnite)
                 .Include(u => u.Proprietaire)
                 .FirstOrDefaultAsync(u => u.Id == id);
