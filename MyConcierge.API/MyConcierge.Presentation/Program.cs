@@ -4,6 +4,7 @@ using MyConcierge.Infrastructure;
 using MyConcierge.Infrastructure.Repositories;
 using Microsoft.EntityFrameworkCore;
 using MyConcierge.Domain.Models;
+using Scalar.AspNetCore;
 
 var builder = WebApplication.CreateBuilder(args);
 
@@ -35,8 +36,10 @@ var app = builder.Build();
 if (app.Environment.IsDevelopment())
 {
     app.UseSwagger();
-    app.UseSwaggerUI();
-    app.MapGet("/", () => Results.Redirect("/swagger/index.html"));
+    app.MapScalarApiReference();
+    //app.UseSwaggerUI();
+    //app.MapGet("/", () => Results.Redirect("/swagger/index.html"));
+    app.MapGet("/", () => Results.Redirect("/scalar/v1"));
 }
 
 app.UseHttpsRedirection();
