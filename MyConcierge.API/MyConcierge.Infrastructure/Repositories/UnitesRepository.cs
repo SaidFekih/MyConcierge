@@ -27,6 +27,7 @@ namespace MyConcierge.Infrastructure.Repositories
         public async Task<Unite?> GetByIdAsync(int id)
         {
             return await _context.Unites
+                .AsNoTracking()
                 .Include(u => u.ReferenceType)
                 .Include(u => u.ParentUnite)
                 .Include(u => u.Proprietaire)
@@ -36,6 +37,12 @@ namespace MyConcierge.Infrastructure.Repositories
         public async Task AjouterAsync(Unite unite)
         {
             _context.Unites.Add(unite);
+            await _context.SaveChangesAsync();
+        }
+
+        public async Task ModifierAsync(Unite unite)
+        {
+            _context.Unites.Update(unite);
             await _context.SaveChangesAsync();
         }
 

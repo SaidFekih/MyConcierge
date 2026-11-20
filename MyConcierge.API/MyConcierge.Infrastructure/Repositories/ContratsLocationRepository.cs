@@ -26,6 +26,7 @@ namespace MyConcierge.Infrastructure.Repositories
         public async Task<ContratsLocation?> GetByIdAsync(int id)
         {
             return await _context.ContratsLocations
+                .AsNoTracking()
                 .Include(c => c.Locataire)
                 .Include(c => c.Unite)
                 .FirstOrDefaultAsync(c => c.Id == id);
@@ -34,6 +35,12 @@ namespace MyConcierge.Infrastructure.Repositories
         public async Task AjouterAsync(ContratsLocation contrat)
         {
             _context.ContratsLocations.Add(contrat);
+            await _context.SaveChangesAsync();
+        }
+
+        public async Task ModifierAsync(ContratsLocation contrat)
+        {
+            _context.ContratsLocations.Update(contrat);
             await _context.SaveChangesAsync();
         }
 

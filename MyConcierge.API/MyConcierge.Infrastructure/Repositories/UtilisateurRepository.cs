@@ -29,6 +29,7 @@ namespace MyConcierge.Infrastructure.Repositories
         public async Task<Utilisateur?> GetByIdAsync(int id)
         {
             return await _context.Utilisateurs
+                .AsNoTracking()
                 .Include(u => u.ReferenceType)
                 .FirstOrDefaultAsync(u => u.Id == id);
         }
@@ -36,6 +37,12 @@ namespace MyConcierge.Infrastructure.Repositories
         public async Task AjouterAsync(Utilisateur utilisateur)
         {
             _context.Utilisateurs.Add(utilisateur);
+            await _context.SaveChangesAsync();
+        }
+
+        public async Task ModifierAsync(Utilisateur utilisateur)
+        {
+            _context.Utilisateurs.Update(utilisateur);
             await _context.SaveChangesAsync();
         }
 

@@ -9,6 +9,7 @@ namespace MyConcierge.Domain.Interfaces
         Task<List<ContratsLocation>> GetAllAsync();
         Task<ContratsLocation?> GetByIdAsync(int id);
         Task AjouterAsync(ContratsLocation contrat);
+        Task ModifierAsync(ContratsLocation contrat);
         Task SupprimerAsync(int id);
     }
 }
