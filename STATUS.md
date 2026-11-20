@@ -17,15 +17,18 @@ Créer / lire / modifier / supprimer des unités, des utilisateurs (locataires, 
 - Règles des contrats (`ContratsLocationService`) : pas de chevauchement sur une même unité, DateFin >= DateDebut, unité et locataire doivent exister, `EstLouee` recalculé à chaque ajout / modification / suppression de contrat
 - Limite connue : `EstLouee` n'est pas recalculé tout seul quand une date passe (seulement quand un contrat change)
 
+- Frontend Vue 3 + Quasar minimal (`MyConcierge.Web`) : onglets Unités et Contrats (liste, ajout, suppression ; les erreurs de l'API s'affichent en notification)
+
 ## Prochaine étape
-Tester les règles dans Swagger, puis commencer le frontend Vue/Quasar minimal.
+Tester le frontend avec la vraie API, puis ajouter la modification (PUT) dans les formulaires et une page Utilisateurs.
 
 ## Ensuite (une à la fois)
-1. Frontend Vue/Quasar minimal (liste + formulaire pour unités et contrats)
+1. Page Utilisateurs (et ReferenceTypes) dans le frontend, modification (PUT)
 2. Contrôleur pour `ReferenceType` : PUT / DELETE
 3. Vrais tests unitaires (le projet Tests est vide)
 4. Authentification
 5. Décider du sort de `ReferenceLists` / `ReferenceValues`
 
 ## Pour reprendre
-`dotnet build` puis lancer `MyConcierge.Presentation` : Swagger s'ouvre à la racine.
+- API : lancer `MyConcierge.Presentation` (F5) : Swagger s'ouvre à la racine (https://localhost:7216).
+- Frontend : `cd MyConcierge.Web`, `npm install` (la première fois), `npm run dev`, puis ouvrir http://localhost:5173 (l'API doit tourner).
