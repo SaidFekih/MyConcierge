@@ -28,6 +28,7 @@ builder.Services.AddScoped<UniteRepository>();
 builder.Services.AddScoped<IContratsLocationRepository, ContratsLocationRepository>();
 builder.Services.AddScoped<ContratsLocationRepository>();
 builder.Services.AddScoped<ReferenceTypeService>();
+builder.Services.AddScoped<ContratsLocationService>();
 
 
 var app = builder.Build();

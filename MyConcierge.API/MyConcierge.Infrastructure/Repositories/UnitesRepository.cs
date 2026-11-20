@@ -46,6 +46,15 @@ namespace MyConcierge.Infrastructure.Repositories
             await _context.SaveChangesAsync();
         }
 
+        public async Task DefinirEstLoueeAsync(int id, bool estLouee)
+        {
+            var unite = await _context.Unites.FindAsync(id);
+            if (unite == null) return;
+
+            unite.EstLouee = estLouee;
+            await _context.SaveChangesAsync();
+        }
+
         public async Task SupprimerAsync(int id)
         {
             var unite = await _context.Unites.FindAsync(id);

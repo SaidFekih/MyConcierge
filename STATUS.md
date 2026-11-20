@@ -14,8 +14,11 @@ Créer / lire / modifier / supprimer des unités, des utilisateurs (locataires, 
 - On garde `ReferenceType` pour le MVP.
 - Les tables `ReferenceLists` / `ReferenceValues` existent en base mais ne sont pas utilisées : on les ignore pour l'instant.
 
+- Règles des contrats (`ContratsLocationService`) : pas de chevauchement sur une même unité, DateFin >= DateDebut, unité et locataire doivent exister, `EstLouee` recalculé à chaque ajout / modification / suppression de contrat
+- Limite connue : `EstLouee` n'est pas recalculé tout seul quand une date passe (seulement quand un contrat change)
+
 ## Prochaine étape
-Valider les règles de base : un contrat ne chevauche pas un autre sur la même unité, et `EstLouee` se met à jour selon les contrats.
+Tester les règles dans Swagger, puis commencer le frontend Vue/Quasar minimal.
 
 ## Ensuite (une à la fois)
 1. Frontend Vue/Quasar minimal (liste + formulaire pour unités et contrats)

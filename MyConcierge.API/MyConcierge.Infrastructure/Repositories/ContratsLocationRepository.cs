@@ -32,6 +32,14 @@ namespace MyConcierge.Infrastructure.Repositories
                 .FirstOrDefaultAsync(c => c.Id == id);
         }
 
+        public async Task<List<ContratsLocation>> GetByUniteIdAsync(int uniteId)
+        {
+            return await _context.ContratsLocations
+                .AsNoTracking()
+                .Where(c => c.UniteId == uniteId)
+                .ToListAsync();
+        }
+
         public async Task AjouterAsync(ContratsLocation contrat)
         {
             _context.ContratsLocations.Add(contrat);

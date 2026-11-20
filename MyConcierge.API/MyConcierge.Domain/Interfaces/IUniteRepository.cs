@@ -10,6 +10,7 @@ namespace MyConcierge.Domain.Interfaces
         Task<Unite?> GetByIdAsync(int id);
         Task AjouterAsync(Unite unite);
         Task ModifierAsync(Unite unite);
+        Task DefinirEstLoueeAsync(int id, bool estLouee);
         Task SupprimerAsync(int id);
     }
 }

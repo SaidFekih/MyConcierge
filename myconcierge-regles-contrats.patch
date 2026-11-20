@@ -1,0 +1,248 @@
+diff --git a/MyConcierge.API/MyConcierge.Application/Services/ContratsLocationService.cs b/MyConcierge.API/MyConcierge.Application/Services/ContratsLocationService.cs
+new file mode 100644
+index 0000000..e571c36
+--- /dev/null
++++ b/MyConcierge.API/MyConcierge.Application/Services/ContratsLocationService.cs
+@@ -0,0 +1,107 @@
++using MyConcierge.Domain.Interfaces;
++using MyConcierge.Domain.Models;
++
++namespace MyConcierge.Application.Services
++{
++    // Règles du MVP :
++    // 1. Un contrat ne peut pas chevaucher un autre contrat de la même unité.
++    // 2. Un contrat sans DateFin est un contrat en cours (sans fin).
++    // 3. Unite.EstLouee est recalculé à chaque ajout, modification ou suppression de contrat.
++    public class ContratsLocationService
++    {
++        private readonly IContratsLocationRepository _contrats;
++        private readonly IUniteRepository _unites;
++        private readonly IUtilisateurRepository _utilisateurs;
++
++        public ContratsLocationService(
++            IContratsLocationRepository contrats,
++            IUniteRepository unites,
++            IUtilisateurRepository utilisateurs)
++        {
++            _contrats = contrats;
++            _unites = unites;
++            _utilisateurs = utilisateurs;
++        }
++
++        // Les méthodes Ajouter/Modifier retournent un message d'erreur, ou null si tout est correct.
++        public async Task<string?> AjouterAsync(ContratsLocation contrat)
++        {
++            var erreur = await ValiderAsync(contrat);
++            if (erreur != null) return erreur;
++
++            await _contrats.AjouterAsync(contrat);
++            await MettreAJourEstLoueeAsync(contrat.UniteId);
++            return null;
++        }
++
++        public async Task<string?> ModifierAsync(ContratsLocation contrat)
++        {
++            var ancien = await _contrats.GetByIdAsync(contrat.Id);
++            if (ancien == null) return "Contrat introuvable.";
++
++            var erreur = await ValiderAsync(contrat);
++            if (erreur != null) return erreur;
++
++            await _contrats.ModifierAsync(contrat);
++            await MettreAJourEstLoueeAsync(contrat.UniteId);
++
++            // Si le contrat a changé d'unité, l'ancienne unité doit aussi être recalculée
++            if (ancien.UniteId != contrat.UniteId)
++                await MettreAJourEstLoueeAsync(ancien.UniteId);
++
++            return null;
++        }
++
++        public async Task SupprimerAsync(int id)
++        {
++            var contrat = await _contrats.GetByIdAsync(id);
++            if (contrat == null) return;
++
++            await _contrats.SupprimerAsync(id);
++            await MettreAJourEstLoueeAsync(contrat.UniteId);
++        }
++
++        private async Task<string?> ValiderAsync(ContratsLocation contrat)
++        {
++            if (contrat.DateFin != null && contrat.DateFin < contrat.DateDebut)
++                return "La date de fin doit être après la date de début.";
++
++            if (await _unites.GetByIdAsync(contrat.UniteId) == null)
++                return "Unité introuvable.";
++
++            if (await _utilisateurs.GetByIdAsync(contrat.LocataireId) == null)
++                return "Locataire introuvable.";
++
++            var contratsDeLUnite = await _contrats.GetByUniteIdAsync(contrat.UniteId);
++            foreach (var autre in contratsDeLUnite)
++            {
++                if (autre.Id == contrat.Id) continue; // en modification, on ignore le contrat lui-même
++
++                if (SeChevauchent(contrat, autre))
++                    return "Cette unité est déjà louée sur cette période.";
++            }
++
++            return null;
++        }
++
++        private static bool SeChevauchent(ContratsLocation a, ContratsLocation b)
++        {
++            // Pas de DateFin = contrat sans fin
++            var finA = a.DateFin ?? DateTime.MaxValue;
++            var finB = b.DateFin ?? DateTime.MaxValue;
++
++            return a.DateDebut <= finB && b.DateDebut <= finA;
++        }
++
++        private async Task MettreAJourEstLoueeAsync(int uniteId)
++        {
++            var aujourdhui = DateTime.Today;
++            var contrats = await _contrats.GetByUniteIdAsync(uniteId);
++
++            var estLouee = contrats.Any(c =>
++                c.DateDebut <= aujourdhui && (c.DateFin == null || c.DateFin >= aujourdhui));
++
++            await _unites.DefinirEstLoueeAsync(uniteId, estLouee);
++        }
++    }
++}
+diff --git a/MyConcierge.API/MyConcierge.Domain/Interfaces/IContratsLocationRepository.cs b/MyConcierge.API/MyConcierge.Domain/Interfaces/IContratsLocationRepository.cs
+index 7fea0f7..47330ed 100644
+--- a/MyConcierge.API/MyConcierge.Domain/Interfaces/IContratsLocationRepository.cs
++++ b/MyConcierge.API/MyConcierge.Domain/Interfaces/IContratsLocationRepository.cs
+@@ -8,6 +8,7 @@ namespace MyConcierge.Domain.Interfaces
+     {
+         Task<List<ContratsLocation>> GetAllAsync();
+         Task<ContratsLocation?> GetByIdAsync(int id);
++        Task<List<ContratsLocation>> GetByUniteIdAsync(int uniteId);
+         Task AjouterAsync(ContratsLocation contrat);
+         Task ModifierAsync(ContratsLocation contrat);
+         Task SupprimerAsync(int id);
+diff --git a/MyConcierge.API/MyConcierge.Domain/Interfaces/IUniteRepository.cs b/MyConcierge.API/MyConcierge.Domain/Interfaces/IUniteRepository.cs
+index 2e1d54d..896569f 100644
+--- a/MyConcierge.API/MyConcierge.Domain/Interfaces/IUniteRepository.cs
++++ b/MyConcierge.API/MyConcierge.Domain/Interfaces/IUniteRepository.cs
+@@ -10,6 +10,7 @@ namespace MyConcierge.Domain.Interfaces
+         Task<Unite?> GetByIdAsync(int id);
+         Task AjouterAsync(Unite unite);
+         Task ModifierAsync(Unite unite);
++        Task DefinirEstLoueeAsync(int id, bool estLouee);
+         Task SupprimerAsync(int id);
+     }
+ }
+diff --git a/MyConcierge.API/MyConcierge.Infrastructure/Repositories/ContratsLocationRepository.cs b/MyConcierge.API/MyConcierge.Infrastructure/Repositories/ContratsLocationRepository.cs
+index d82e539..72c8fe2 100644
+--- a/MyConcierge.API/MyConcierge.Infrastructure/Repositories/ContratsLocationRepository.cs
++++ b/MyConcierge.API/MyConcierge.Infrastructure/Repositories/ContratsLocationRepository.cs
+@@ -32,6 +32,14 @@ namespace MyConcierge.Infrastructure.Repositories
+                 .FirstOrDefaultAsync(c => c.Id == id);
+         }
+ 
++        public async Task<List<ContratsLocation>> GetByUniteIdAsync(int uniteId)
++        {
++            return await _context.ContratsLocations
++                .AsNoTracking()
++                .Where(c => c.UniteId == uniteId)
++                .ToListAsync();
++        }
++
+         public async Task AjouterAsync(ContratsLocation contrat)
+         {
+             _context.ContratsLocations.Add(contrat);
+diff --git a/MyConcierge.API/MyConcierge.Infrastructure/Repositories/UnitesRepository.cs b/MyConcierge.API/MyConcierge.Infrastructure/Repositories/UnitesRepository.cs
+index 96b891e..fc3ad1f 100644
+--- a/MyConcierge.API/MyConcierge.Infrastructure/Repositories/UnitesRepository.cs
++++ b/MyConcierge.API/MyConcierge.Infrastructure/Repositories/UnitesRepository.cs
+@@ -46,6 +46,15 @@ namespace MyConcierge.Infrastructure.Repositories
+             await _context.SaveChangesAsync();
+         }
+ 
++        public async Task DefinirEstLoueeAsync(int id, bool estLouee)
++        {
++            var unite = await _context.Unites.FindAsync(id);
++            if (unite == null) return;
++
++            unite.EstLouee = estLouee;
++            await _context.SaveChangesAsync();
++        }
++
+         public async Task SupprimerAsync(int id)
+         {
+             var unite = await _context.Unites.FindAsync(id);
+diff --git a/MyConcierge.API/MyConcierge.Presentation/Controllers/ContratsLocationController.cs b/MyConcierge.API/MyConcierge.Presentation/Controllers/ContratsLocationController.cs
+index 6819b17..4983ed5 100644
+--- a/MyConcierge.API/MyConcierge.Presentation/Controllers/ContratsLocationController.cs
++++ b/MyConcierge.API/MyConcierge.Presentation/Controllers/ContratsLocationController.cs
+@@ -1,4 +1,5 @@
+ ﻿using Microsoft.AspNetCore.Mvc;
++using MyConcierge.Application.Services;
+ using MyConcierge.Domain.Interfaces;
+ using MyConcierge.Domain.Models;
+ using System.Collections.Generic;
+@@ -11,10 +12,12 @@ namespace MyConcierge.Presentation.Controllers
+     public class ContratsLocationController : ControllerBase
+     {
+         private readonly IContratsLocationRepository _repository;
++        private readonly ContratsLocationService _service;
+ 
+-        public ContratsLocationController(IContratsLocationRepository repository)
++        public ContratsLocationController(IContratsLocationRepository repository, ContratsLocationService service)
+         {
+             _repository = repository;
++            _service = service;
+         }
+ 
+         [HttpGet]
+@@ -34,7 +37,9 @@ namespace MyConcierge.Presentation.Controllers
+         [HttpPost]
+         public async Task<IActionResult> Ajouter([FromBody] ContratsLocation contrat)
+         {
+-            await _repository.AjouterAsync(contrat);
++            var erreur = await _service.AjouterAsync(contrat);
++            if (erreur != null) return BadRequest(erreur);
++
+             return CreatedAtAction(nameof(GetById), new { id = contrat.Id }, contrat);
+         }
+ 
+@@ -44,7 +49,9 @@ namespace MyConcierge.Presentation.Controllers
+             if (id != contrat.Id) return BadRequest("L'id de l'URL ne correspond pas à l'id du corps.");
+             if (await _repository.GetByIdAsync(id) == null) return NotFound();
+ 
+-            await _repository.ModifierAsync(contrat);
++            var erreur = await _service.ModifierAsync(contrat);
++            if (erreur != null) return BadRequest(erreur);
++
+             return NoContent();
+         }
+ 
+@@ -53,7 +60,7 @@ namespace MyConcierge.Presentation.Controllers
+         {
+             if (await _repository.GetByIdAsync(id) == null) return NotFound();
+ 
+-            await _repository.SupprimerAsync(id);
++            await _service.SupprimerAsync(id);
+             return NoContent();
+         }
+     }
+diff --git a/STATUS.md b/STATUS.md
+index ef572d3..90bfc9d 100644
+--- a/STATUS.md
++++ b/STATUS.md
+@@ -14,8 +14,11 @@ Créer / lire / modifier / supprimer des unités, des utilisateurs (locataires,
+ - On garde `ReferenceType` pour le MVP.
+ - Les tables `ReferenceLists` / `ReferenceValues` existent en base mais ne sont pas utilisées : on les ignore pour l'instant.
+ 
++- Règles des contrats (`ContratsLocationService`) : pas de chevauchement sur une même unité, DateFin >= DateDebut, unité et locataire doivent exister, `EstLouee` recalculé à chaque ajout / modification / suppression de contrat
++- Limite connue : `EstLouee` n'est pas recalculé tout seul quand une date passe (seulement quand un contrat change)
++
+ ## Prochaine étape
+-Valider les règles de base : un contrat ne chevauche pas un autre sur la même unité, et `EstLouee` se met à jour selon les contrats.
++Tester les règles dans Swagger, puis commencer le frontend Vue/Quasar minimal.
+ 
+ ## Ensuite (une à la fois)
+ 1. Frontend Vue/Quasar minimal (liste + formulaire pour unités et contrats)
