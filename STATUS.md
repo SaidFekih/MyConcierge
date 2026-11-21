@@ -9,8 +9,8 @@ Créer / lire / modifier / supprimer des unités, des utilisateurs (locataires, 
 - Backend .NET 8, 4 couches (Domain / Application / Infrastructure / Presentation), EF Core, SQL Server
 - Entités : Utilisateur, Unite, ContratsLocation, ReferenceType
 - CRUD complet (GET, GET par id, POST, PUT, DELETE) : unités, utilisateurs, contrats
-- Page Utilisateurs (liste, ajout, suppression)
-- Modification d'un contrat existant
+- Frontend : liste, ajout, modification et suppression pour les unités, les utilisateurs et les contrats
+
 
 ## Décisions
 - On garde `ReferenceType` pour le MVP.
@@ -19,17 +19,15 @@ Créer / lire / modifier / supprimer des unités, des utilisateurs (locataires, 
 - Règles des contrats (`ContratsLocationService`) : pas de chevauchement sur une même unité, DateFin >= DateDebut, unité et locataire doivent exister, `EstLouee` recalculé à chaque ajout / modification / suppression de contrat
 - Limite connue : `EstLouee` n'est pas recalculé tout seul quand une date passe (seulement quand un contrat change)
 
-- Frontend Vue 3 + Quasar minimal (`MyConcierge.Web`): onglets Unités, Utilisateurs et Contrats (liste, ajout, suppression ; modification des contrats seulement ; les erreurs de l'API s'affichent en notification)
+- Frontend Vue 3 + Quasar minimal (MyConcierge.Web) : onglets Unités, Utilisateurs et Contrats (liste, ajout, modification, suppression ; les erreurs de l'API s'affichent en notification)
 
 ## Prochaine étape
-Modification (PUT) dans les pages Unités et Utilisateurs
+Page ReferenceTypes dans le frontend (avec le PUT / DELETE côté API)
 
 ## Ensuite (une à la fois)
-1. Page ReferenceTypes dans le frontend
-2. Contrôleur pour `ReferenceType` : PUT / DELETE
-3. Vrais tests unitaires (le projet Tests est vide)
-4. Authentification
-5. Décider du sort de `ReferenceLists` / `ReferenceValues`
+1. Vrais tests unitaires (le projet Tests est vide)
+2. Authentification
+3. Décider du sort de `ReferenceLists` / `ReferenceValues`
 
 ## Pour reprendre
 - API : lancer `MyConcierge.Presentation` (F5) : Swagger s'ouvre à la racine (https://localhost:7216).
