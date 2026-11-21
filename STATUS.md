@@ -1,6 +1,6 @@
 # MyConcierge — État du projet
 
-_Dernière mise à jour : 2026-11-20_
+_Dernière mise à jour : 2026-11-21_
 
 ## Objectif MVP
 Créer / lire / modifier / supprimer des unités, des utilisateurs (locataires, propriétaires) et des contrats de location. Sans authentification ni paiements pour l'instant.
@@ -9,6 +9,8 @@ Créer / lire / modifier / supprimer des unités, des utilisateurs (locataires, 
 - Backend .NET 8, 4 couches (Domain / Application / Infrastructure / Presentation), EF Core, SQL Server
 - Entités : Utilisateur, Unite, ContratsLocation, ReferenceType
 - CRUD complet (GET, GET par id, POST, PUT, DELETE) : unités, utilisateurs, contrats
+- Page Utilisateurs (liste, ajout, suppression)
+- Modification d'un contrat existant
 
 ## Décisions
 - On garde `ReferenceType` pour le MVP.
@@ -17,13 +19,13 @@ Créer / lire / modifier / supprimer des unités, des utilisateurs (locataires, 
 - Règles des contrats (`ContratsLocationService`) : pas de chevauchement sur une même unité, DateFin >= DateDebut, unité et locataire doivent exister, `EstLouee` recalculé à chaque ajout / modification / suppression de contrat
 - Limite connue : `EstLouee` n'est pas recalculé tout seul quand une date passe (seulement quand un contrat change)
 
-- Frontend Vue 3 + Quasar minimal (`MyConcierge.Web`) : onglets Unités et Contrats (liste, ajout, suppression ; les erreurs de l'API s'affichent en notification)
+- Frontend Vue 3 + Quasar minimal (`MyConcierge.Web`): onglets Unités, Utilisateurs et Contrats (liste, ajout, suppression ; modification des contrats seulement ; les erreurs de l'API s'affichent en notification)
 
 ## Prochaine étape
-Tester le frontend avec la vraie API, puis ajouter la modification (PUT) dans les formulaires et une page Utilisateurs.
+Modification (PUT) dans les pages Unités et Utilisateurs
 
 ## Ensuite (une à la fois)
-1. Page Utilisateurs (et ReferenceTypes) dans le frontend, modification (PUT)
+1. Page ReferenceTypes dans le frontend
 2. Contrôleur pour `ReferenceType` : PUT / DELETE
 3. Vrais tests unitaires (le projet Tests est vide)
 4. Authentification

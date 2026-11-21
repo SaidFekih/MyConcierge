@@ -2,6 +2,7 @@
 import { ref } from 'vue'
 import UnitesPage from './pages/UnitesPage.vue'
 import ContratsPage from './pages/ContratsPage.vue'
+import UtilisateursPage from './pages/UtilisateursPage.vue'
 
 const onglet = ref('unites')
 </script>
@@ -14,6 +15,7 @@ const onglet = ref('unites')
       </q-toolbar>
       <q-tabs v-model="onglet" align="left">
         <q-tab name="unites" label="Unités" />
+        <q-tab name="utilisateurs" label="Utilisateurs" />
         <q-tab name="contrats" label="Contrats" />
       </q-tabs>
     </q-header>
@@ -22,6 +24,7 @@ const onglet = ref('unites')
       <q-page padding>
         <!-- v-if : la page se recharge à chaque changement d'onglet -->
         <UnitesPage v-if="onglet === 'unites'" />
+        <UtilisateursPage v-else-if="onglet === 'utilisateurs'" />
         <ContratsPage v-else />
       </q-page>
     </q-page-container>

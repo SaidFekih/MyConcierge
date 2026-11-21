@@ -25,6 +25,7 @@ async function appeler(methode, url, corps) {
 export const api = {
   get: (url) => appeler('GET', url),
   post: (url, corps) => appeler('POST', url, corps),
+  put: (url, corps) => appeler('PUT', url, corps),
   delete: (url) => appeler('DELETE', url)
 }
 
