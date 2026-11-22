@@ -1,6 +1,7 @@
 ﻿using Microsoft.AspNetCore.Mvc;
 using MyConcierge.Domain.Interfaces;
 using MyConcierge.Domain.Models;
+using MyConcierge.Application.Services;
 
 namespace MyConcierge.Presentation.Controllers
 {
@@ -9,10 +10,12 @@ namespace MyConcierge.Presentation.Controllers
     public class UniteController : ControllerBase
     {
         private readonly IUniteRepository _repository;
+        private readonly UniteService _service;
 
-        public UniteController(IUniteRepository repository)
+        public UniteController(IUniteRepository repository, UniteService service)
         {
             _repository = repository;
+            _service = service; 
         }
 
         [HttpGet]
@@ -51,7 +54,9 @@ namespace MyConcierge.Presentation.Controllers
         {
             if (await _repository.GetByIdAsync(id) == null) return NotFound();
 
-            await _repository.SupprimerAsync(id);
+            var erreur = await _service.SupprimerAsync(id);
+            if (erreur != null) return BadRequest(erreur);
+
             return NoContent();
         }
     }

@@ -27,5 +27,9 @@ namespace MyConcierge.Domain.Models
         [Required]
         [Column(TypeName = "decimal(18,2)")]
         public decimal Montant { get; set; }
+
+        public bool EstSupprime { get; set; }
+
+        public DateTime? DateSuppression { get; set; }
     }
 }

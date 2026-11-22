@@ -11,6 +11,7 @@ Créer / lire / modifier / supprimer des unités, des utilisateurs (locataires, 
 - CRUD complet (GET, GET par id, POST, PUT, DELETE) : unités, utilisateurs, contrats
 - Frontend : liste, ajout, modification et suppression pour les unités, les utilisateurs, les contrats et les types
 - ReferenceType : PUT / DELETE (suppression refusée si le type est utilisé)
+- ajoute : Suppression logique (EstSupprime / DateSuppression) pour les contrats, unités et utilisateurs, avec règles de refus
 
 ## Décisions
 - On garde `ReferenceType` pour le MVP.
@@ -20,7 +21,7 @@ Créer / lire / modifier / supprimer des unités, des utilisateurs (locataires, 
 - Limite connue : `EstLouee` n'est pas recalculé tout seul quand une date passe (seulement quand un contrat change)
 
 - Frontend Vue 3 + Quasar minimal (MyConcierge.Web) : onglets Unités, Utilisateurs, Contrats et Types (liste, ajout, modification, suppression ; les erreurs de l'API s'affichent en notification)
-- Les clés étrangères sont en suppression en cascade : supprimer un propriétaire supprime ses unités et leurs contrats (à revoir)
+- Les contrats, unités et utilisateurs ne sont jamais effacés : ils sont marqués EstSupprime. Les anciens contrats gardent le locataire et l'unité, mais ne sont plus modifiables si l'un d'eux est supprimé.ade
 
 ## Prochaine étape
 Vrais tests unitaires (le projet Tests est vide)

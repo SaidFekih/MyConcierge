@@ -26,5 +26,9 @@ namespace MyConcierge.Domain.Models
 
         public decimal Prix { get; set; }
         public bool EstLouee { get; set; }
+
+        public bool EstSupprime { get; set; }
+
+        public DateTime? DateSuppression { get; set; }
     }
 }

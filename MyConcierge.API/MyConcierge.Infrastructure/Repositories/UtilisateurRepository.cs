@@ -17,7 +17,7 @@ namespace MyConcierge.Infrastructure.Repositories
         {
             try
             {
-                return await _context.Utilisateurs.Include(u => u.ReferenceType).ToListAsync();
+                return await _context.Utilisateurs.Where(utilisateur => !utilisateur.EstSupprime).Include(u => u.ReferenceType).ToListAsync();
             }
             catch (Exception ex)
             {
@@ -31,7 +31,7 @@ namespace MyConcierge.Infrastructure.Repositories
             return await _context.Utilisateurs
                 .AsNoTracking()
                 .Include(u => u.ReferenceType)
-                .FirstOrDefaultAsync(u => u.Id == id);
+                .FirstOrDefaultAsync(utilisateur => utilisateur.Id == id && !utilisateur.EstSupprime);
         }
 
         public async Task AjouterAsync(Utilisateur utilisateur)
@@ -51,7 +51,8 @@ namespace MyConcierge.Infrastructure.Repositories
             var utilisateur = await _context.Utilisateurs.FindAsync(id);
             if (utilisateur != null)
             {
-                _context.Utilisateurs.Remove(utilisateur);
+                utilisateur.EstSupprime = true;
+                utilisateur.DateSuppression = DateTime.Now;
                 await _context.SaveChangesAsync();
             }
         }

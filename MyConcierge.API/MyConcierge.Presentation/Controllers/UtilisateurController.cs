@@ -1,4 +1,5 @@
 ﻿using Microsoft.AspNetCore.Mvc;
+using MyConcierge.Application.Services;
 using MyConcierge.Domain.Interfaces;
 using MyConcierge.Domain.Models;
 
@@ -9,10 +10,12 @@ namespace MyConcierge.Presentation.Controllers
     public class UtilisateurController : ControllerBase
     {
         private readonly IUtilisateurRepository _repository;
+        private readonly UtilisateurService _service;
 
-        public UtilisateurController(IUtilisateurRepository repository)
+        public UtilisateurController(IUtilisateurRepository repository, UtilisateurService service)
         {
             _repository = repository;
+            _service = service;
         }
 
         [HttpGet]
@@ -50,7 +53,9 @@ namespace MyConcierge.Presentation.Controllers
         {
             if (await _repository.GetByIdAsync(id) == null) return NotFound();
 
-            await _repository.SupprimerAsync(id);
+            var erreur = await _service.SupprimerAsync(id);
+            if (erreur != null) return BadRequest(erreur);
+
             return NoContent();
         }
     }

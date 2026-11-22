@@ -18,6 +18,7 @@ namespace MyConcierge.Infrastructure.Repositories
         public async Task<List<ContratsLocation>> GetAllAsync()
         {
             return await _context.ContratsLocations
+                .Where(contrat => !contrat.EstSupprime)
                 .Include(c => c.Locataire)
                 .Include(c => c.Unite)
                 .ToListAsync();
@@ -29,14 +30,14 @@ namespace MyConcierge.Infrastructure.Repositories
                 .AsNoTracking()
                 .Include(c => c.Locataire)
                 .Include(c => c.Unite)
-                .FirstOrDefaultAsync(c => c.Id == id);
+                .FirstOrDefaultAsync(contrat => contrat.Id == id && !contrat.EstSupprime);
         }
 
         public async Task<List<ContratsLocation>> GetByUniteIdAsync(int uniteId)
         {
             return await _context.ContratsLocations
                 .AsNoTracking()
-                .Where(c => c.UniteId == uniteId)
+                .Where(contrat => contrat.UniteId == uniteId && !contrat.EstSupprime)
                 .ToListAsync();
         }
 
@@ -57,7 +58,8 @@ namespace MyConcierge.Infrastructure.Repositories
             var contrat = await _context.ContratsLocations.FindAsync(id);
             if (contrat != null)
             {
-                _context.ContratsLocations.Remove(contrat);
+                contrat.EstSupprime = true;
+                contrat.DateSuppression = DateTime.Now;
                 await _context.SaveChangesAsync();
             }
         }

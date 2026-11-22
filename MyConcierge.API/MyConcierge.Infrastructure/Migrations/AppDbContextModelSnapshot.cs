@@ -36,6 +36,12 @@ namespace MyConcierge.Infrastructure.Migrations
                     b.Property<DateTime?>("DateFin")
                         .HasColumnType("datetime2");
 
+                    b.Property<DateTime?>("DateSuppression")
+                        .HasColumnType("datetime2");
+
+                    b.Property<bool>("EstSupprime")
+                        .HasColumnType("bit");
+
                     b.Property<int>("LocataireId")
                         .HasColumnType("int");
 
@@ -140,7 +146,13 @@ namespace MyConcierge.Infrastructure.Migrations
 
                     SqlServerPropertyBuilderExtensions.UseIdentityColumn(b.Property<int>("Id"));
 
+                    b.Property<DateTime?>("DateSuppression")
+                        .HasColumnType("datetime2");
+
                     b.Property<bool>("EstLouee")
+                        .HasColumnType("bit");
+
+                    b.Property<bool>("EstSupprime")
                         .HasColumnType("bit");
 
                     b.Property<string>("Nom")
@@ -179,9 +191,15 @@ namespace MyConcierge.Infrastructure.Migrations
 
                     SqlServerPropertyBuilderExtensions.UseIdentityColumn(b.Property<int>("Id"));
 
+                    b.Property<DateTime?>("DateSuppression")
+                        .HasColumnType("datetime2");
+
                     b.Property<string>("Email")
                         .IsRequired()
                         .HasColumnType("nvarchar(max)");
+
+                    b.Property<bool>("EstSupprime")
+                        .HasColumnType("bit");
 
                     b.Property<string>("Nom")
                         .IsRequired()

@@ -18,6 +18,7 @@ namespace MyConcierge.Infrastructure.Repositories
         public async Task<List<Unite>> GetAllAsync()
         {
             return await _context.Unites
+                .Where(unite => !unite.EstSupprime)
                 .Include(u => u.ReferenceType)
                 .Include(u => u.ParentUnite)
                 .Include(u => u.Proprietaire)
@@ -31,7 +32,7 @@ namespace MyConcierge.Infrastructure.Repositories
                 .Include(u => u.ReferenceType)
                 .Include(u => u.ParentUnite)
                 .Include(u => u.Proprietaire)
-                .FirstOrDefaultAsync(u => u.Id == id);
+                .FirstOrDefaultAsync(unite => unite.Id == id && !unite.EstSupprime);
         }
 
         public async Task AjouterAsync(Unite unite)
@@ -60,7 +61,8 @@ namespace MyConcierge.Infrastructure.Repositories
             var unite = await _context.Unites.FindAsync(id);
             if (unite != null)
             {
-                _context.Unites.Remove(unite);
+                unite.EstSupprime = true;
+                unite.DateSuppression = DateTime.Now;
                 await _context.SaveChangesAsync();
             }
         }

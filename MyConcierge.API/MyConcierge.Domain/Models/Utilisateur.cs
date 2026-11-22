@@ -13,5 +13,9 @@ namespace MyConcierge.Domain.Models
         // Clé étrangère vers ReferenceTypes (ex: Locataire, Propriétaire, Concierge)
         public int ReferenceTypeId { get; set; }
         public ReferenceType? ReferenceType { get; set; }
+
+        public bool EstSupprime { get; set; }
+
+        public DateTime? DateSuppression { get; set; }
     }
 }
