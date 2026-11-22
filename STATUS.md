@@ -9,9 +9,8 @@ Créer / lire / modifier / supprimer des unités, des utilisateurs (locataires, 
 - Backend .NET 8, 4 couches (Domain / Application / Infrastructure / Presentation), EF Core, SQL Server
 - Entités : Utilisateur, Unite, ContratsLocation, ReferenceType
 - CRUD complet (GET, GET par id, POST, PUT, DELETE) : unités, utilisateurs, contrats
-- Frontend : liste, ajout, modification et suppression pour les unités, les utilisateurs et les contrats
+- Frontend : liste, ajout, modification et suppression pour les unités, les utilisateurs, les contrats et les types
 - ReferenceType : PUT / DELETE (suppression refusée si le type est utilisé)
-et change la ligne Frontend en « …pour les unités, les utilisateurs, les contrats et les types »
 
 ## Décisions
 - On garde `ReferenceType` pour le MVP.
@@ -22,6 +21,7 @@ et change la ligne Frontend en « …pour les unités, les utilisateurs, les con
 
 - Frontend Vue 3 + Quasar minimal (MyConcierge.Web) : onglets Unités, Utilisateurs, Contrats et Types (liste, ajout, modification, suppression ; les erreurs de l'API s'affichent en notification)
 - Les clés étrangères sont en suppression en cascade : supprimer un propriétaire supprime ses unités et leurs contrats (à revoir)
+
 ## Prochaine étape
 Vrais tests unitaires (le projet Tests est vide)
 
