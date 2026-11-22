@@ -32,3 +32,7 @@ export const api = {
 export function afficherErreur(erreur) {
   Notify.create({ type: 'negative', message: erreur.message })
 }
+
+export function afficherSucces(message) {
+  Notify.create({ type: 'positive', message })
+}

@@ -1,19 +1,20 @@
 <script setup>
-import { ref, computed, onMounted } from 'vue'
-import { api, afficherErreur } from '../api'
+import { ref, computed } from 'vue'
+import { api, afficherErreur, afficherSucces } from '../api'
+import { formaterDate, formaterMontant } from '../format'
+import { dateDuJour, estAVenir, estEnCours } from '../contrats'
 
 const props = defineProps({
   unite: Object,
+  contrats: Array, // tous les contrats : la page les recharge après chaque action
   typesUnite: Array,
   proprietaires: Array,
   locataires: Array
 })
 
-// donnees-modifiees : la fenêtre reste ouverte, la page recharge l'unité
-// unite-supprimee : la page ferme la fenêtre
+// donnees-modifiees : le panneau reste ouvert, la page recharge les données
+// unite-supprimee : la page ferme le panneau
 const emit = defineEmits(['donnees-modifiees', 'unite-supprimee'])
-
-const contratsDeLUnite = ref([])
 
 const modificationUniteOuverte = ref(false)
 const formulaireUnite = ref({})
@@ -26,40 +27,24 @@ const formulaireContrat = ref({})
 
 const colonnesHistorique = [
   { name: 'locataire', label: 'Locataire', field: (contrat) => contrat.locataire?.nom, align: 'left' },
-  { name: 'dateDebut', label: 'Début', field: (contrat) => contrat.dateDebut.slice(0, 10), align: 'left' },
-  { name: 'dateFin', label: 'Fin', field: (contrat) => (contrat.dateFin ? contrat.dateFin.slice(0, 10) : 'En cours'), align: 'left' },
-  { name: 'montant', label: 'Montant', field: 'montant', align: 'right' }
+  { name: 'dateDebut', label: 'Début', field: (contrat) => formaterDate(contrat.dateDebut), align: 'left' },
+  { name: 'dateFin', label: 'Fin', field: (contrat) => (contrat.dateFin ? formaterDate(contrat.dateFin) : 'Sans fin'), align: 'left' },
+  { name: 'montant', label: 'Montant', field: (contrat) => formaterMontant(contrat.montant), align: 'right' },
+  { name: 'statut', label: 'Statut', align: 'center' }
 ]
 
-function dateDuJour() {
-  return new Date().toLocaleDateString('en-CA') // AAAA-MM-JJ, heure locale
-}
+const contratsDeLUnite = computed(() =>
+  props.contrats
+    .filter((contrat) => contrat.uniteId === props.unite.id)
+    .sort((contratA, contratB) => contratB.dateDebut.localeCompare(contratA.dateDebut)) // le plus récent en premier
+)
 
-// Contrat en cours : commencé, et pas encore terminé
-const contratEnCours = computed(() => {
-  const aujourdhui = dateDuJour()
-  return contratsDeLUnite.value.find((contrat) =>
-    contrat.dateDebut.slice(0, 10) <= aujourdhui &&
-    (!contrat.dateFin || contrat.dateFin.slice(0, 10) >= aujourdhui)
-  )
-})
+const contratEnCours = computed(() => contratsDeLUnite.value.find(estEnCours))
 
-async function chargerContrats() {
-  try {
-    const tousLesContrats = await api.get('/contrats')
-    contratsDeLUnite.value = tousLesContrats
-      .filter((contrat) => contrat.uniteId === props.unite.id)
-      .sort((contratA, contratB) => contratB.dateDebut.localeCompare(contratA.dateDebut)) // le plus récent en premier
-  } catch (erreur) {
-    afficherErreur(erreur)
-  }
-}
-
-// Après une action sur un contrat : recharge l'historique et prévient la page (EstLouee a pu changer)
-async function apresChangementDeContrat() {
-  await chargerContrats()
-  emit('donnees-modifiees')
-}
+// Loyer actuel moins loyer cible (null si l'unité n'a pas de contrat en cours)
+const ecartDeLoyer = computed(() =>
+  contratEnCours.value ? contratEnCours.value.montant - props.unite.prix : null
+)
 
 // --- Modifier l'unité ---
 
@@ -78,6 +63,25 @@ async function enregistrerUnite() {
   try {
     await api.put('/unites/' + props.unite.id, { id: props.unite.id, ...formulaireUnite.value })
     modificationUniteOuverte.value = false
+    emit('donnees-modifiees')
+  } catch (erreur) {
+    afficherErreur(erreur)
+  }
+}
+
+// --- Dupliquer l'unité (sans ses contrats) ---
+
+async function dupliquerUnite() {
+  const nomDeLaCopie = props.unite.nom + ' (copie)'
+  try {
+    await api.post('/unites', {
+      nom: nomDeLaCopie,
+      referenceTypeId: props.unite.referenceTypeId,
+      proprietaireId: props.unite.proprietaireId,
+      prix: props.unite.prix,
+      estLouee: false
+    })
+    afficherSucces('Unité dupliquée : « ' + nomDeLaCopie + ' »')
     emit('donnees-modifiees')
   } catch (erreur) {
     afficherErreur(erreur)
@@ -115,7 +119,7 @@ async function terminerContrat() {
       montant: contrat.montant
     })
     terminaisonContratOuverte.value = false
-    await apresChangementDeContrat()
+    emit('donnees-modifiees')
   } catch (erreur) {
     afficherErreur(erreur)
   }
@@ -143,101 +147,173 @@ async function ajouterContrat() {
       montant: formulaireContrat.value.montant
     })
     ajoutContratOuvert.value = false
-    await apresChangementDeContrat()
+    emit('donnees-modifiees')
   } catch (erreur) {
     afficherErreur(erreur) // ex : « Cette unité est déjà louée sur cette période. »
   }
 }
-
-onMounted(chargerContrats)
 </script>
 
 <template>
-  <q-card style="min-width: 700px; max-width: 90vw">
-    <q-card-section class="row items-center">
-      <div class="text-h6">{{ unite.nom }}</div>
+  <q-card class="column no-wrap" style="width: 520px; max-width: 95vw; height: 100%">
+    <!-- En-tête -->
+    <div class="row items-center no-wrap q-pa-md">
+      <div class="text-h6 ellipsis">{{ unite.nom }}</div>
+      <q-badge v-if="contratEnCours" color="positive" label="Louée" class="q-ml-md q-pa-xs" />
+      <q-badge v-else color="grey-6" label="Vacante" class="q-ml-md q-pa-xs" />
       <q-space />
       <q-btn icon="close" flat round dense v-close-popup />
-    </q-card-section>
+    </div>
+    <q-separator />
 
-    <!-- Détails de l'unité -->
-    <q-card-section>
-      <div class="text-subtitle2">Détails</div>
-
-      <q-form v-if="modificationUniteOuverte" @submit="enregistrerUnite" class="row q-col-gutter-md">
-        <q-input v-model="formulaireUnite.nom" label="Nom" dense outlined class="col-12 col-md-3"
-                 :rules="[(valeur) => !!valeur || 'Requis']" />
-        <q-select v-model="formulaireUnite.referenceTypeId" :options="typesUnite" option-value="id" option-label="nom"
-                  emit-value map-options label="Type" dense outlined class="col-12 col-md-3"
-                  :rules="[(valeur) => !!valeur || 'Requis']" />
-        <q-select v-model="formulaireUnite.proprietaireId" :options="proprietaires" option-value="id" option-label="nom"
-                  emit-value map-options label="Propriétaire" dense outlined class="col-12 col-md-3"
-                  :rules="[(valeur) => !!valeur || 'Requis']" />
-        <q-input v-model.number="formulaireUnite.prix" type="number" label="Prix" dense outlined class="col-12 col-md-3" />
-        <div class="col-12">
-          <q-btn type="submit" color="primary" label="Enregistrer" />
-          <q-btn flat label="Annuler" @click="modificationUniteOuverte = false" />
+    <div class="col scroll q-pa-md">
+      <!-- Actions sur l'unité -->
+      <div class="row q-col-gutter-sm q-mb-md">
+        <div class="col-4">
+          <q-btn outline no-caps color="primary" icon="edit" label="Modifier" class="full-width"
+                 @click="commencerModificationUnite" />
         </div>
-      </q-form>
-
-      <div v-else>
-        <div>Type : {{ unite.referenceType?.nom }}</div>
-        <div>Propriétaire : {{ unite.proprietaire?.nom }}</div>
-        <div>Prix : {{ unite.prix }}</div>
-        <div>Louée : {{ unite.estLouee ? 'Oui' : 'Non' }}</div>
-        <q-btn flat color="primary" label="Modifier l'unité" @click="commencerModificationUnite" />
-        <q-btn flat color="negative" label="Supprimer l'unité" @click="supprimerUnite" />
+        <div class="col-4">
+          <q-btn outline no-caps color="primary" icon="content_copy" label="Dupliquer" class="full-width"
+                 @click="dupliquerUnite" />
+        </div>
+        <div class="col-4">
+          <q-btn outline no-caps color="negative" icon="delete" label="Supprimer" class="full-width"
+                 @click="supprimerUnite" />
+        </div>
       </div>
-    </q-card-section>
 
-    <!-- Contrat en cours -->
-    <q-card-section>
-      <div class="text-subtitle2">Contrat en cours</div>
+      <!-- Formulaire de modification -->
+      <q-card v-if="modificationUniteOuverte" flat bordered class="q-pa-md q-mb-md">
+        <q-form @submit="enregistrerUnite" class="row q-col-gutter-md">
+          <q-input v-model="formulaireUnite.nom" label="Nom" dense outlined class="col-12 col-sm-6"
+                   :rules="[(valeur) => !!valeur || 'Requis']" />
+          <q-select v-model="formulaireUnite.referenceTypeId" :options="typesUnite" option-value="id" option-label="nom"
+                    emit-value map-options label="Type" dense outlined class="col-12 col-sm-6"
+                    :rules="[(valeur) => !!valeur || 'Requis']" />
+          <q-select v-model="formulaireUnite.proprietaireId" :options="proprietaires" option-value="id" option-label="nom"
+                    emit-value map-options label="Propriétaire" dense outlined class="col-12 col-sm-6"
+                    :rules="[(valeur) => !!valeur || 'Requis']" />
+          <q-input v-model.number="formulaireUnite.prix" type="number" label="Prix" dense outlined class="col-12 col-sm-6" />
+          <div class="col-12 text-right">
+            <q-btn flat no-caps label="Annuler" class="q-mr-sm" @click="modificationUniteOuverte = false" />
+            <q-btn type="submit" unelevated no-caps color="primary" label="Enregistrer" />
+          </div>
+        </q-form>
+      </q-card>
 
-      <div v-if="contratEnCours">
-        {{ contratEnCours.locataire?.nom }} — depuis le {{ contratEnCours.dateDebut.slice(0, 10) }}
-        — {{ contratEnCours.montant }}
+      <!-- Cartes : loyer cible, loyer actuel, écart -->
+      <div class="row q-col-gutter-sm q-mb-md">
+        <div class="col-4">
+          <q-card flat bordered class="q-pa-sm">
+            <div class="text-caption text-grey-7">Loyer cible</div>
+            <div class="text-subtitle1 text-weight-medium">{{ formaterMontant(unite.prix) }}</div>
+          </q-card>
+        </div>
+        <div class="col-4">
+          <q-card flat bordered class="q-pa-sm">
+            <div class="text-caption text-grey-7">Loyer actuel</div>
+            <div class="text-subtitle1 text-weight-medium">
+              {{ contratEnCours ? formaterMontant(contratEnCours.montant) : '—' }}
+            </div>
+          </q-card>
+        </div>
+        <div class="col-4">
+          <q-card flat bordered class="q-pa-sm">
+            <div class="text-caption text-grey-7">Écart</div>
+            <div v-if="ecartDeLoyer !== null" class="text-subtitle1 text-weight-medium"
+                 :class="{ 'text-negative': ecartDeLoyer < 0, 'text-positive': ecartDeLoyer > 0 }">
+              {{ ecartDeLoyer > 0 ? '+' : '' }}{{ formaterMontant(ecartDeLoyer) }}
+            </div>
+            <div v-else class="text-subtitle1 text-weight-medium">—</div>
+          </q-card>
+        </div>
+      </div>
 
-        <div v-if="terminaisonContratOuverte" class="row q-col-gutter-md items-start q-mt-none">
+      <!-- Type et propriétaire -->
+      <div v-if="!modificationUniteOuverte" class="row q-col-gutter-md q-mb-md">
+        <div class="col-6">
+          <div class="text-caption text-grey-7">Type</div>
+          <div>{{ unite.referenceType?.nom }}</div>
+        </div>
+        <div class="col-6">
+          <div class="text-caption text-grey-7">Propriétaire</div>
+          <div>{{ unite.proprietaire?.nom }}</div>
+        </div>
+      </div>
+
+      <q-separator class="q-mb-md" />
+
+      <!-- Contrat en cours -->
+      <div class="text-subtitle2 q-mb-sm">Contrat en cours</div>
+
+      <q-card v-if="contratEnCours" flat bordered class="q-pa-md">
+        <div class="row items-center no-wrap">
+          <q-icon name="person" size="sm" color="primary" class="q-mr-sm" />
+          <div class="text-subtitle1 text-weight-medium ellipsis">{{ contratEnCours.locataire?.nom }}</div>
+          <q-space />
+          <div class="text-subtitle1">{{ formaterMontant(contratEnCours.montant) }}</div>
+        </div>
+        <div class="text-caption text-grey-7 q-mt-xs">
+          Depuis le {{ formaterDate(contratEnCours.dateDebut) }} ·
+          {{ contratEnCours.dateFin ? 'jusqu\'au ' + formaterDate(contratEnCours.dateFin) : 'sans date de fin' }}
+        </div>
+
+        <div v-if="terminaisonContratOuverte" class="row q-col-gutter-md items-start q-mt-xs">
           <q-input v-model="dateFinChoisie" type="date" label="Date de fin" stack-label dense outlined
-                   hint="Le contrat reste en cours jusqu'à cette date incluse." class="col-12 col-md-5" />
-          <div class="col-12 col-md-7">
-            <q-btn color="primary" label="Confirmer" @click="terminerContrat" />
-            <q-btn flat label="Annuler" @click="terminaisonContratOuverte = false" />
+                   hint="Le contrat reste en cours jusqu'à cette date incluse." class="col-12" />
+          <div class="col-12 text-right">
+            <q-btn flat no-caps label="Annuler" class="q-mr-sm" @click="terminaisonContratOuverte = false" />
+            <q-btn unelevated no-caps color="primary" label="Confirmer" @click="terminerContrat" />
           </div>
         </div>
-        <div v-else>
-          <q-btn flat color="primary" label="Terminer le contrat" @click="commencerTerminaisonContrat" />
+        <div v-else class="text-right q-mt-sm">
+          <q-btn outline dense no-caps color="primary" icon="event_busy" label="Terminer le contrat" class="q-px-sm"
+                 @click="commencerTerminaisonContrat" />
         </div>
+      </q-card>
+
+      <div v-else class="row items-center text-grey-7">
+        <q-icon name="info" class="q-mr-sm" />
+        Aucun contrat en cours.
       </div>
 
-      <div v-else>Aucun contrat en cours.</div>
-    </q-card-section>
+      <!-- Ajouter un contrat -->
+      <q-card v-if="ajoutContratOuvert" flat bordered class="q-pa-md q-mt-md">
+        <div class="text-subtitle2 q-mb-sm">Nouveau contrat</div>
+        <q-form @submit="ajouterContrat" class="row q-col-gutter-md">
+          <q-select v-model="formulaireContrat.locataireId" :options="locataires" option-value="id" option-label="nom"
+                    emit-value map-options label="Locataire" dense outlined class="col-12"
+                    :rules="[(valeur) => !!valeur || 'Requis']" />
+          <q-input v-model="formulaireContrat.dateDebut" type="date" label="Début" stack-label dense outlined
+                   class="col-12 col-sm-6" :rules="[(valeur) => !!valeur || 'Requis']" />
+          <q-input v-model="formulaireContrat.dateFin" type="date" label="Fin (facultatif)" stack-label dense outlined
+                   class="col-12 col-sm-6" />
+          <q-input v-model.number="formulaireContrat.montant" type="number" label="Montant" dense outlined
+                   class="col-12" />
+          <div class="col-12 text-right">
+            <q-btn flat no-caps label="Annuler" class="q-mr-sm" @click="ajoutContratOuvert = false" />
+            <q-btn type="submit" unelevated no-caps color="primary" label="Ajouter le contrat" />
+          </div>
+        </q-form>
+      </q-card>
+      <q-btn v-else outline no-caps color="primary" icon="add" label="Ajouter un contrat" class="full-width q-mt-md"
+             @click="commencerAjoutContrat" />
 
-    <!-- Ajouter un contrat -->
-    <q-card-section>
-      <q-form v-if="ajoutContratOuvert" @submit="ajouterContrat" class="row q-col-gutter-md">
-        <q-select v-model="formulaireContrat.locataireId" :options="locataires" option-value="id" option-label="nom"
-                  emit-value map-options label="Locataire" dense outlined class="col-12 col-md-3"
-                  :rules="[(valeur) => !!valeur || 'Requis']" />
-        <q-input v-model="formulaireContrat.dateDebut" type="date" label="Début" stack-label dense outlined
-                 class="col-12 col-md-3" :rules="[(valeur) => !!valeur || 'Requis']" />
-        <q-input v-model="formulaireContrat.dateFin" type="date" label="Fin (facultatif)" stack-label dense outlined
-                 class="col-12 col-md-3" />
-        <q-input v-model.number="formulaireContrat.montant" type="number" label="Montant" dense outlined
-                 class="col-12 col-md-3" />
-        <div class="col-12">
-          <q-btn type="submit" color="primary" label="Ajouter le contrat" />
-          <q-btn flat label="Annuler" @click="ajoutContratOuvert = false" />
-        </div>
-      </q-form>
-      <q-btn v-else flat color="primary" label="+ Ajouter un contrat" @click="commencerAjoutContrat" />
-    </q-card-section>
+      <q-separator class="q-my-md" />
 
-    <!-- Historique -->
-    <q-card-section>
-      <q-table title="Historique des contrats" :rows="contratsDeLUnite" :columns="colonnesHistorique"
-               row-key="id" flat bordered dense />
-    </q-card-section>
+      <!-- Historique -->
+      <div class="text-subtitle2 q-mb-sm">Historique des contrats</div>
+      <q-table :rows="contratsDeLUnite" :columns="colonnesHistorique" row-key="id" flat bordered dense
+               :pagination="{ rowsPerPage: 0 }" hide-bottom no-data-label="Aucun contrat pour cette unité.">
+        <template v-slot:body-cell-statut="props">
+          <q-td :props="props">
+            <q-badge v-if="estEnCours(props.row)" color="positive" label="En cours" />
+            <q-badge v-else-if="estAVenir(props.row)" color="info" label="À venir" />
+            <q-badge v-else color="grey-6" label="Terminé" />
+          </q-td>
+        </template>
+      </q-table>
+    </div>
   </q-card>
 </template>

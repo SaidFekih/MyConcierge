@@ -9,12 +9,13 @@ const onglet = ref('unites')
 </script>
 
 <template>
-  <q-layout view="hHh lpR fFf">
-    <q-header elevated>
+  <q-layout view="hHh lpR fFf" class="bg-grey-2">
+    <q-header bordered class="bg-white text-grey-9">
       <q-toolbar>
-        <q-toolbar-title>MyConcierge</q-toolbar-title>
+        <q-icon name="apartment" color="primary" size="sm" class="q-mr-sm" />
+        <q-toolbar-title class="text-weight-medium">MyConcierge</q-toolbar-title>
       </q-toolbar>
-      <q-tabs v-model="onglet" align="left">
+      <q-tabs v-model="onglet" align="left" active-color="primary" indicator-color="primary">
         <q-tab name="unites" label="Unités" />
         <q-tab name="utilisateurs" label="Utilisateurs" />
         <q-tab name="contrats" label="Contrats" />
