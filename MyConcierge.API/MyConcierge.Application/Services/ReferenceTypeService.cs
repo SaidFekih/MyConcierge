@@ -23,6 +23,17 @@ namespace MyConcierge.Application.Services
 
         public async Task AjouterAsync(ReferenceType referenceType) => await _repository.AjouterAsync(referenceType);
 
-        public async Task SupprimerAsync(int id) => await _repository.SupprimerAsync(id);
+        public async Task ModifierAsync(ReferenceType referenceType) => await _repository.ModifierAsync(referenceType);
+
+        // Retourne un message d'erreur, ou null si la suppression a réussi
+        public async Task<string?> SupprimerAsync(int id)
+        {
+            if (await _repository.EstUtiliseAsync(id))
+                return "Ce type est utilisé par des unités ou des utilisateurs : impossible de le supprimer.";
+
+            await _repository.SupprimerAsync(id);
+            return null;
+        }
+
     }
 }

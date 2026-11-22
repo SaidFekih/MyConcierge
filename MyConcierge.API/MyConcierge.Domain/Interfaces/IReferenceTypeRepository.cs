@@ -13,5 +13,7 @@ namespace MyConcierge.Domain.Interfaces
         Task<ReferenceType?> GetByIdAsync(int id);
         Task AjouterAsync(ReferenceType referenceType);
         Task SupprimerAsync(int id);
+        Task ModifierAsync(ReferenceType referenceType);
+        Task<bool> EstUtiliseAsync(int id);
     }
 }
