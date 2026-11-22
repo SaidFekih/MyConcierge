@@ -1,0 +1,132 @@
+diff --git a/MyConcierge.Web/src/components/UniteDetails.vue b/MyConcierge.Web/src/components/UniteDetails.vue
+new file mode 100644
+index 0000000..616e3f8
+--- /dev/null
++++ b/MyConcierge.Web/src/components/UniteDetails.vue
+@@ -0,0 +1,69 @@
++<script setup>
++import { ref, computed, onMounted } from 'vue'
++import { api, afficherErreur } from '../api'
++
++const props = defineProps({ unite: Object })
++
++const contratsDeLUnite = ref([])
++
++const colonnesHistorique = [
++  { name: 'locataire', label: 'Locataire', field: (contrat) => contrat.locataire?.nom, align: 'left' },
++  { name: 'dateDebut', label: 'Début', field: (contrat) => contrat.dateDebut.slice(0, 10), align: 'left' },
++  { name: 'dateFin', label: 'Fin', field: (contrat) => (contrat.dateFin ? contrat.dateFin.slice(0, 10) : 'En cours'), align: 'left' },
++  { name: 'montant', label: 'Montant', field: 'montant', align: 'right' }
++]
++
++// Contrat en cours : commencé, et pas encore terminé
++const contratEnCours = computed(() => {
++  const aujourdhui = new Date().toLocaleDateString('en-CA') // AAAA-MM-JJ, heure locale
++  return contratsDeLUnite.value.find((contrat) =>
++    contrat.dateDebut.slice(0, 10) <= aujourdhui &&
++    (!contrat.dateFin || contrat.dateFin.slice(0, 10) >= aujourdhui)
++  )
++})
++
++async function chargerContrats() {
++  try {
++    const tousLesContrats = await api.get('/contrats')
++    contratsDeLUnite.value = tousLesContrats
++      .filter((contrat) => contrat.uniteId === props.unite.id)
++      .sort((contratA, contratB) => contratB.dateDebut.localeCompare(contratA.dateDebut)) // le plus récent en premier
++  } catch (erreur) {
++    afficherErreur(erreur)
++  }
++}
++
++onMounted(chargerContrats)
++</script>
++
++<template>
++  <q-card style="min-width: 700px; max-width: 90vw">
++    <q-card-section class="row items-center">
++      <div class="text-h6">{{ unite.nom }}</div>
++      <q-space />
++      <q-btn icon="close" flat round dense v-close-popup />
++    </q-card-section>
++
++    <q-card-section>
++      <div class="text-subtitle2">Détails</div>
++      <div>Type : {{ unite.referenceType?.nom }}</div>
++      <div>Propriétaire : {{ unite.proprietaire?.nom }}</div>
++      <div>Prix : {{ unite.prix }}</div>
++      <div>Louée : {{ unite.estLouee ? 'Oui' : 'Non' }}</div>
++    </q-card-section>
++
++    <q-card-section>
++      <div class="text-subtitle2">Contrat en cours</div>
++      <div v-if="contratEnCours">
++        {{ contratEnCours.locataire?.nom }} — depuis le {{ contratEnCours.dateDebut.slice(0, 10) }}
++        — {{ contratEnCours.montant }}
++      </div>
++      <div v-else>Aucun contrat en cours.</div>
++    </q-card-section>
++
++    <q-card-section>
++      <q-table title="Historique des contrats" :rows="contratsDeLUnite" :columns="colonnesHistorique"
++               row-key="id" flat bordered dense />
++    </q-card-section>
++  </q-card>
++</template>
+diff --git a/MyConcierge.Web/src/pages/UnitesPage.vue b/MyConcierge.Web/src/pages/UnitesPage.vue
+index a48a37b..696560c 100644
+--- a/MyConcierge.Web/src/pages/UnitesPage.vue
++++ b/MyConcierge.Web/src/pages/UnitesPage.vue
+@@ -1,6 +1,7 @@
+ <script setup>
+ import { ref, nextTick, onMounted } from 'vue'
+ import { api, afficherErreur } from '../api'
++import UniteDetails from '../components/UniteDetails.vue'
+ 
+ const unites = ref([])
+ const typesUnite = ref([])
+@@ -8,6 +9,8 @@ const proprietaires = ref([])
+ const formulaire = ref(creerFormulaireVide())
+ const formulaireRef = ref(null)
+ const idUniteEnModification = ref(null) // null = on ajoute une nouvelle unité
++const uniteSelectionnee = ref(null)
++const fenetreOuverte = ref(false)
+ 
+ const colonnes = [
+   { name: 'nom', label: 'Nom', field: 'nom', align: 'left' },
+@@ -81,6 +84,12 @@ async function supprimerUnite(unite) {
+   }
+ }
+ 
++// Un clic sur une ligne ouvre la fenêtre de l'unité
++function ouvrirFenetre(evenement, unite) {
++  uniteSelectionnee.value = unite
++  fenetreOuverte.value = true
++}
++
+ onMounted(chargerDonnees)
+ </script>
+ 
+@@ -102,13 +111,18 @@ onMounted(chargerDonnees)
+       </div>
+     </q-form>
+ 
+-    <q-table :rows="unites" :columns="colonnes" row-key="id" flat bordered title="Unités">
++    <q-table :rows="unites" :columns="colonnes" row-key="id" flat bordered title="Unités"
++             @row-click="ouvrirFenetre">
+       <template v-slot:body-cell-actions="props">
+         <q-td :props="props">
+-          <q-btn flat color="primary" label="Modifier" @click="commencerModification(props.row)" />
+-          <q-btn flat color="negative" label="Supprimer" @click="supprimerUnite(props.row)" />
++          <q-btn flat color="primary" label="Modifier" @click.stop="commencerModification(props.row)" />
++          <q-btn flat color="negative" label="Supprimer" @click.stop="supprimerUnite(props.row)" />
+         </q-td>
+       </template>
+     </q-table>
++
++    <q-dialog v-model="fenetreOuverte">
++      <UniteDetails v-if="uniteSelectionnee" :unite="uniteSelectionnee" />
++    </q-dialog>
+   </div>
+ </template>
+\ No newline at end of file

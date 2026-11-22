@@ -1,21 +1,23 @@
 <script setup>
 import { ref, nextTick, onMounted } from 'vue'
 import { api, afficherErreur } from '../api'
+import UniteDetails from '../components/UniteDetails.vue'
 
 const unites = ref([])
 const typesUnite = ref([])
 const proprietaires = ref([])
+const locataires = ref([])
 const formulaire = ref(creerFormulaireVide())
 const formulaireRef = ref(null)
-const idUniteEnModification = ref(null) // null = on ajoute une nouvelle unité
+const uniteSelectionnee = ref(null)
+const fenetreOuverte = ref(false)
 
 const colonnes = [
   { name: 'nom', label: 'Nom', field: 'nom', align: 'left' },
   { name: 'type', label: 'Type', field: (unite) => unite.referenceType?.nom, align: 'left' },
   { name: 'proprietaire', label: 'Propriétaire', field: (unite) => unite.proprietaire?.nom, align: 'left' },
   { name: 'prix', label: 'Prix', field: 'prix', align: 'right' },
-  { name: 'estLouee', label: 'Louée', field: (unite) => (unite.estLouee ? 'Oui' : 'Non'), align: 'center' },
-  { name: 'actions', label: '', align: 'right' }
+  { name: 'estLouee', label: 'Louée', field: (unite) => (unite.estLouee ? 'Oui' : 'Non'), align: 'center' }
 ]
 
 function creerFormulaireVide() {
@@ -28,57 +30,42 @@ async function chargerDonnees() {
     const tousLesTypes = await api.get('/referencetypes')
     typesUnite.value = tousLesTypes.filter((type) => type.categorie === 'Unite')
     const utilisateurs = await api.get('/utilisateurs')
-    // Seuls les propriétaires peuvent posséder une unité
+    // Seuls les propriétaires peuvent posséder une unité, seuls les locataires peuvent louer
     proprietaires.value = utilisateurs.filter((utilisateur) => utilisateur.referenceType?.nom === 'Propriétaire')
+    locataires.value = utilisateurs.filter((utilisateur) => utilisateur.referenceType?.nom === 'Locataire')
   } catch (erreur) {
     afficherErreur(erreur)
   }
 }
 
-async function viderFormulaire() {
-  formulaire.value = creerFormulaireVide()
-  idUniteEnModification.value = null
-  await nextTick()
-  formulaireRef.value.resetValidation() // évite les champs rouges après le vidage
-}
-
-// Remplit le formulaire avec l'unité choisie
-function commencerModification(unite) {
-  idUniteEnModification.value = unite.id
-  formulaire.value = {
-    nom: unite.nom,
-    referenceTypeId: unite.referenceTypeId,
-    proprietaireId: unite.proprietaireId,
-    prix: unite.prix,
-    estLouee: unite.estLouee // conservé tel quel : ce sont les contrats qui le changent
-  }
-}
-
-async function enregistrerUnite() {
+async function ajouterUnite() {
   try {
-    if (idUniteEnModification.value) {
-      await api.put('/unites/' + idUniteEnModification.value, {
-        id: idUniteEnModification.value,
-        ...formulaire.value
-      })
-    } else {
-      await api.post('/unites', formulaire.value)
-    }
-    await viderFormulaire()
+    await api.post('/unites', formulaire.value)
+    formulaire.value = creerFormulaireVide()
+    await nextTick()
+    formulaireRef.value.resetValidation() // évite les champs rouges après le vidage
     await chargerDonnees()
   } catch (erreur) {
     afficherErreur(erreur)
   }
 }
 
-async function supprimerUnite(unite) {
-  if (!confirm('Supprimer l\'unité « ' + unite.nom + ' » ?')) return
-  try {
-    await api.delete('/unites/' + unite.id)
-    await chargerDonnees()
-  } catch (erreur) {
-    afficherErreur(erreur)
-  }
+// Un clic sur une ligne ouvre la fenêtre de l'unité
+function ouvrirFenetre(evenement, unite) {
+  uniteSelectionnee.value = unite
+  fenetreOuverte.value = true
+}
+
+// Après une action dans la fenêtre : recharge la liste et remet à jour l'unité affichée
+async function rafraichirFenetre() {
+  await chargerDonnees()
+  uniteSelectionnee.value = unites.value.find((unite) => unite.id === uniteSelectionnee.value.id)
+}
+
+// Après la suppression de l'unité : ferme la fenêtre et recharge la liste
+async function fermerFenetreApresSuppression() {
+  fenetreOuverte.value = false
+  await chargerDonnees()
 }
 
 onMounted(chargerDonnees)
@@ -86,7 +73,7 @@ onMounted(chargerDonnees)
 
 <template>
   <div>
-    <q-form ref="formulaireRef" @submit="enregistrerUnite" class="row q-col-gutter-md q-mb-md">
+    <q-form ref="formulaireRef" @submit="ajouterUnite" class="row q-col-gutter-md q-mb-md">
       <q-input v-model="formulaire.nom" label="Nom" dense outlined class="col-12 col-md-3"
                :rules="[(valeur) => !!valeur || 'Requis']" />
       <q-select v-model="formulaire.referenceTypeId" :options="typesUnite" option-value="id" option-label="nom"
@@ -97,18 +84,17 @@ onMounted(chargerDonnees)
                 :rules="[(valeur) => !!valeur || 'Requis']" />
       <q-input v-model.number="formulaire.prix" type="number" label="Prix" dense outlined class="col-12 col-md-2" />
       <div class="col-12 col-md-2">
-        <q-btn type="submit" color="primary" :label="idUniteEnModification ? 'Enregistrer' : 'Ajouter'" />
-        <q-btn v-if="idUniteEnModification" flat label="Annuler" @click="viderFormulaire" />
+        <q-btn type="submit" color="primary" label="Ajouter" />
       </div>
     </q-form>
 
-    <q-table :rows="unites" :columns="colonnes" row-key="id" flat bordered title="Unités">
-      <template v-slot:body-cell-actions="props">
-        <q-td :props="props">
-          <q-btn flat color="primary" label="Modifier" @click="commencerModification(props.row)" />
-          <q-btn flat color="negative" label="Supprimer" @click="supprimerUnite(props.row)" />
-        </q-td>
-      </template>
-    </q-table>
+    <q-table :rows="unites" :columns="colonnes" row-key="id" flat bordered title="Unités"
+             @row-click="ouvrirFenetre" />
+
+    <q-dialog v-model="fenetreOuverte">
+      <UniteDetails v-if="uniteSelectionnee" :unite="uniteSelectionnee" :types-unite="typesUnite"
+                    :proprietaires="proprietaires" :locataires="locataires"
+                    @donnees-modifiees="rafraichirFenetre" @unite-supprimee="fermerFenetreApresSuppression" />
+    </q-dialog>
   </div>
 </template>
