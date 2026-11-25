@@ -2,6 +2,7 @@
 import { ref } from 'vue'
 import UnitesPage from './pages/UnitesPage.vue'
 import ContratsPage from './pages/ContratsPage.vue'
+import SoldesPage from './pages/SoldesPage.vue'
 import UtilisateursPage from './pages/UtilisateursPage.vue'
 import ReferenceTypesPage from './pages/ReferenceTypesPage.vue'
 
@@ -19,6 +20,7 @@ const onglet = ref('unites')
         <q-tab name="unites" label="Unités" />
         <q-tab name="utilisateurs" label="Utilisateurs" />
         <q-tab name="contrats" label="Contrats" />
+        <q-tab name="soldes" label="Paiements et soldes" />
         <q-tab name="types" label="Types" />
       </q-tabs>
     </q-header>
@@ -29,6 +31,7 @@ const onglet = ref('unites')
         <UnitesPage v-if="onglet === 'unites'" />
         <UtilisateursPage v-else-if="onglet === 'utilisateurs'" />
         <ContratsPage v-else-if="onglet === 'contrats'" />
+        <SoldesPage v-else-if="onglet === 'soldes'" />
         <ReferenceTypesPage v-else />
       </q-page>
     </q-page-container>
