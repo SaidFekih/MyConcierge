@@ -4,17 +4,25 @@ import UnitesPage from './pages/UnitesPage.vue'
 import ContratsPage from './pages/ContratsPage.vue'
 import SoldesPage from './pages/SoldesPage.vue'
 import UtilisateursPage from './pages/UtilisateursPage.vue'
+import GestionnairesPage from './pages/GestionnairesPage.vue'
+import ConnexionPage from './pages/ConnexionPage.vue'
+import { session, fermerSession } from './session'
 import ReferenceTypesPage from './pages/ReferenceTypesPage.vue'
 
 const onglet = ref('unites')
 </script>
 
 <template>
-  <q-layout view="hHh lpR fFf" class="bg-grey-2">
+  <!-- Pas de jeton : page de connexion seulement -->
+  <ConnexionPage v-if="!session.jeton" />
+
+  <q-layout v-else view="hHh lpR fFf" class="bg-grey-2">
     <q-header bordered class="bg-white text-grey-9">
       <q-toolbar>
         <q-icon name="apartment" color="primary" size="sm" class="q-mr-sm" />
         <q-toolbar-title class="text-weight-medium">MyConcierge</q-toolbar-title>
+        <span class="text-grey-7 q-mr-sm">{{ session.nom }}</span>
+        <q-btn flat dense icon="logout" label="Déconnexion" @click="fermerSession" />
       </q-toolbar>
       <q-tabs v-model="onglet" align="left" active-color="primary" indicator-color="primary">
         <q-tab name="unites" label="Unités" />
@@ -22,6 +30,7 @@ const onglet = ref('unites')
         <q-tab name="contrats" label="Contrats" />
         <q-tab name="soldes" label="Paiements et soldes" />
         <q-tab name="types" label="Types" />
+        <q-tab name="gestionnaires" label="Gestionnaires" />
       </q-tabs>
     </q-header>
 
@@ -32,6 +41,7 @@ const onglet = ref('unites')
         <UtilisateursPage v-else-if="onglet === 'utilisateurs'" />
         <ContratsPage v-else-if="onglet === 'contrats'" />
         <SoldesPage v-else-if="onglet === 'soldes'" />
+        <GestionnairesPage v-else-if="onglet === 'gestionnaires'" />
         <ReferenceTypesPage v-else />
       </q-page>
     </q-page-container>

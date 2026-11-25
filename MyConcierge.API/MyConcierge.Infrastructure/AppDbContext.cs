@@ -14,6 +14,7 @@ namespace MyConcierge.Infrastructure
         public DbSet<Unite> Unites { get; set; }
         public DbSet<ContratsLocation> ContratsLocations { get; set; }
         public DbSet<Paiement> Paiements { get; set; }
+        public DbSet<Compte> Comptes { get; set; }
         public DbSet<ReferenceList> ReferenceLists { get; set; }
         public DbSet<ReferenceValue> ReferenceValues { get; set; }
         protected override void OnModelCreating(ModelBuilder modelBuilder)
@@ -26,6 +27,8 @@ namespace MyConcierge.Infrastructure
             modelBuilder.Entity<Paiement>().ToTable("Paiements");
             // Restrict : jamais de suppression en cascade (on ne perd pas les paiements d'un contrat)
             modelBuilder.Entity<Paiement>().HasOne(x => x.ContratsLocation).WithMany().HasForeignKey(x => x.ContratsLocationId).OnDelete(DeleteBehavior.Restrict);
+            modelBuilder.Entity<Compte>().ToTable("Comptes");
+            modelBuilder.Entity<Compte>().HasIndex(x => x.Courriel).IsUnique(); // un seul compte par courriel
             modelBuilder.Entity<ReferenceList>().ToTable("ReferenceLists");
             modelBuilder.Entity<ReferenceValue>().ToTable("ReferenceValues");
             /*
