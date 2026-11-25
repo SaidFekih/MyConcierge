@@ -27,10 +27,13 @@ builder.Services.AddScoped<IUniteRepository, UniteRepository>();
 builder.Services.AddScoped<UniteRepository>();
 builder.Services.AddScoped<IContratsLocationRepository, ContratsLocationRepository>();
 builder.Services.AddScoped<ContratsLocationRepository>();
+builder.Services.AddScoped<IPaiementRepository, PaiementRepository>();
+builder.Services.AddScoped<PaiementRepository>();
 builder.Services.AddScoped<ReferenceTypeService>();
 builder.Services.AddScoped<ContratsLocationService>();
 builder.Services.AddScoped<UniteService>();
 builder.Services.AddScoped<UtilisateurService>();
+builder.Services.AddScoped<PaiementService>();
 
 
 var app = builder.Build();

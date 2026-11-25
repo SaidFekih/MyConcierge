@@ -7,6 +7,8 @@ import { estEnCours } from '../contrats'
 
 const unites = ref([])
 const contrats = ref([])
+const paiements = ref([])
+const soldes = ref([]) // un solde par contrat : { contratId, loyerDu, totalPaye, solde }
 const typesUnite = ref([])
 const proprietaires = ref([])
 const locataires = ref([])
@@ -67,6 +69,8 @@ async function chargerDonnees() {
   try {
     unites.value = await api.get('/unites')
     contrats.value = await api.get('/contrats')
+    paiements.value = await api.get('/paiements')
+    soldes.value = await api.get('/paiements/soldes')
     const tousLesTypes = await api.get('/referencetypes')
     typesUnite.value = tousLesTypes.filter((type) => type.categorie === 'Unite')
     const utilisateurs = await api.get('/utilisateurs')
@@ -152,7 +156,8 @@ onMounted(chargerDonnees)
     <!-- Panneau latéral de l'unité (la page reste utilisable à côté) -->
     <q-dialog v-model="panneauOuvert" position="right" full-height seamless>
       <UniteDetails v-if="uniteSelectionnee" :key="uniteSelectionnee.id" :unite="uniteSelectionnee"
-                    :contrats="contrats" :types-unite="typesUnite" :proprietaires="proprietaires"
+                    :contrats="contrats" :paiements="paiements" :soldes="soldes"
+                    :types-unite="typesUnite" :proprietaires="proprietaires"
                     :locataires="locataires" @donnees-modifiees="rafraichirPanneau"
                     @unite-supprimee="fermerPanneauApresSuppression" />
     </q-dialog>

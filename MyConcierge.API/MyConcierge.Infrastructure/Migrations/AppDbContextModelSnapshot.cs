@@ -60,6 +60,36 @@ namespace MyConcierge.Infrastructure.Migrations
                     b.ToTable("ContratsLocations", (string)null);
                 });
 
+            modelBuilder.Entity("MyConcierge.Domain.Models.Paiement", b =>
+                {
+                    b.Property<int>("Id")
+                        .ValueGeneratedOnAdd()
+                        .HasColumnType("int");
+
+                    SqlServerPropertyBuilderExtensions.UseIdentityColumn(b.Property<int>("Id"));
+
+                    b.Property<int>("ContratsLocationId")
+                        .HasColumnType("int");
+
+                    b.Property<DateTime>("DatePaiement")
+                        .HasColumnType("datetime2");
+
+                    b.Property<DateTime?>("DateSuppression")
+                        .HasColumnType("datetime2");
+
+                    b.Property<bool>("EstSupprime")
+                        .HasColumnType("bit");
+
+                    b.Property<decimal>("Montant")
+                        .HasColumnType("decimal(18,2)");
+
+                    b.HasKey("Id");
+
+                    b.HasIndex("ContratsLocationId");
+
+                    b.ToTable("Paiements", (string)null);
+                });
+
             modelBuilder.Entity("MyConcierge.Domain.Models.ReferenceList", b =>
                 {
                     b.Property<int>("Id")
@@ -236,6 +266,17 @@ namespace MyConcierge.Infrastructure.Migrations
                     b.Navigation("Locataire");
 
                     b.Navigation("Unite");
+                });
+
+            modelBuilder.Entity("MyConcierge.Domain.Models.Paiement", b =>
+                {
+                    b.HasOne("MyConcierge.Domain.Models.ContratsLocation", "ContratsLocation")
+                        .WithMany()
+                        .HasForeignKey("ContratsLocationId")
+                        .OnDelete(DeleteBehavior.Restrict)
+                        .IsRequired();
+
+                    b.Navigation("ContratsLocation");
                 });
 
             modelBuilder.Entity("MyConcierge.Domain.Models.ReferenceValue", b =>

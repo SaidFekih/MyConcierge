@@ -7,6 +7,8 @@ import { dateDuJour, estAVenir, estEnCours, lendemainDe } from '../contrats'
 const props = defineProps({
   unite: Object,
   contrats: Array, // tous les contrats : la page les recharge après chaque action
+  paiements: Array, // tous les paiements
+  soldes: Array, // un solde par contrat : { contratId, loyerDu, totalPaye, solde }
   typesUnite: Array,
   proprietaires: Array,
   locataires: Array
@@ -31,12 +33,22 @@ const formulaireRenouvellement = ref({})
 const ajustementLoyerOuvert = ref(false)
 const formulaireAjustement = ref({})
 
+const ajoutPaiementOuvert = ref(false)
+const formulairePaiement = ref({})
+
 const colonnesHistorique = [
   { name: 'locataire', label: 'Locataire', field: (contrat) => contrat.locataire?.nom, align: 'left' },
   { name: 'dateDebut', label: 'Début', field: (contrat) => formaterDate(contrat.dateDebut), align: 'left' },
   { name: 'dateFin', label: 'Fin', field: (contrat) => (contrat.dateFin ? formaterDate(contrat.dateFin) : 'Sans fin'), align: 'left' },
   { name: 'montant', label: 'Montant', field: (contrat) => formaterMontant(contrat.montant), align: 'right' },
   { name: 'statut', label: 'Statut', align: 'center' }
+]
+
+const colonnesPaiements = [
+  { name: 'datePaiement', label: 'Date', field: (paiement) => formaterDate(paiement.datePaiement), align: 'left' },
+  { name: 'locataire', label: 'Locataire', field: (paiement) => locataireDuPaiement(paiement), align: 'left' },
+  { name: 'montant', label: 'Montant', field: (paiement) => formaterMontant(paiement.montant), align: 'right' },
+  { name: 'actions', label: '', align: 'right' }
 ]
 
 const contratsDeLUnite = computed(() =>
@@ -54,6 +66,24 @@ const contratAVenir = computed(() => contratsDeLUnite.value.find(estAVenir))
 const renouvellementPossible = computed(
   () => contratEnCours.value && contratEnCours.value.dateFin && !contratAVenir.value
 )
+
+// Solde du contrat en cours : > 0 = en retard, <= 0 = payé (null s'il n'y a pas de contrat en cours)
+const soldeDuContratEnCours = computed(() => {
+  if (!contratEnCours.value) return null
+  const solde = props.soldes.find((soldeDuContrat) => soldeDuContrat.contratId === contratEnCours.value.id)
+  return solde ? solde.solde : null
+})
+
+// Les paiements de tous les contrats de cette unité, le plus récent en premier (l'API les trie déjà)
+const paiementsDeLUnite = computed(() => {
+  const identifiantsDesContrats = contratsDeLUnite.value.map((contrat) => contrat.id)
+  return props.paiements.filter((paiement) => identifiantsDesContrats.includes(paiement.contratsLocationId))
+})
+
+function locataireDuPaiement(paiement) {
+  const contrat = contratsDeLUnite.value.find((contrat) => contrat.id === paiement.contratsLocationId)
+  return contrat?.locataire?.nom
+}
 
 // Loyer actuel moins loyer cible (null si l'unité n'a pas de contrat en cours)
 const ecartDeLoyer = computed(() =>
@@ -207,6 +237,42 @@ async function enregistrerAjustementLoyer() {
     }
     ajustementLoyerOuvert.value = false
     if (prixChange || montantChange) afficherSucces('Loyer ajusté')
+    emit('donnees-modifiees')
+  } catch (erreur) {
+    afficherErreur(erreur)
+  }
+}
+
+// --- Paiements ---
+
+function commencerAjoutPaiement() {
+  const enRetard = soldeDuContratEnCours.value > 0
+  formulairePaiement.value = {
+    montant: enRetard ? soldeDuContratEnCours.value : contratEnCours.value.montant, // proposé : ce qui est dû, sinon le loyer
+    datePaiement: dateDuJour()
+  }
+  ajoutPaiementOuvert.value = true
+}
+
+async function ajouterPaiement() {
+  try {
+    await api.post('/paiements', {
+      contratsLocationId: contratEnCours.value.id,
+      montant: formulairePaiement.value.montant,
+      datePaiement: formulairePaiement.value.datePaiement
+    })
+    ajoutPaiementOuvert.value = false
+    afficherSucces('Paiement enregistré')
+    emit('donnees-modifiees')
+  } catch (erreur) {
+    afficherErreur(erreur)
+  }
+}
+
+async function supprimerPaiement(paiement) {
+  if (!confirm('Supprimer le paiement de ' + formaterMontant(paiement.montant) + ' du ' + formaterDate(paiement.datePaiement) + ' ?')) return
+  try {
+    await api.delete('/paiements/' + paiement.id)
     emit('donnees-modifiees')
   } catch (erreur) {
     afficherErreur(erreur)
@@ -368,6 +434,13 @@ async function ajouterContrat() {
           {{ contratEnCours.dateFin ? 'jusqu\'au ' + formaterDate(contratEnCours.dateFin) : 'sans date de fin' }}
         </div>
 
+        <!-- Statut du loyer : en retard si le total payé est inférieur au total dû -->
+        <div v-if="soldeDuContratEnCours !== null" class="q-mt-sm">
+          <q-badge v-if="soldeDuContratEnCours > 0" color="negative" class="q-pa-xs"
+                   :label="'Loyer en retard : ' + formaterMontant(soldeDuContratEnCours) + ' dû'" />
+          <q-badge v-else color="positive" class="q-pa-xs" label="Loyer payé" />
+        </div>
+
         <div v-if="terminaisonContratOuverte" class="row q-col-gutter-md items-start q-mt-xs">
           <q-input v-model="dateFinChoisie" type="date" label="Date de fin" stack-label dense outlined
                    hint="Le contrat reste en cours jusqu'à cette date incluse." class="col-12" />
@@ -426,10 +499,37 @@ async function ajouterContrat() {
 
       <q-separator class="q-my-md" />
 
+      <!-- Paiements -->
+      <div class="text-subtitle2 q-mb-sm">Paiements</div>
+      <q-card v-if="ajoutPaiementOuvert" flat bordered class="q-pa-md q-mb-md">
+        <q-form @submit="ajouterPaiement" class="row q-col-gutter-md">
+          <q-input v-model="formulairePaiement.datePaiement" type="date" label="Date du paiement" stack-label dense outlined
+                   class="col-12 col-sm-6" :rules="[(valeur) => !!valeur || 'Requis']" />
+          <q-input v-model.number="formulairePaiement.montant" type="number" label="Montant" dense outlined
+                   class="col-12 col-sm-6" :rules="[(valeur) => valeur > 0 || 'Montant invalide']" />
+          <div class="col-12 text-right">
+            <q-btn flat no-caps label="Annuler" class="q-mr-sm" @click="ajoutPaiementOuvert = false" />
+            <q-btn type="submit" unelevated no-caps color="primary" label="Enregistrer le paiement" />
+          </div>
+        </q-form>
+      </q-card>
+      <q-btn v-else-if="contratEnCours" outline no-caps color="primary" icon="payments" label="Enregistrer un paiement"
+             class="full-width q-mb-md" @click="commencerAjoutPaiement" />
+      <q-table :rows="paiementsDeLUnite" :columns="colonnesPaiements" row-key="id" flat bordered dense
+               :pagination="{ rowsPerPage: 0 }" hide-pagination no-data-label="Aucun paiement pour cette unité.">
+        <template v-slot:body-cell-actions="props">
+          <q-td :props="props">
+            <q-btn icon="delete" flat round dense size="sm" color="negative" @click="supprimerPaiement(props.row)" />
+          </q-td>
+        </template>
+      </q-table>
+
+      <q-separator class="q-my-md" />
+
       <!-- Historique -->
       <div class="text-subtitle2 q-mb-sm">Historique des contrats</div>
       <q-table :rows="contratsDeLUnite" :columns="colonnesHistorique" row-key="id" flat bordered dense
-               :pagination="{ rowsPerPage: 0 }" hide-bottom no-data-label="Aucun contrat pour cette unité.">
+               :pagination="{ rowsPerPage: 0 }" hide-pagination no-data-label="Aucun contrat pour cette unité.">
         <template v-slot:body-cell-statut="props">
           <q-td :props="props">
             <q-badge v-if="estEnCours(props.row)" color="positive" label="En cours" />
