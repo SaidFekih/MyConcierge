@@ -19,3 +19,6 @@ Thumbs.db
 # App settings
 appsettings.json
 appsettings.Development.json
+
+# Patchs de travail
+*.patch
