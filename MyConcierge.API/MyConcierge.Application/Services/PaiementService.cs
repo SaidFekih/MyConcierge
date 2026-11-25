@@ -5,10 +5,13 @@ using MyConcierge.Domain.Models;
 namespace MyConcierge.Application.Services
 {
     // Règles du MVP :
-    // 1. Un paiement a un montant plus grand que zéro, une date, et un contrat existant.
-    // 2. Un loyer complet est dû pour chaque mois civil, du mois de début du contrat
+    // 1. Un paiement a un montant plus grand que zéro, une date, un mois couvert et un contrat existant.
+    // 2. Le mois couvert est entre le mois de début et le mois de fin du contrat.
+    // 3. Un loyer complet est dû pour chaque mois civil, du mois de début du contrat
     //    jusqu'au mois en cours (ou jusqu'au mois de fin si le contrat est terminé).
-    // 3. Solde = loyer dû - total payé. Un solde plus grand que zéro veut dire « en retard ».
+    // 4. Statut d'un mois : Payé (tout payé), Partiel (payé en partie),
+    //    En retard (rien payé, mois déjà commencé), À venir (rien payé, mois pas encore commencé).
+    // 5. Solde d'un contrat = ce qui manque sur les mois déjà commencés.
     public class PaiementService
     {
         private readonly IPaiementRepository _paiements;
@@ -29,8 +32,21 @@ namespace MyConcierge.Application.Services
             if (paiement.DatePaiement == default)
                 return "La date du paiement est requise.";
 
-            if (await _contrats.GetByIdAsync(paiement.ContratsLocationId) == null)
+            if (paiement.MoisCouvert == default)
+                return "Le mois couvert est requis.";
+
+            var contrat = await _contrats.GetByIdAsync(paiement.ContratsLocationId);
+            if (contrat == null)
                 return "Contrat introuvable.";
+
+            // On garde seulement l'année et le mois : toujours le 1er du mois
+            paiement.MoisCouvert = PremierJourDuMois(paiement.MoisCouvert);
+
+            if (paiement.MoisCouvert < PremierJourDuMois(contrat.DateDebut))
+                return "Ce mois est avant le début du contrat.";
+
+            if (contrat.DateFin != null && paiement.MoisCouvert > PremierJourDuMois(contrat.DateFin.Value))
+                return "Ce mois est après la fin du contrat.";
 
             await _paiements.AjouterAsync(paiement);
             return null;
@@ -46,40 +62,85 @@ namespace MyConcierge.Application.Services
         {
             var contrats = await _contrats.GetAllAsync();
             var paiements = await _paiements.GetAllAsync();
+            var moisCourant = PremierJourDuMois(DateTime.Today);
 
             var soldes = new List<SoldeContrat>();
             foreach (var contrat in contrats)
             {
-                var loyerDu = CalculerNombreDeMoisDus(contrat) * contrat.Montant;
-                var totalPaye = paiements
+                var paiementsDuContrat = paiements
                     .Where(paiement => paiement.ContratsLocationId == contrat.Id)
-                    .Sum(paiement => paiement.Montant);
+                    .ToList();
+
+                var loyers = CalculerLoyersParMois(contrat, paiementsDuContrat);
+
+                // Seuls les mois déjà commencés comptent dans le solde
+                var moisCommences = loyers.Where(loyer => loyer.Mois <= moisCourant).ToList();
 
                 soldes.Add(new SoldeContrat
                 {
                     ContratId = contrat.Id,
-                    LoyerDu = loyerDu,
-                    TotalPaye = totalPaye,
-                    Solde = loyerDu - totalPaye
+                    LoyerDu = moisCommences.Sum(loyer => loyer.MontantDu),
+                    TotalPaye = paiementsDuContrat.Sum(paiement => paiement.Montant),
+                    Solde = moisCommences.Sum(loyer => Math.Max(0, loyer.MontantDu - loyer.MontantPaye)),
+                    Loyers = loyers
                 });
             }
 
             return soldes;
         }
 
-        // Nombre de mois civils commencés depuis le début du contrat
-        // (ex : début le 15 janvier, aujourd'hui le 3 mars → 3 mois : janvier, février, mars)
-        private static int CalculerNombreDeMoisDus(ContratsLocation contrat)
+        // Un loyer par mois, du mois de début du contrat jusqu'à son dernier mois.
+        // Sans date de fin : jusqu'au mois en cours (ou jusqu'au dernier mois payé d'avance).
+        private static List<LoyerMensuel> CalculerLoyersParMois(ContratsLocation contrat, List<Paiement> paiementsDuContrat)
         {
-            var aujourdhui = DateTime.Today;
-            if (contrat.DateDebut > aujourdhui) return 0; // contrat à venir : rien n'est encore dû
+            var moisCourant = PremierJourDuMois(DateTime.Today);
+            var premierMois = PremierJourDuMois(contrat.DateDebut);
 
-            var dernierJour = aujourdhui;
-            if (contrat.DateFin != null && contrat.DateFin.Value < aujourdhui)
-                dernierJour = contrat.DateFin.Value; // contrat terminé : on s'arrête à sa fin
+            DateTime dernierMois;
+            if (contrat.DateFin != null)
+            {
+                dernierMois = PremierJourDuMois(contrat.DateFin.Value);
+            }
+            else
+            {
+                dernierMois = moisCourant;
+                if (paiementsDuContrat.Any() && paiementsDuContrat.Max(paiement => paiement.MoisCouvert) > dernierMois)
+                    dernierMois = paiementsDuContrat.Max(paiement => paiement.MoisCouvert); // mois payé d'avance
+            }
 
-            return (dernierJour.Year - contrat.DateDebut.Year) * 12
-                   + dernierJour.Month - contrat.DateDebut.Month + 1;
+            if (dernierMois < premierMois)
+                dernierMois = premierMois; // contrat à venir : on affiche au moins son premier mois
+
+            var loyers = new List<LoyerMensuel>();
+            for (var mois = premierMois; mois <= dernierMois; mois = mois.AddMonths(1))
+            {
+                var montantPaye = paiementsDuContrat
+                    .Where(paiement => paiement.MoisCouvert == mois)
+                    .Sum(paiement => paiement.Montant);
+
+                loyers.Add(new LoyerMensuel
+                {
+                    Mois = mois,
+                    MontantDu = contrat.Montant,
+                    MontantPaye = montantPaye,
+                    Statut = CalculerStatut(mois, moisCourant, contrat.Montant, montantPaye)
+                });
+            }
+
+            return loyers;
+        }
+
+        private static string CalculerStatut(DateTime mois, DateTime moisCourant, decimal montantDu, decimal montantPaye)
+        {
+            if (montantPaye >= montantDu) return "Payé";
+            if (montantPaye > 0) return "Partiel";
+            return mois <= moisCourant ? "En retard" : "À venir";
+        }
+
+        // Le 1er du mois d'une date (ex : 2026-11-24 → 2026-11-01)
+        private static DateTime PremierJourDuMois(DateTime date)
+        {
+            return new DateTime(date.Year, date.Month, 1);
         }
     }
 }

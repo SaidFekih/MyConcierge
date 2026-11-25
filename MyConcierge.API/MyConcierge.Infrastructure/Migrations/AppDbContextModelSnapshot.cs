@@ -80,6 +80,9 @@ namespace MyConcierge.Infrastructure.Migrations
                     b.Property<bool>("EstSupprime")
                         .HasColumnType("bit");
 
+                    b.Property<DateTime>("MoisCouvert")
+                        .HasColumnType("datetime2");
+
                     b.Property<decimal>("Montant")
                         .HasColumnType("decimal(18,2)");
 

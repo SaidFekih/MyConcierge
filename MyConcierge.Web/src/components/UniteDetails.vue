@@ -1,7 +1,7 @@
 <script setup>
 import { ref, computed } from 'vue'
 import { api, afficherErreur, afficherSucces } from '../api'
-import { formaterDate, formaterMontant } from '../format'
+import { formaterDate, formaterMois, formaterMontant } from '../format'
 import { dateDuJour, estAVenir, estEnCours, lendemainDe } from '../contrats'
 
 const props = defineProps({
@@ -45,11 +45,22 @@ const colonnesHistorique = [
 ]
 
 const colonnesPaiements = [
-  { name: 'datePaiement', label: 'Date', field: (paiement) => formaterDate(paiement.datePaiement), align: 'left' },
-  { name: 'locataire', label: 'Locataire', field: (paiement) => locataireDuPaiement(paiement), align: 'left' },
+  { name: 'moisCouvert', label: 'Mois payé', field: (paiement) => formaterMois(paiement.moisCouvert), align: 'left' },
+  { name: 'datePaiement', label: 'Reçu le', field: (paiement) => formaterDate(paiement.datePaiement), align: 'left' },
   { name: 'montant', label: 'Montant', field: (paiement) => formaterMontant(paiement.montant), align: 'right' },
   { name: 'actions', label: '', align: 'right' }
 ]
+
+const colonnesLoyers = [
+  { name: 'mois', label: 'Mois', field: (loyer) => formaterMois(loyer.mois), align: 'left' },
+  { name: 'montantDu', label: 'Dû', field: (loyer) => formaterMontant(loyer.montantDu), align: 'right' },
+  { name: 'montantPaye', label: 'Payé', field: (loyer) => formaterMontant(loyer.montantPaye), align: 'right' },
+  { name: 'statut', label: 'Statut', align: 'center' },
+  { name: 'actions', label: '', align: 'right' }
+]
+
+// Couleur du badge selon le statut du loyer d'un mois
+const couleurDuStatut = { 'Payé': 'positive', 'Partiel': 'warning', 'En retard': 'negative', 'À venir': 'grey' }
 
 const contratsDeLUnite = computed(() =>
   props.contrats
@@ -67,23 +78,30 @@ const renouvellementPossible = computed(
   () => contratEnCours.value && contratEnCours.value.dateFin && !contratAVenir.value
 )
 
-// Solde du contrat en cours : > 0 = en retard, <= 0 = payé (null s'il n'y a pas de contrat en cours)
-const soldeDuContratEnCours = computed(() => {
+// Le solde du contrat en cours, calculé par l'API : { solde, loyers: [un loyer par mois] }
+const soldeContratEnCours = computed(() => {
   if (!contratEnCours.value) return null
-  const solde = props.soldes.find((soldeDuContrat) => soldeDuContrat.contratId === contratEnCours.value.id)
-  return solde ? solde.solde : null
+  return props.soldes.find((soldeDuContrat) => soldeDuContrat.contratId === contratEnCours.value.id) || null
 })
+
+// > 0 = en retard, 0 = payé (null s'il n'y a pas de contrat en cours)
+const soldeDuContratEnCours = computed(() => (soldeContratEnCours.value ? soldeContratEnCours.value.solde : null))
+
+// Les loyers du contrat en cours, du plus ancien au plus récent
+const loyersDuContratEnCours = computed(() => (soldeContratEnCours.value ? soldeContratEnCours.value.loyers : []))
+
+const loyersRecentsEnPremier = computed(() => [...loyersDuContratEnCours.value].reverse())
+
+// Les mois proposés dans le formulaire de paiement : { label: "novembre 2026", value: "2026-11-01" }
+const optionsDesMois = computed(() =>
+  loyersDuContratEnCours.value.map((loyer) => ({ label: formaterMois(loyer.mois), value: loyer.mois.slice(0, 10) }))
+)
 
 // Les paiements de tous les contrats de cette unité, le plus récent en premier (l'API les trie déjà)
 const paiementsDeLUnite = computed(() => {
   const identifiantsDesContrats = contratsDeLUnite.value.map((contrat) => contrat.id)
   return props.paiements.filter((paiement) => identifiantsDesContrats.includes(paiement.contratsLocationId))
 })
-
-function locataireDuPaiement(paiement) {
-  const contrat = contratsDeLUnite.value.find((contrat) => contrat.id === paiement.contratsLocationId)
-  return contrat?.locataire?.nom
-}
 
 // Loyer actuel moins loyer cible (null si l'unité n'a pas de contrat en cours)
 const ecartDeLoyer = computed(() =>
@@ -245,13 +263,33 @@ async function enregistrerAjustementLoyer() {
 
 // --- Paiements ---
 
-function commencerAjoutPaiement() {
-  const enRetard = soldeDuContratEnCours.value > 0
+// Le montant proposé pour un mois : ce qu'il reste à payer, sinon le loyer complet
+function montantProposePour(loyer) {
+  const resteAPayer = loyer.montantDu - loyer.montantPaye
+  return resteAPayer > 0 ? resteAPayer : loyer.montantDu
+}
+
+// Ouvre le formulaire. Sans mois choisi : le plus ancien mois impayé, sinon le mois en cours.
+function commencerAjoutPaiement(loyerChoisi) {
+  const premierJourDuMoisCourant = dateDuJour().slice(0, 7) + '-01'
+  const loyer =
+    loyerChoisi ||
+    loyersDuContratEnCours.value.find((loyer) => loyer.statut === 'En retard' || loyer.statut === 'Partiel') ||
+    loyersRecentsEnPremier.value.find((loyer) => loyer.mois.slice(0, 10) <= premierJourDuMoisCourant) ||
+    loyersDuContratEnCours.value[0]
+
   formulairePaiement.value = {
-    montant: enRetard ? soldeDuContratEnCours.value : contratEnCours.value.montant, // proposé : ce qui est dû, sinon le loyer
+    moisCouvert: loyer.mois.slice(0, 10),
+    montant: montantProposePour(loyer),
     datePaiement: dateDuJour()
   }
   ajoutPaiementOuvert.value = true
+}
+
+// Quand on change de mois dans le formulaire, on propose le montant de ce mois
+function changerMoisDuPaiement(mois) {
+  const loyer = loyersDuContratEnCours.value.find((loyer) => loyer.mois.slice(0, 10) === mois)
+  formulairePaiement.value.montant = montantProposePour(loyer)
 }
 
 async function ajouterPaiement() {
@@ -259,7 +297,8 @@ async function ajouterPaiement() {
     await api.post('/paiements', {
       contratsLocationId: contratEnCours.value.id,
       montant: formulairePaiement.value.montant,
-      datePaiement: formulairePaiement.value.datePaiement
+      datePaiement: formulairePaiement.value.datePaiement,
+      moisCouvert: formulairePaiement.value.moisCouvert
     })
     ajoutPaiementOuvert.value = false
     afficherSucces('Paiement enregistré')
@@ -503,7 +542,9 @@ async function ajouterContrat() {
       <div class="text-subtitle2 q-mb-sm">Paiements</div>
       <q-card v-if="ajoutPaiementOuvert" flat bordered class="q-pa-md q-mb-md">
         <q-form @submit="ajouterPaiement" class="row q-col-gutter-md">
-          <q-input v-model="formulairePaiement.datePaiement" type="date" label="Date du paiement" stack-label dense outlined
+          <q-select v-model="formulairePaiement.moisCouvert" :options="optionsDesMois" emit-value map-options
+                    label="Mois payé" dense outlined class="col-12" @update:model-value="changerMoisDuPaiement" />
+          <q-input v-model="formulairePaiement.datePaiement" type="date" label="Reçu le" stack-label dense outlined
                    class="col-12 col-sm-6" :rules="[(valeur) => !!valeur || 'Requis']" />
           <q-input v-model.number="formulairePaiement.montant" type="number" label="Montant" dense outlined
                    class="col-12 col-sm-6" :rules="[(valeur) => valeur > 0 || 'Montant invalide']" />
@@ -514,7 +555,28 @@ async function ajouterContrat() {
         </q-form>
       </q-card>
       <q-btn v-else-if="contratEnCours" outline no-caps color="primary" icon="payments" label="Enregistrer un paiement"
-             class="full-width q-mb-md" @click="commencerAjoutPaiement" />
+             class="full-width q-mb-md" @click="commencerAjoutPaiement()" />
+
+      <!-- Un loyer par mois pour le contrat en cours -->
+      <template v-if="contratEnCours">
+        <div class="text-caption text-grey-7 q-mb-xs">Loyers par mois (contrat en cours)</div>
+        <q-table :rows="loyersRecentsEnPremier" :columns="colonnesLoyers" row-key="mois" flat bordered dense
+                 virtual-scroll style="max-height: 300px" :pagination="{ rowsPerPage: 0 }" hide-pagination class="q-mb-md">
+          <template v-slot:body-cell-statut="props">
+            <q-td :props="props">
+              <q-badge :color="couleurDuStatut[props.row.statut]" :label="props.row.statut" />
+            </q-td>
+          </template>
+          <template v-slot:body-cell-actions="props">
+            <q-td :props="props">
+              <q-btn v-if="props.row.statut !== 'Payé'" flat dense no-caps size="sm" color="primary" label="Payer"
+                     @click="commencerAjoutPaiement(props.row)" />
+            </q-td>
+          </template>
+        </q-table>
+      </template>
+
+      <div class="text-caption text-grey-7 q-mb-xs">Paiements reçus</div>
       <q-table :rows="paiementsDeLUnite" :columns="colonnesPaiements" row-key="id" flat bordered dense
                :pagination="{ rowsPerPage: 0 }" hide-pagination no-data-label="Aucun paiement pour cette unité.">
         <template v-slot:body-cell-actions="props">
